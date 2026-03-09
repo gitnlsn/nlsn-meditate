@@ -22,6 +22,8 @@ export const Colors = {
     chipSelectedBackground: '#5B8A72',
     chipText: '#11181C',
     chipSelectedText: '#FFFFFF',
+    calendarDot: '#5B8A72',
+    calendarSelectedDay: '#5B8A72',
   },
   dark: {
     text: '#ECEDEE',
@@ -36,6 +38,8 @@ export const Colors = {
     chipSelectedBackground: '#8FBC8F',
     chipText: '#ECEDEE',
     chipSelectedText: '#1A1F25',
+    calendarDot: '#8FBC8F',
+    calendarSelectedDay: '#8FBC8F',
   },
 };
 

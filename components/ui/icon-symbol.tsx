@@ -19,10 +19,13 @@ const MAPPING = {
   'chevron.left.forwardslash.chevron.right': 'code',
   'chevron.right': 'chevron-right',
   'timer': 'timer',
+  'calendar': 'event',
   'gearshape.fill': 'settings',
   'play.fill': 'play-arrow',
   'pause.fill': 'pause',
   'arrow.counterclockwise': 'replay',
+  'xmark.circle.fill': 'cancel',
+  'plus.circle.fill': 'add-circle',
 } as IconMapping;
 
 /**
