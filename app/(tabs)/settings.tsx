@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Pressable, ScrollView, StyleSheet, Switch, View } from 'react-native';
+import Constants from 'expo-constants';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { ThemedText } from '@/components/themed-text';
@@ -96,6 +97,9 @@ export default function SettingsScreen() {
               <ThemedText style={{ color: tintColor }}>Add Reminder</ThemedText>
             </Pressable>
           </ThemedView>
+          <ThemedText style={styles.version}>
+            v{Constants.expoConfig?.version ?? '1.0.0'}
+          </ThemedText>
         </ScrollView>
       </SafeAreaView>
       <TimePickerModal
@@ -146,5 +150,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 8,
+  },
+  version: {
+    textAlign: 'center',
+    opacity: 0.4,
+    fontSize: 13,
+    marginTop: 16,
+    marginBottom: 32,
   },
 });
