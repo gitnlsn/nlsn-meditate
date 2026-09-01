@@ -17,8 +17,5 @@
   },
   "submit": {
     "production": {}
-  },
-  "metadata": {
-    "store.config": "./store.config.json"
   }
 }

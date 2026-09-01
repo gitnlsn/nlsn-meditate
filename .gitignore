@@ -41,3 +41,9 @@ app-example
 # generated native folders
 /ios
 /android
+
+# generated audio + TTS cache
+build/
+
+# full TTS renders - intermediates, the per-line clips are what ship
+tools/meditations/renders/

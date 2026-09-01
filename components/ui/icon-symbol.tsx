@@ -26,6 +26,9 @@ const MAPPING = {
   'arrow.counterclockwise': 'replay',
   'xmark.circle.fill': 'cancel',
   'plus.circle.fill': 'add-circle',
+  'waveform': 'graphic-eq',
+  'chevron.left': 'chevron-left',
+  'stop.fill': 'stop',
 } as IconMapping;
 
 /**

@@ -10,6 +10,7 @@ import { MeditationProvider } from '@/contexts/meditation-context';
 import { HistoryProvider } from '@/contexts/history-context';
 import { loadReminderSettings } from '@/utils/reminder-storage';
 import { scheduleAllReminders } from '@/utils/notifications';
+import { useAudioSession } from '@/hooks/use-audio-session';
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -28,6 +29,8 @@ export const unstable_settings = {
 export default function RootLayout() {
   const colorScheme = useColorScheme();
 
+  useAudioSession();
+
   useEffect(() => {
     loadReminderSettings().then((settings) => {
       if (settings.times.length > 0) {
@@ -42,6 +45,7 @@ export default function RootLayout() {
         <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
           <Stack>
             <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen name="guided/[id]" options={{ headerShown: false }} />
           </Stack>
           <StatusBar style="auto" />
         </ThemeProvider>

@@ -1,0 +1,59 @@
+{
+  "id": "body-scan-10",
+  "title": "Body Scan",
+  "description": "A slow sweep of attention from the crown of the head to the toes.",
+  "targetDuration": 600,
+  "leadIn": 3,
+  "leadOut": 8,
+  "voice": {
+    "provider": "openai",
+    "voiceId": "shimmer",
+    "speed": 0.88
+  },
+  "segments": [
+    { "say": "Find a comfortable position, either sitting or lying down.", "wait": 6 },
+    { "say": "Let your eyes close, softly.", "wait": 8 },
+    { "say": "There is nothing to do here but notice.", "wait": 10 },
+    { "say": "Begin by taking one slow breath in through the nose.", "wait": 5 },
+    { "say": "And letting it go.", "wait": 8 },
+    { "say": "Let your breathing settle into its own rhythm.", "wait": 12 },
+
+    { "say": "Now bring your attention to the top of your head.", "wait": 12 },
+    { "say": "Notice any sensation there. Warmth. Tingling. Or nothing at all.", "wait": 12 },
+    { "say": "Let your attention move down to your forehead, and the space between your eyebrows.", "wait": 12 },
+    { "say": "If you find tension there, let it soften.", "wait": 12 },
+    { "say": "Move down to your jaw.", "wait": 8 },
+    { "say": "Let your teeth part slightly. Let the jaw hang loose.", "wait": 12 },
+    { "say": "Now your neck, and your throat.", "wait": 12 },
+    { "say": "Let your shoulders drop away from your ears.", "wait": 12 },
+    { "say": "Feel the weight of your arms.", "wait": 12 },
+    { "say": "All the way down, through the elbows, into the hands.", "wait": 12 },
+    { "say": "Notice your fingertips.", "wait": 12 },
+
+    { "say": "Bring your attention to your chest.", "wait": 10 },
+    { "say": "Feel it rise, and fall, without changing anything.", "wait": 15 },
+    { "say": "Let your attention settle into your belly.", "wait": 12 },
+    { "say": "Soften there.", "wait": 12 },
+    { "say": "Now your back. The whole length of your spine.", "wait": 12 },
+    { "say": "Notice where your body meets the surface beneath you.", "wait": 15 },
+    { "say": "Let it hold you.", "wait": 12 },
+
+    { "say": "Move your attention into your hips.", "wait": 12 },
+    { "say": "Down through your thighs.", "wait": 12 },
+    { "say": "Your knees.", "wait": 12 },
+    { "say": "Your calves.", "wait": 12 },
+    { "say": "Down into your ankles, and your feet.", "wait": 12 },
+    { "say": "Notice your toes.", "wait": 12 },
+
+    { "say": "Now let your attention widen, to include the whole body at once.", "wait": 15 },
+    { "say": "Resting here. Breathing.", "wait": 18 },
+    { "say": "Nothing to fix. Nothing to reach for.", "wait": 20 },
+    { "say": "Stay with this.", "wait": 25 },
+    { "wait": 20 },
+
+    { "say": "In a moment, we will finish.", "wait": 10 },
+    { "say": "Begin to notice the sounds around you.", "wait": 12 },
+    { "say": "Let your breath deepen a little.", "wait": 10 },
+    { "say": "And when you are ready, let your eyes open.", "wait": 8 }
+  ]
+}

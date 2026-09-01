@@ -1,36 +1,31 @@
 import { useEffect, useRef, useCallback } from 'react';
-import { Audio } from 'expo-av';
+import { createAudioPlayer, type AudioPlayer } from 'expo-audio';
 
+const GONG = require('@/assets/audios/meditation-gong-jam-fx-10-10-00-11.mp3');
+
+/**
+ * The start/end bell. Held loaded for the lifetime of the consumer so the strike
+ * is immediate — a gong that arrives half a second late is worse than none.
+ *
+ * The audio session itself is configured once at app start by useAudioSession.
+ */
 export function useGong() {
-  const soundRef = useRef<Audio.Sound | null>(null);
+  const playerRef = useRef<AudioPlayer | null>(null);
 
   useEffect(() => {
-    let mounted = true;
-
-    async function load() {
-      await Audio.setAudioModeAsync({ playsInSilentModeIOS: true });
-      const { sound } = await Audio.Sound.createAsync(
-        require('@/assets/audios/meditation-gong-jam-fx-10-10-00-11.mp3')
-      );
-      if (mounted) {
-        soundRef.current = sound;
-      } else {
-        await sound.unloadAsync();
-      }
-    }
-
-    load();
-
+    const player = createAudioPlayer(GONG);
+    playerRef.current = player;
     return () => {
-      mounted = false;
-      soundRef.current?.unloadAsync();
+      playerRef.current = null;
+      player.remove();
     };
   }, []);
 
   const playGong = useCallback(async () => {
-    if (soundRef.current) {
-      await soundRef.current.replayAsync();
-    }
+    const player = playerRef.current;
+    if (!player) return;
+    await player.seekTo(0);
+    player.play();
   }, []);
 
   return { playGong };

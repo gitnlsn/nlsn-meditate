@@ -1,0 +1,92 @@
+{
+  "id": "calma-3",
+  "title": "Pausa de Três Minutos",
+  "description": "Uma pausa curta para o meio de um dia difícil.",
+  "targetDuration": 180,
+  "leadIn": 2,
+  "leadOut": 5,
+  "voice": {
+    "provider": "elevenlabs",
+    "voiceId": "jotBQRDYDizrWQAbv9VO",
+    "model": "eleven_multilingual_v2",
+    "stability": 0.5,
+    "similarityBoost": 0.75,
+    "style": 0,
+    "speed": 0.85
+  },
+  "segments": [
+    {
+      "say": "Onde quer que você esteja, apenas pare.",
+      "wait": 5,
+      "audio": "luna-calma-onde-quer-que-voce-esteja-apenas-pare.mp3"
+    },
+    {
+      "say": "Deixe os ombros caírem.",
+      "wait": 6,
+      "audio": "luna-calma-deixe-os-ombros-cairem.mp3"
+    },
+    {
+      "say": "Solte a mandíbula.",
+      "wait": 6,
+      "audio": "luna-calma-solte-a-madibula.mp3"
+    },
+    {
+      "say": "Puxe o ar devagar.",
+      "wait": 4,
+      "audio": "luna-calma-puxe-o-ar-devagar.mp3"
+    },
+    {
+      "say": "E solte, mais devagar ainda.",
+      "wait": 8,
+      "audio": "luna-calma-e-solte-mais-devagar-ainda.mp3"
+    },
+    {
+      "say": "De novo. Inspire.",
+      "wait": 4,
+      "audio": "luna-calma-de-novo-inspire.mp3"
+    },
+    {
+      "say": "E expire, sem pressa.",
+      "wait": 8,
+      "audio": "luna-calma-e-expire-sem-pressa.mp3"
+    },
+    {
+      "say": "Agora deixe a respiração encontrar o ritmo dela.",
+      "wait": 10,
+      "audio": "luna-calma-agora-deixe-a-respiracao-encontrar-o-ritmo-dela.mp3"
+    },
+    {
+      "say": "Perceba três coisas que você consegue sentir agora.",
+      "wait": 12,
+      "audio": "luna-calma-perceba-tres-coisas-que-voce-consegue-sentir-agora.mp3"
+    },
+    {
+      "say": "O chão. A sua roupa. O ar na pele.",
+      "wait": 14,
+      "audio": "luna-calma-o-chao-a-sua-roupa-o-ar-na-pele.mp3"
+    },
+    {
+      "say": "Você não precisa resolver nada nos próximos dois minutos.",
+      "wait": 12,
+      "audio": "luna-calma-voce-nao-precisa-resolver-nada-nos-proximos-dois-minutos.mp3"
+    },
+    {
+      "say": "Apenas fique aqui.",
+      "wait": 15,
+      "audio": "luna-calma-apenas-fique-aqui.mp3"
+    },
+    {
+      "wait": 10
+    },
+    {
+      "say": "Puxe mais um ar, um pouco mais fundo.",
+      "wait": 5,
+      "audio": "luna-calma-puxe-mais-um-ar-um-pouco-mais-fundo.mp3"
+    },
+    {
+      "say": "E leve isso com você.",
+      "wait": 6,
+      "audio": "luna-calma-e-leve-isso-com-voce.mp3"
+    }
+  ]
+}

@@ -1,0 +1,115 @@
+{
+  "id": "respiracao-5",
+  "title": "Atenção na Respiração",
+  "description": "Cinco minutos descansando a atenção na respiração, e voltando para ela.",
+  "targetDuration": 300,
+  "leadIn": 3,
+  "leadOut": 6,
+  "voice": {
+    "provider": "elevenlabs",
+    "voiceId": "jotBQRDYDizrWQAbv9VO",
+    "model": "eleven_multilingual_v2",
+    "stability": 0.5,
+    "similarityBoost": 0.75,
+    "style": 0,
+    "speed": 0.85
+  },
+  "segments": [
+    {
+      "say": "Vamos começar. Encontre uma posição que você consiga manter com conforto.",
+      "wait": 6,
+      "audio": "luna-vamos-comecar-encontre-uma-posicao-que-voce-consiga-manter-com-conforto.mp3"
+    },
+    {
+      "say": "Deixe os olhos se fecharem.",
+      "wait": 8,
+      "audio": "luna-deixe-os-olhos-se-fecharem.mp3"
+    },
+    {
+      "say": "Puxe um ar bem fundo.",
+      "wait": 4,
+      "audio": "luna-puxe-o-ar-bem-fundo.mp3"
+    },
+    {
+      "say": "E solte devagar.",
+      "wait": 8,
+      "audio": "luna-e-solte-devagar.mp3"
+    },
+    {
+      "say": "Agora deixe a respiração voltar ao normal. Não controle.",
+      "wait": 10,
+      "audio": "luna-agora-deixe-a-respiracao-voltar-ao-normal-nao-controle.mp3"
+    },
+    {
+      "say": "Apenas perceba.",
+      "wait": 10,
+      "audio": "luna-apenas-perceba.mp3"
+    },
+    {
+      "say": "Sinta o ar entrando pelo nariz.",
+      "wait": 12,
+      "audio": "luna-sinta-o-ar-entrando-pelo-nariz.mp3"
+    },
+    {
+      "say": "Mais fresco na entrada.",
+      "wait": 10,
+      "audio": "luna-mais-fresco-na-entrada.mp3"
+    },
+    {
+      "say": "Mais morno na saída.",
+      "wait": 12,
+      "audio": "luna-mais-morno-na-saida.mp3"
+    },
+    {
+      "say": "Você não precisa respirar fundo. Apenas perceba o que já está acontecendo.",
+      "wait": 14,
+      "audio": "luna-voce-nao-precisa-respirar-fundo-apenas-perceba-o-que-ja-esta-acontecendo.mp3"
+    },
+    {
+      "say": "Quando a mente se distrair, e ela vai, isso não é um erro.",
+      "wait": 12,
+      "audio": "luna-quando-a-mente-se-distrair-e-ela-vai-isso-nao-e-um-erro.mp3"
+    },
+    {
+      "say": "Só perceba para onde ela foi, e volte para a respiração.",
+      "wait": 15,
+      "audio": "luna-so-perceba-para-onde-ela-foi-e-volte-para-a-respiracao.mp3"
+    },
+    {
+      "say": "De volta para o ar na ponta do nariz.",
+      "wait": 15,
+      "audio": "luna-de-volta-para-o-ar-na-ponta-do-nariz.mp3"
+    },
+    {
+      "say": "Descansando aqui.",
+      "wait": 18,
+      "audio": "luna-descansando-aqui.mp3"
+    },
+    {
+      "wait": 18
+    },
+    {
+      "say": "Nada a alcançar.",
+      "wait": 18,
+      "audio": "luna-nada-a-alcancar.mp3"
+    },
+    {
+      "wait": 15
+    },
+    {
+      "say": "Puxe mais um ar bem fundo.",
+      "wait": 4,
+      "audio": "luna-puxe-mais-um-ar-bem-fundo.mp3"
+    },
+    {
+      "say": "E solte.",
+      "wait": 8,
+      "audio": "luna-e-solte.mp3"
+    },
+    {
+      "say": "Quando estiver pronto, abra os olhos.",
+      "wait": 6,
+      "audio": "luna-quanto-estiver-pronto-abra-os-olhos.mp3"
+    }
+  ]
+}

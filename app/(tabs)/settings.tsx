@@ -9,7 +9,9 @@ import { IconSymbol } from '@/components/ui/icon-symbol';
 import { DurationInput } from '@/components/settings/duration-input';
 import { ClockPickerModal } from '@/components/settings/clock-picker-modal';
 import { TimePickerModal } from '@/components/settings/time-picker-modal';
-import { loadAudioSettings, saveAudioSettings, type AudioSettings } from '@/utils/settings-storage';
+import {
+  loadAudioSettings, saveAudioSettings, DEFAULT_AUDIO_SETTINGS, type AudioSettings,
+} from '@/utils/settings-storage';
 import { useReminders } from '@/hooks/use-reminders';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { Colors } from '@/constants/theme';
@@ -30,10 +32,7 @@ export default function SettingsScreen() {
 
   const [pickerVisible, setPickerVisible] = useState(false);
   const [showTimePicker, setShowTimePicker] = useState(false);
-  const [audioSettings, setAudioSettings] = useState<AudioSettings>({
-    playGongAtStart: false,
-    playGongAtEnd: false,
-  });
+  const [audioSettings, setAudioSettings] = useState<AudioSettings>(DEFAULT_AUDIO_SETTINGS);
   const { settings: reminderSettings, addReminder, removeReminder } = useReminders();
 
   useEffect(() => {

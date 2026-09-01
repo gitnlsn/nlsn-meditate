@@ -1,0 +1,29 @@
+{
+  "id": "calm-3",
+  "title": "Three Minute Reset",
+  "description": "A short pause for the middle of a difficult day.",
+  "targetDuration": 180,
+  "leadIn": 2,
+  "leadOut": 5,
+  "voice": { "provider": "openai", "voiceId": "shimmer", "speed": 0.88 },
+  "segments": [
+    { "say": "Wherever you are, just pause.", "wait": 5 },
+    { "say": "Let your shoulders drop.", "wait": 6 },
+    { "say": "Unclench your jaw.", "wait": 6 },
+
+    { "say": "Take one slow breath in.", "wait": 4 },
+    { "say": "And a longer breath out.", "wait": 8 },
+    { "say": "Again. In.", "wait": 4 },
+    { "say": "And out, slowly.", "wait": 8 },
+    { "say": "Let your breathing find its own pace now.", "wait": 10 },
+
+    { "say": "Notice three things you can feel right now.", "wait": 12 },
+    { "say": "The floor. Your clothes. The air on your skin.", "wait": 14 },
+    { "say": "You do not have to fix anything in the next two minutes.", "wait": 12 },
+    { "say": "Just be here.", "wait": 15 },
+    { "wait": 10 },
+
+    { "say": "Take one more breath, a little deeper.", "wait": 5 },
+    { "say": "And carry this with you.", "wait": 6 }
+  ]
+}

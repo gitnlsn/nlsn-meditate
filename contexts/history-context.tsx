@@ -10,8 +10,14 @@ interface HistoryState {
   isLoading: boolean;
 }
 
+/** Extra detail recorded for guided sessions; plain timer sessions omit it. */
+export interface SessionMeta {
+  meditationId: string;
+  title: string;
+}
+
 interface HistoryActions {
-  addSession: (durationSeconds: number) => Promise<void>;
+  addSession: (durationSeconds: number, meta?: SessionMeta) => Promise<void>;
 }
 
 const HistoryStateContext = createContext<HistoryState>({ sessions: [], isLoading: true });
@@ -30,9 +36,9 @@ export function HistoryProvider({ children }: { children: ReactNode }) {
     });
   }, []);
 
-  const addSession = useCallback(async (durationSeconds: number) => {
+  const addSession = useCallback(async (durationSeconds: number, meta?: SessionMeta) => {
     const date = new Date().toISOString().split('T')[0];
-    const updated = await persistSession({ date, durationSeconds });
+    const updated = await persistSession({ date, durationSeconds, ...meta });
     setSessions(updated);
   }, []);
 

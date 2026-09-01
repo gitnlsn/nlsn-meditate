@@ -1,0 +1,35 @@
+{
+  "id": "breath-5",
+  "title": "Breath Awareness",
+  "description": "Five minutes resting attention on the breath, and returning to it.",
+  "targetDuration": 300,
+  "leadIn": 3,
+  "leadOut": 6,
+  "voice": { "provider": "openai", "voiceId": "shimmer", "speed": 0.88 },
+  "segments": [
+    { "say": "Let us begin. Settle into a position you can hold comfortably.", "wait": 6 },
+    { "say": "Let your eyes close.", "wait": 8 },
+    { "say": "Take one deep breath in.", "wait": 4 },
+    { "say": "And let it out slowly.", "wait": 8 },
+    { "say": "Now let your breathing return to normal. Do not control it.", "wait": 10 },
+    { "say": "Just notice it.", "wait": 10 },
+
+    { "say": "Feel the air as it enters your nose.", "wait": 12 },
+    { "say": "Cool on the way in.", "wait": 10 },
+    { "say": "Warmer on the way out.", "wait": 12 },
+    { "say": "You do not need to breathe deeply. Just notice what is already happening.", "wait": 14 },
+
+    { "say": "When your mind wanders, and it will, that is not a mistake.", "wait": 12 },
+    { "say": "Simply notice where it went, and come back to the breath.", "wait": 15 },
+    { "say": "Back to the air at the tip of the nose.", "wait": 15 },
+
+    { "say": "Resting here.", "wait": 18 },
+    { "wait": 18 },
+    { "say": "Nothing to achieve.", "wait": 18 },
+    { "wait": 15 },
+
+    { "say": "Take one more deep breath in.", "wait": 4 },
+    { "say": "And let it go.", "wait": 8 },
+    { "say": "When you are ready, open your eyes.", "wait": 6 }
+  ]
+}

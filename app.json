@@ -10,7 +10,12 @@
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.nllsn.nlsnmeditate"
+      "bundleIdentifier": "com.nllsn.nlsnmeditate",
+      "infoPlist": {
+        "UIBackgroundModes": [
+          "audio"
+        ]
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -39,6 +44,12 @@
           "dark": {
             "backgroundColor": "#000000"
           }
+        }
+      ],
+      [
+        "expo-audio",
+        {
+          "recordAudioAndroid": false
         }
       ]
     ],

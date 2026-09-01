@@ -1,0 +1,207 @@
+{
+  "id": "corpo-10",
+  "title": "Escaneamento Corporal",
+  "description": "Uma varredura lenta da atenção, do topo da cabeça até os pés.",
+  "targetDuration": 600,
+  "leadIn": 3,
+  "leadOut": 8,
+  "voice": {
+    "provider": "elevenlabs",
+    "voiceId": "jotBQRDYDizrWQAbv9VO",
+    "model": "eleven_multilingual_v2",
+    "stability": 0.5,
+    "similarityBoost": 0.75,
+    "style": 0,
+    "speed": 0.85
+  },
+  "segments": [
+    {
+      "say": "Encontre uma posição confortável, sentado ou deitado.",
+      "wait": 6,
+      "audio": "luna-encontre-uma-posicao-confortavel.mp3"
+    },
+    {
+      "say": "Deixe os olhos se fecharem, com suavidade.",
+      "wait": 8,
+      "audio": "luna-deixe-os-olhos-se-fecharem-com-suavidade.mp3"
+    },
+    {
+      "say": "Não há nada a fazer aqui além de perceber.",
+      "wait": 10,
+      "audio": "luna-nao-ha-nada-a-fazer-aqui-alem-de-perceber.mp3"
+    },
+    {
+      "say": "Comece puxando o ar devagar pelo nariz. E deixe sair.",
+      "wait": 8,
+      "audio": "luna-comece-puxando-o-ar-devagar-pelo-nariz-e-deixe-sair.mp3"
+    },
+    {
+      "say": "Deixe a respiração encontrar o ritmo dela.",
+      "wait": 12,
+      "audio": "luna-deixe-a-respiracao-encontrar-o-ritmo-dela.mp3"
+    },
+    {
+      "say": "Agora leve a atenção para o topo da cabeça.",
+      "wait": 12,
+      "audio": "luna-agora-leve-a-atencao-para-o-topo-da-cabeca.mp3"
+    },
+    {
+      "say": "Perceba qualquer sensação ali. Calor. Formigamento. Ou nada.",
+      "wait": 12,
+      "audio": "luna-perceba-qualquer-sensacao-ali-ou-nada.mp3"
+    },
+    {
+      "say": "Deixe a atenção descer para a testa, e para o espaço entre as sobrancelhas.",
+      "wait": 12,
+      "audio": "luna-deixe-a-atencao-descer-para-a-testa.mp3"
+    },
+    {
+      "say": "Se encontrar tensão ali, deixe amolecer.",
+      "wait": 12,
+      "audio": "luna-se-encontrar-tensao-ali-deixe-amolecer.mp3"
+    },
+    {
+      "say": "Desça para a mandíbula.",
+      "wait": 8,
+      "audio": "luna-desca-para-a-mandibula.mp3"
+    },
+    {
+      "say": "Deixe os dentes se afastarem um pouco. Deixe a mandíbula solta.",
+      "wait": 12,
+      "audio": "luna-deixe-os-dentes-se-afastarem-um-pouco-deixe-a-mandibula-solta.mp3"
+    },
+    {
+      "say": "Agora o pescoço, e a garganta.",
+      "wait": 12,
+      "audio": "luna-agora-o-pescoco-e-a-garganta.mp3"
+    },
+    {
+      "say": "Deixe os ombros caírem, longe das orelhas.",
+      "wait": 12,
+      "audio": "luna-deixe-os-ombros-cairem-longe-das-orelhas.mp3"
+    },
+    {
+      "say": "Sinta o peso dos braços.",
+      "wait": 12,
+      "audio": "luna-sinta-o-peso-dos-bracos.mp3"
+    },
+    {
+      "say": "Até embaixo, pelos cotovelos, até as mãos.",
+      "wait": 12,
+      "audio": "luna-ate-embaixo-pelos-cotovelos-ate-as-maos.mp3"
+    },
+    {
+      "say": "Perceba a ponta dos dedos.",
+      "wait": 12,
+      "audio": "luna-perceba-a-ponta-dos-dedos.mp3"
+    },
+    {
+      "say": "Leve a atenção para o peito.",
+      "wait": 10,
+      "audio": "luna-leve-a-atencao-para-o-peito.mp3"
+    },
+    {
+      "say": "Sinta ele subir, e descer, sem mudar nada.",
+      "wait": 15,
+      "audio": "luna-sinta-ele-subir-e-descer-sem-mudar-nada.mp3"
+    },
+    {
+      "say": "Deixe a atenção descansar na barriga.",
+      "wait": 12,
+      "audio": "luna-deixe-a-atencao-descansar-na-barriga.mp3"
+    },
+    {
+      "say": "Amoleça aqui.",
+      "wait": 12,
+      "audio": "luna-amoreca-aqui.mp3"
+    },
+    {
+      "say": "Agora as costas. Toda a extensão da coluna.",
+      "wait": 12,
+      "audio": "luna-agora-as-costas-toda-a-extensao-da-coluna.mp3"
+    },
+    {
+      "say": "Perceba onde o corpo encosta na superfície embaixo de você.",
+      "wait": 15,
+      "audio": "luna-perceba-onde-o-corpo-encosta-na-superficie-debaixo-de-voce.mp3"
+    },
+    {
+      "say": "Deixe ela te sustentar.",
+      "wait": 12,
+      "audio": "luna-deixe-ela-te-sustentar.mp3"
+    },
+    {
+      "say": "Leve a atenção para os quadris.",
+      "wait": 12,
+      "audio": "luna-leve-a-atencao-para-os-quadris.mp3"
+    },
+    {
+      "say": "Desça pelas coxas.",
+      "wait": 12,
+      "audio": "luna-desca-pelas-coxas.mp3"
+    },
+    {
+      "say": "Os joelhos.",
+      "wait": 12,
+      "audio": "luna-os-joelhos.mp3"
+    },
+    {
+      "say": "As panturrilhas.",
+      "wait": 12,
+      "audio": "luna-as-panturrilhas.mp3"
+    },
+    {
+      "say": "Desça até os tornozelos, e os pés.",
+      "wait": 12,
+      "audio": "luna-desca-ate-os-tornozelos-e-os-pes.mp3"
+    },
+    {
+      "say": "Perceba os dedos dos pés.",
+      "wait": 12,
+      "audio": "luna-perceba-os-dedos-dos-pes.mp3"
+    },
+    {
+      "say": "Agora deixe a atenção se abrir, para incluir o corpo inteiro de uma vez.",
+      "wait": 15,
+      "audio": "luna-agora-deixe-a-atencao-se-abrir-para-incluir-o-corpo-inteiro-de-uma-vez.mp3"
+    },
+    {
+      "say": "Descansando aqui. Respirando.",
+      "wait": 18,
+      "audio": "luna-descansando-aqui-respirando.mp3"
+    },
+    {
+      "say": "Nada para consertar. Nada para alcançar.",
+      "wait": 20,
+      "audio": "luna-nada-para-consertar-nada-para-alcancar.mp3"
+    },
+    {
+      "say": "Fique com isso.",
+      "wait": 25,
+      "audio": "luna-fique-com-isso.mp3"
+    },
+    {
+      "wait": 20
+    },
+    {
+      "say": "Daqui a pouco vamos terminar.",
+      "wait": 10,
+      "audio": "luna-daqui-a-pouco-vamos-terminar.mp3"
+    },
+    {
+      "say": "Comece a perceber os sons ao seu redor.",
+      "wait": 12,
+      "audio": "luna-comece-a-perceber-os-sons-ao-seu-redor.mp3"
+    },
+    {
+      "say": "Deixe a respiração ficar um pouco mais profunda.",
+      "wait": 10,
+      "audio": "luna-deixe-a-respiracao-ficar-um-pouco-mais-profunda.mp3"
+    },
+    {
+      "say": "E quando estiver pronto, abra os olhos.",
+      "wait": 8,
+      "audio": "luna-e-quando-estiver-pronto-abra-os-olhos.mp3"
+    }
+  ]
+}

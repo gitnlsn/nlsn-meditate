@@ -1,4 +1,5 @@
 import { useEffect, useRef, useCallback } from 'react';
+import { activateKeepAwakeAsync, deactivateKeepAwake } from 'expo-keep-awake';
 import { useMeditation, useMeditationDispatch, type TimerState } from '@/contexts/meditation-context';
 import { useAddSession } from '@/contexts/history-context';
 import { useGong } from '@/hooks/use-gong';
@@ -30,6 +31,17 @@ export function useTimer() {
   }, [timerState, dispatch]);
 
   useEffect(() => {
+    if (timerState === 'running') {
+      activateKeepAwakeAsync();
+    } else {
+      deactivateKeepAwake();
+    }
+    return () => {
+      deactivateKeepAwake();
+    };
+  }, [timerState]);
+
+  useEffect(() => {
     const prev = prevTimerStateRef.current;
 
     if (prev === 'idle' && timerState === 'running') {
@@ -39,6 +51,7 @@ export function useTimer() {
     if (timerState === 'complete' && prev !== 'complete') {
       addSession(durationSeconds);
       loadAudioSettings().then((s) => { if (s.playGongAtEnd) playGong(); });
+      dispatch({ type: 'RESET' });
     }
 
     prevTimerStateRef.current = timerState;
