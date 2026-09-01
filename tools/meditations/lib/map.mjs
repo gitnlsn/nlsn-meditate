@@ -27,18 +27,33 @@ function normalise(text, scriptId = '') {
   return s;
 }
 
-/** Dice coefficient over character bigrams: tolerant of typos and dropped words. */
+function bigrams(s) {
+  const g = new Map();
+  for (let i = 0; i < s.length - 1; i++) {
+    const k = s.slice(i, i + 2);
+    g.set(k, (g.get(k) ?? 0) + 1);
+  }
+  return g;
+}
+
+/**
+ * How alike two strings are, over character bigrams.
+ *
+ * Two measures, because filenames fail in two different ways. Dice handles
+ * typos and small drifts ("amoreca" for "amoleça"). But long lines get their
+ * filenames abbreviated - "Se for muito, volte para você mesmo. Isso também é a
+ * prática." was saved as `se-for-muito-volte-para-voce-mesmo` - and Dice
+ * punishes that by length alone, scoring a correct file 0.73. Overlap measures
+ * how much of the *shorter* string is contained in the longer, which is what
+ * truncation actually looks like, so it stays high.
+ *
+ * Overlap is discounted slightly so a whole-line match always outranks a
+ * prefix match when both are available.
+ */
 function similarity(a, b) {
-  const grams = (s) => {
-    const g = new Map();
-    for (let i = 0; i < s.length - 1; i++) {
-      const k = s.slice(i, i + 2);
-      g.set(k, (g.get(k) ?? 0) + 1);
-    }
-    return g;
-  };
-  const A = grams(a);
-  const B = grams(b);
+  const A = bigrams(a);
+  const B = bigrams(b);
+
   let shared = 0;
   let sizeA = 0;
   let sizeB = 0;
@@ -47,7 +62,11 @@ function similarity(a, b) {
     sizeB += n;
     shared += Math.min(n, A.get(k) ?? 0);
   }
-  return sizeA + sizeB === 0 ? 0 : (2 * shared) / (sizeA + sizeB);
+  if (sizeA + sizeB === 0) return 0;
+
+  const dice = (2 * shared) / (sizeA + sizeB);
+  const overlap = shared / Math.min(sizeA, sizeB);
+  return Math.max(dice, overlap * 0.95);
 }
 
 /**

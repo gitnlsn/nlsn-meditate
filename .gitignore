@@ -47,3 +47,5 @@ build/
 
 # full TTS renders - intermediates, the per-line clips are what ship
 tools/meditations/renders/
+
+tools/meditations/paste/

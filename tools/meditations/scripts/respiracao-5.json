@@ -1,5 +1,6 @@
 {
   "id": "respiracao-5",
+  "category": "atencao",
   "title": "Atenção na Respiração",
   "description": "Cinco minutos descansando a atenção na respiração, e voltando para ela.",
   "targetDuration": 300,
@@ -82,19 +83,19 @@
     },
     {
       "say": "Descansando aqui.",
-      "wait": 18,
+      "wait": 23,
       "audio": "luna-descansando-aqui.mp3"
     },
     {
-      "wait": 18
+      "wait": 23
     },
     {
       "say": "Nada a alcançar.",
-      "wait": 18,
+      "wait": 24,
       "audio": "luna-nada-a-alcancar.mp3"
     },
     {
-      "wait": 15
+      "wait": 21
     },
     {
       "say": "Puxe mais um ar bem fundo.",

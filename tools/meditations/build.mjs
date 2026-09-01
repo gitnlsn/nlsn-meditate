@@ -350,12 +350,20 @@ async function cmdManifest() {
   const ids = await listScripts();
   const scripts = [];
   for (const id of ids) scripts.push(await loadScript(id));
-  const meditations = await buildGuidedManifest(scripts);
+  const { meditations, skipped } = await buildGuidedManifest(scripts);
 
   console.log('\nguided meditations');
   for (const m of meditations) {
     const spoken = m.segments.filter((s) => s.audio !== null).length;
     console.log(`  ${m.id.padEnd(16)} ${String(m.durationSeconds).padStart(4)}s  ${m.segments.length} segments (${spoken} spoken)`);
+  }
+
+  if (skipped.length) {
+    console.log('\nnot yet recorded - left out of the manifest');
+    for (const s of skipped) {
+      console.log(`  ${s.id.padEnd(16)} ${s.unmapped} of ${s.total} lines have no audio` +
+        `   (npm run meditations -- text ${s.id})`);
+    }
   }
 
   const a = await writeAmbienceConstants(ambiences);

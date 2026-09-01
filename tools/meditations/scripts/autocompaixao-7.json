@@ -1,0 +1,141 @@
+{
+  "id": "autocompaixao-7",
+  "category": "compaixao",
+  "title": "Autocompaixão",
+  "description": "Sete minutos oferecendo a si mesmo a gentileza que você ofereceria a quem você ama.",
+  "targetDuration": 420,
+  "leadIn": 3,
+  "leadOut": 6,
+  "voice": {
+    "provider": "elevenlabs",
+    "voiceId": "jotBQRDYDizrWQAbv9VO",
+    "model": "eleven_multilingual_v2",
+    "stability": 0.5,
+    "similarityBoost": 0.75,
+    "style": 0,
+    "speed": 0.85
+  },
+  "segments": [
+    {
+      "say": "Encontre uma posição confortável, e deixe os olhos se fecharem.",
+      "wait": 6,
+      "audio": "luna-autocompaixao-encontre-uma-posicao-confortavel-e-deixe-os-olhos-se-fecharem.mp3"
+    },
+    {
+      "say": "Comece sentindo a respiração, sem mudar nada nela.",
+      "wait": 10,
+      "audio": "luna-autocompaixao-comece-sentindo-a-respiracao-sem-mudar-nada-nela.mp3"
+    },
+    {
+      "say": "Deixe o corpo assentar.",
+      "wait": 12,
+      "audio": "luna-autocompaixao-deixe-o-corpo-assentar.mp3"
+    },
+    {
+      "say": "Agora traga à mente alguém que gosta muito de você.",
+      "wait": 10,
+      "audio": "luna-autocompaixao-agora-traga-a-mente-alguem-que-goste-muito-de-voce.mp3"
+    },
+    {
+      "say": "Pode ser alguém de hoje, ou de muito tempo atrás.",
+      "wait": 8,
+      "audio": "luna-autocompaixao-pode-ser-alguem-de-hoje-ou-de-muito-tempo-atras.mp3"
+    },
+    {
+      "say": "Imagine essa pessoa olhando para você com afeto.",
+      "wait": 15,
+      "audio": "luna-autocompaixao-imagine-essa-pessoa-olhando-para-voce-com-afeto.mp3"
+    },
+    {
+      "say": "Perceba o que acontece no corpo quando você imagina isso.",
+      "wait": 16,
+      "audio": "luna-autocompaixao-perceba-o-que-acontece-no-corpo-quando-voce-imagina-isso.mp3"
+    },
+    {
+      "say": "Agora vamos virar essa mesma atenção para dentro.",
+      "wait": 10,
+      "audio": "luna-autocompaixao-agora-vamos-virar-essa-mesma-atencao-para-dentro.mp3"
+    },
+    {
+      "say": "Traga à mente você mesmo. Como você está hoje.",
+      "wait": 12,
+      "audio": "luna-autocompaixao-traga-a-mente-voce-mesmo-como-voce-esta-hoje.mp3"
+    },
+    {
+      "say": "Ofereça a si mesmo estas palavras, no seu tempo.",
+      "wait": 8,
+      "audio": "luna-autocompaixao-ofereca-a-si-mesmo-estas-palavras-no-seu-tempo.mp3"
+    },
+    {
+      "say": "Que eu esteja em segurança.",
+      "wait": 12,
+      "audio": "luna-autocompaixao-que-eu-esteja-em-seguranca.mp3"
+    },
+    {
+      "say": "Que eu tenha saúde.",
+      "wait": 12,
+      "audio": "luna-autocompaixao-que-eu-tenha-saude.mp3"
+    },
+    {
+      "say": "Que eu seja gentil comigo.",
+      "wait": 12,
+      "audio": "luna-autocompaixao-que-eu-seja-gentil-comigo.mp3"
+    },
+    {
+      "say": "Que eu viva com tranquilidade.",
+      "wait": 15,
+      "audio": "luna-autocompaixao-que-eu-viva-com-tranquilidade.mp3"
+    },
+    {
+      "say": "Repita as palavras que fizerem sentido para você.",
+      "wait": 20,
+      "audio": "luna-autocompaixao-repita-as-palavras-que-fizerem-sentido-para-voce.mp3"
+    },
+    {
+      "wait": 25
+    },
+    {
+      "say": "Se vier resistência, isso é normal.",
+      "wait": 10,
+      "audio": "luna-autocompaixao-se-vier-resistencia-isso-e-normal.mp3"
+    },
+    {
+      "say": "Não force. A resistência também merece gentileza.",
+      "wait": 15,
+      "audio": "luna-autocompaixao-nao-force-a-resistencia-tambem-merece-gentileza.mp3"
+    },
+    {
+      "say": "Volte para as palavras quando quiser.",
+      "wait": 20,
+      "audio": "luna-autocompaixao-volte-para-as-palavras-quando-quiser.mp3"
+    },
+    {
+      "wait": 25
+    },
+    {
+      "say": "Que eu esteja em segurança. Que eu tenha saúde.",
+      "wait": 15,
+      "audio": "luna-autocompaixao-que-eu-esteja-em-seguranca-que-eu-tenha-saude.mp3"
+    },
+    {
+      "say": "Que eu seja gentil comigo.",
+      "wait": 15,
+      "audio": "luna-autocompaixao-que-eu-seja-gentil-comigo-2.mp3"
+    },
+    {
+      "say": "Agora deixe as palavras irem embora.",
+      "wait": 10,
+      "audio": "luna-autocompaixao-agora-deixe-as-palavras-irem-embora.mp3"
+    },
+    {
+      "say": "Fique apenas com o que ficou no corpo.",
+      "wait": 15,
+      "audio": "luna-autocompaixao-fique-apenas-com-o-que-ficou-no-corpo.mp3"
+    },
+    {
+      "say": "Quando estiver pronto, abra os olhos.",
+      "wait": 5,
+      "audio": "luna-autocompaixao-quando-estiver-pronto-abra-os-olhos.mp3"
+    }
+  ]
+}

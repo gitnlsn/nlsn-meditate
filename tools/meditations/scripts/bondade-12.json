@@ -1,0 +1,216 @@
+{
+  "id": "bondade-12",
+  "category": "compaixao",
+  "title": "Bondade Amorosa",
+  "description": "Doze minutos oferecendo boa vontade — a você, a quem você ama, a quem você mal conhece, e a quem é difícil.",
+  "targetDuration": 720,
+  "leadIn": 3,
+  "leadOut": 8,
+  "voice": {
+    "provider": "elevenlabs",
+    "voiceId": "jotBQRDYDizrWQAbv9VO",
+    "model": "eleven_multilingual_v2",
+    "stability": 0.5,
+    "similarityBoost": 0.75,
+    "style": 0,
+    "speed": 0.85
+  },
+  "segments": [
+    {
+      "say": "Sente-se de um jeito que você consiga manter por um tempo.",
+      "wait": 6,
+      "audio": "luna-bondade-sente-se-de-um-jeito-que-voce-consiga-manter-por-um-tempo.mp3"
+    },
+    {
+      "say": "Deixe os olhos se fecharem.",
+      "wait": 8,
+      "audio": "luna-bondade-deixe-os-olhos-se-fecharem.mp3"
+    },
+    {
+      "say": "Três respirações mais lentas, para começar.",
+      "wait": 10,
+      "audio": "luna-bondade-tres-respiracoes-mais-lentas-para-comecar.mp3"
+    },
+    {
+      "say": "E depois deixe a respiração seguir sozinha.",
+      "wait": 12,
+      "audio": "luna-bondade-e-depois-deixe-a-respiracao-seguir-sozinha.mp3"
+    },
+    {
+      "say": "Nesta prática vamos oferecer boa vontade. Primeiro para você, depois para outras pessoas.",
+      "wait": 8,
+      "audio": "luna-bondade-nessa-pratica-vamos-oferecer-boa-vontate.mp3"
+    },
+    {
+      "say": "Não é preciso sentir nada em especial. A intenção basta.",
+      "wait": 12,
+      "audio": "luna-bondade-nao-e-preciso-sentir-nada-em-especial.mp3"
+    },
+    {
+      "say": "Comece com você mesmo.",
+      "wait": 6,
+      "audio": "luna-bondade-comece-com-voce-mesmo.mp3"
+    },
+    {
+      "say": "Que eu esteja em segurança.",
+      "wait": 12,
+      "audio": "luna-bondade-que-eu-esteja-em-seguranca.mp3"
+    },
+    {
+      "say": "Que eu tenha saúde.",
+      "wait": 12,
+      "audio": "luna-bondade-que-eu-tenha-saude.mp3"
+    },
+    {
+      "say": "Que eu viva com tranquilidade.",
+      "wait": 15,
+      "audio": "luna-bondade-que-eu-viva-com-tranquilidade.mp3"
+    },
+    {
+      "wait": 20
+    },
+    {
+      "say": "Repita no seu ritmo.",
+      "wait": 10,
+      "audio": "luna-bondade-repita-no-seu-ritmo.mp3"
+    },
+    {
+      "wait": 20
+    },
+    {
+      "say": "Agora traga à mente alguém de quem você gosta.",
+      "wait": 12,
+      "audio": "luna-bondade-agora-traga-a-mente-alguem-de-quem-voce-gosta.mp3"
+    },
+    {
+      "say": "Veja essa pessoa à sua frente, do jeito que ela é.",
+      "wait": 15,
+      "audio": "luna-bondade-veja-essa-pessoa-a-sua-frente-do-jeito-como-ela-e.mp3"
+    },
+    {
+      "say": "Que você esteja em segurança.",
+      "wait": 12,
+      "audio": "luna-bondade-que-voce-esteja-em-seguranca.mp3"
+    },
+    {
+      "say": "Que você tenha saúde.",
+      "wait": 12,
+      "audio": "luna-bondade-que-voce-tenha-saude.mp3"
+    },
+    {
+      "say": "Que você viva com tranquilidade.",
+      "wait": 15,
+      "audio": "luna-bondade-que-voce-viva-com-tranquilidade.mp3"
+    },
+    {
+      "wait": 25
+    },
+    {
+      "say": "Agora pense em alguém neutro.",
+      "wait": 10,
+      "audio": "luna-bondade-agora-pense-em-alguem-neutro.mp3"
+    },
+    {
+      "say": "Alguém que você vê, mas não conhece. Alguém do mercado, da rua.",
+      "wait": 12,
+      "audio": "luna-bondade-alguem-que-voce-ve-mas-nao-conhece.mp3"
+    },
+    {
+      "say": "Essa pessoa também quer ser feliz, como você.",
+      "wait": 15,
+      "audio": "luna-bondade-essa-pessoa-tambem-quer-ser-feliz-como-voce.mp3"
+    },
+    {
+      "say": "Que você esteja em segurança.",
+      "wait": 12,
+      "audio": "luna-bondade-que-voce-esteja-em-seguranca-2.mp3"
+    },
+    {
+      "say": "Que você tenha saúde.",
+      "wait": 12,
+      "audio": "luna-bondade-que-voce-tenha-saude-2.mp3"
+    },
+    {
+      "say": "Que você viva com tranquilidade.",
+      "wait": 15,
+      "audio": "luna-bondade-que-voce-viva-com-tranquilidade-2.mp3"
+    },
+    {
+      "wait": 24
+    },
+    {
+      "say": "Agora, se você se sentir pronto, pense em alguém difícil.",
+      "wait": 15,
+      "audio": "luna-bondade-agora-se-voce-se-sentir-pronto-pense-em-alguem-dificil.mp3"
+    },
+    {
+      "say": "Não precisa ser a pessoa mais difícil da sua vida. Comece pequeno.",
+      "wait": 12,
+      "audio": "luna-bondade-não-precisa-ser-a-pessoa-mais-dificil-da-sua-vida.mp3"
+    },
+    {
+      "say": "Oferecer boa vontade não é concordar com o que aconteceu.",
+      "wait": 12,
+      "audio": "luna-bondade-oferecer-boa-vontade-nao-e-concordar-com-o-que-aconteceu.mp3"
+    },
+    {
+      "say": "É só desejar que o sofrimento diminua.",
+      "wait": 12,
+      "audio": "luna-bondade-e-so-desejar-que-o-sofrimento-diminua.mp3"
+    },
+    {
+      "say": "Que você esteja em segurança.",
+      "wait": 15,
+      "audio": "luna-bondade-que-voce-esteja-em-seguranca-3.mp3"
+    },
+    {
+      "say": "Que você tenha saúde.",
+      "wait": 15,
+      "audio": "luna-bondade-que-voce-tenha-saude-3.mp3"
+    },
+    {
+      "wait": 20
+    },
+    {
+      "say": "Se for muito, volte para você mesmo. Isso também é a prática.",
+      "wait": 15,
+      "audio": "luna-bondade-se-for-muito-volte-para-voce-mesmo.mp3"
+    },
+    {
+      "say": "Agora deixe a atenção se abrir.",
+      "wait": 10,
+      "audio": "luna-bondade-agora-deixe-a-atencao-se-abrir.mp3"
+    },
+    {
+      "say": "Você, essa pessoa, e todas as outras.",
+      "wait": 15,
+      "audio": "luna-bondade-voce-essa-pessoa-e-todas-as-outras.mp3"
+    },
+    {
+      "say": "Que todos estejam em segurança.",
+      "wait": 15,
+      "audio": "luna-bondade-que-todos-estejam-em-seguranca.mp3"
+    },
+    {
+      "say": "Que todos vivam com tranquilidade.",
+      "wait": 18,
+      "audio": "luna-bondade-que-todos-vivam-com-tranquilidade.mp3"
+    },
+    {
+      "wait": 25
+    },
+    {
+      "say": "Fique aqui um momento.",
+      "wait": 15,
+      "audio": "luna-bondade-fique-aqui-um-momento.mp3"
+    },
+    {
+      "wait": 15
+    },
+    {
+      "say": "E quando estiver pronto, abra os olhos.",
+      "wait": 5,
+      "audio": "luna-bondade-e-quando-estiver-pronto-abra-os-olhos.mp3"
+    }
+  ]
+}

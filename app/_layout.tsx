@@ -8,6 +8,7 @@ import 'react-native-reanimated';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { MeditationProvider } from '@/contexts/meditation-context';
 import { HistoryProvider } from '@/contexts/history-context';
+import { FavoritesProvider } from '@/contexts/favorites-context';
 import { loadReminderSettings } from '@/utils/reminder-storage';
 import { scheduleAllReminders } from '@/utils/notifications';
 import { useAudioSession } from '@/hooks/use-audio-session';
@@ -42,6 +43,7 @@ export default function RootLayout() {
   return (
     <MeditationProvider>
       <HistoryProvider>
+        <FavoritesProvider>
         <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
           <Stack>
             <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
@@ -49,6 +51,7 @@ export default function RootLayout() {
           </Stack>
           <StatusBar style="auto" />
         </ThemeProvider>
+        </FavoritesProvider>
       </HistoryProvider>
     </MeditationProvider>
   );

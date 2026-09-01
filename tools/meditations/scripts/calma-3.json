@@ -1,5 +1,6 @@
 {
   "id": "calma-3",
+  "category": "atencao",
   "title": "Pausa de Três Minutos",
   "description": "Uma pausa curta para o meio de um dia difícil.",
   "targetDuration": 180,

@@ -29,6 +29,8 @@ const MAPPING = {
   'waveform': 'graphic-eq',
   'chevron.left': 'chevron-left',
   'stop.fill': 'stop',
+  'heart': 'favorite-border',
+  'heart.fill': 'favorite',
 } as IconMapping;
 
 /**

@@ -1,7 +1,7 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { spawn } from 'node:child_process';
-import { ROOT } from './config.mjs';
+import { ROOT, GUIDED_CATEGORIES } from './config.mjs';
 import { probeDuration, measureLoudness } from './ffmpeg.mjs';
 import { SPEECH_DIR } from './map.mjs';
 
@@ -177,17 +177,31 @@ function totalDuration(script, clipSeconds) {
   return speech + silence;
 }
 
+/**
+ * A script with no recordings yet is skipped rather than fatal, so a newly
+ * written script can sit in the repo while its audio is still being produced
+ * without blocking regeneration of everything else.
+ */
 export async function buildGuidedManifest(scripts) {
   const out = [];
+  const skipped = [];
+
   for (const script of scripts) {
+    const spoken = script.segments.filter((s) => s.say);
+    const unmapped = spoken.filter((s) => !s.audio).length;
+    if (unmapped) {
+      skipped.push({ id: script.id, unmapped, total: spoken.length });
+      continue;
+    }
+
     const clipSeconds = [];
     for (const [i, seg] of script.segments.entries()) {
       if (!seg.say) { clipSeconds[i] = 0; continue; }
-      if (!seg.audio) throw new Error(`${script.id} segment ${i} has no audio - run: meditations map ${script.id}`);
       clipSeconds[i] = await probeDuration(path.join(ROOT, SPEECH_DIR, script.id, seg.audio));
     }
     out.push({
       id: script.id,
+      category: script.category,
       title: script.title,
       description: script.description,
       leadInSeconds: script.leadIn,
@@ -201,7 +215,17 @@ export async function buildGuidedManifest(scripts) {
       })),
     });
   }
-  return out;
+  /*
+   * Sorted by section, then by length ascending. Sorting by id put the
+   * twelve-minute practice at the top of the list; someone opening this screen
+   * for the first time should meet the short ones first.
+   */
+  const order = new Map(GUIDED_CATEGORIES.map((c, i) => [c.id, i]));
+  out.sort((a, b) =>
+    (order.get(a.category) ?? 99) - (order.get(b.category) ?? 99) ||
+    a.durationSeconds - b.durationSeconds);
+
+  return { meditations: out, skipped };
 }
 
 const HEADER = `/**
@@ -226,6 +250,7 @@ export async function writeGuidedConstants(meditations) {
 
     return `  {\n` +
       `    id: ${JSON.stringify(m.id)},\n` +
+      `    category: ${JSON.stringify(m.category)},\n` +
       `    title: ${JSON.stringify(m.title)},\n` +
       `    description: ${JSON.stringify(m.description)},\n` +
       `    durationSeconds: ${m.durationSeconds},\n` +
@@ -248,8 +273,21 @@ export interface GuidedSegment {
   waitSeconds: number;
 }
 
+export type GuidedCategoryId = ${GUIDED_CATEGORIES.map((c) => JSON.stringify(c.id)).join(' | ')};
+
+export interface GuidedCategory {
+  id: GuidedCategoryId;
+  title: string;
+}
+
+/** Section order for the list screen. */
+export const GUIDED_CATEGORIES: GuidedCategory[] = [
+${GUIDED_CATEGORIES.map((c) => `  { id: ${JSON.stringify(c.id)}, title: ${JSON.stringify(c.title)} },`).join('\n')}
+];
+
 export interface GuidedMeditation {
   id: string;
+  category: GuidedCategoryId;
   title: string;
   description: string;
   durationSeconds: number;
@@ -264,6 +302,16 @@ ${body}
 
 export function findMeditation(id: string): GuidedMeditation | undefined {
   return GUIDED_MEDITATIONS.find((m) => m.id === id);
+}
+
+/** The list screen's sections, already ordered, with empty ones dropped. */
+export function meditationsByCategory(): { category: GuidedCategory; items: GuidedMeditation[] }[] {
+  return GUIDED_CATEGORIES
+    .map((category) => ({
+      category,
+      items: GUIDED_MEDITATIONS.filter((m) => m.category === category.id),
+    }))
+    .filter((section) => section.items.length > 0);
 }
 `;
 

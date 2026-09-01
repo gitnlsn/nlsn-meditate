@@ -1,0 +1,93 @@
+{
+  "id": "compaixao-3",
+  "category": "compaixao",
+  "title": "Um Momento de Compaixão",
+  "description": "Uma pausa curta para quando você está sendo duro consigo mesmo.",
+  "targetDuration": 180,
+  "leadIn": 2,
+  "leadOut": 5,
+  "voice": {
+    "provider": "elevenlabs",
+    "voiceId": "jotBQRDYDizrWQAbv9VO",
+    "model": "eleven_multilingual_v2",
+    "stability": 0.5,
+    "similarityBoost": 0.75,
+    "style": 0,
+    "speed": 0.85
+  },
+  "segments": [
+    {
+      "say": "Pare por um instante.",
+      "wait": 5,
+      "audio": "luna-compaixao-pare-por-um-instante.mp3"
+    },
+    {
+      "say": "Deixe os olhos se fecharem, se for confortável.",
+      "wait": 6,
+      "audio": "luna-compaixao-deixe-os-olhos-se-fecharem-se-for-confortavel.mp3"
+    },
+    {
+      "say": "Perceba como você está agora. Sem julgar.",
+      "wait": 10,
+      "audio": "luna-compaixao-perceba-como-voce-esta-agora-sem-julgar.mp3"
+    },
+    {
+      "say": "Talvez haja algo difícil aqui. Um cansaço. Uma preocupação.",
+      "wait": 10,
+      "audio": "luna-compaixao-talvez-haja-algo-dificil-aqui-um-cansaco-uma-preocupacao.mp3"
+    },
+    {
+      "say": "Você não precisa consertar isso agora.",
+      "wait": 8,
+      "audio": "luna-compaixao-voce-nao-precisa-consertar-isso-agora.mp3"
+    },
+    {
+      "say": "Coloque uma mão sobre o peito, se quiser.",
+      "wait": 6,
+      "audio": "luna-compaixao-coloque-uma-mao-sobre-o-peito-se-quiser.mp3"
+    },
+    {
+      "say": "Sinta o calor da sua própria mão.",
+      "wait": 10,
+      "audio": "luna-compaixao-sinta-o-calor-da-sua-propria-mao.mp3"
+    },
+    {
+      "say": "E diga para você mesmo, em silêncio:",
+      "wait": 4,
+      "audio": "luna-compaixao-e-diga-para-voce-mesmo-em-silencio.mp3"
+    },
+    {
+      "say": "Isso é difícil.",
+      "wait": 6,
+      "audio": "luna-compaixao-isso-e-dificil.mp3"
+    },
+    {
+      "say": "Momentos difíceis fazem parte de uma vida.",
+      "wait": 8,
+      "audio": "luna-compaixao-momentos-dificeis-fazem-parte-de-uma-vida.mp3"
+    },
+    {
+      "say": "Que eu possa ser gentil comigo neste momento.",
+      "wait": 10,
+      "audio": "luna-compaixao-que-eu-possa-ser-gentil-comigo-neste-momento.mp3"
+    },
+    {
+      "say": "Repita, no seu tempo.",
+      "wait": 12,
+      "audio": "luna-compaixao-repita-no-seu-tempo.mp3"
+    },
+    {
+      "wait": 20
+    },
+    {
+      "say": "Perceba que você acabou de oferecer a si mesmo o que ofereceria a um amigo.",
+      "wait": 8,
+      "audio": "luna-compaixao-perceba-que-voce-acabou-de-oferecer-a-si-o-que-ofereceria-a-um-amigo.mp3"
+    },
+    {
+      "say": "Quando estiver pronto, abra os olhos.",
+      "wait": 4,
+      "audio": "luna-compaixao-quando-estiver-pronto-abra-os-olhos.mp3"
+    }
+  ]
+}

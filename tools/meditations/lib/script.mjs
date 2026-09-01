@@ -1,6 +1,6 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import { SCRIPTS_DIR } from './config.mjs';
+import { SCRIPTS_DIR, CATEGORY_IDS } from './config.mjs';
 import { getProvider } from './providers.mjs';
 
 /**
@@ -39,6 +39,11 @@ function normalise(raw, file) {
   if (!raw.id) fail('missing "id"');
   if (!Array.isArray(raw.segments) || raw.segments.length === 0) fail('missing "segments"');
 
+  if (!raw.category) fail('missing "category"');
+  if (!CATEGORY_IDS.includes(raw.category)) {
+    fail(`unknown category "${raw.category}" - expected one of ${CATEGORY_IDS.join(', ')}`);
+  }
+
   const providerName = raw.voice?.provider ?? 'elevenlabs';
   const provider = getProvider(providerName);
 
@@ -57,6 +62,7 @@ function normalise(raw, file) {
 
   return {
     id: raw.id,
+    category: raw.category,
     title: raw.title ?? raw.id,
     description: raw.description ?? '',
     targetDuration: raw.targetDuration ?? null,

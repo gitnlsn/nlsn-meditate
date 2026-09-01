@@ -42,3 +42,15 @@ export function loadEnv() {
     }
   }
 }
+
+/**
+ * Sections in the order they appear in the app. Attention practices first:
+ * they are the usual entry point, and the compassion ones ask more of someone
+ * who has not sat before.
+ */
+export const GUIDED_CATEGORIES = [
+  { id: 'atencao', title: 'Atenção Plena' },
+  { id: 'compaixao', title: 'Compaixão' },
+];
+
+export const CATEGORY_IDS = GUIDED_CATEGORIES.map((c) => c.id);

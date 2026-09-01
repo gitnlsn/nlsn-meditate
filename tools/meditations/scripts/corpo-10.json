@@ -1,5 +1,6 @@
 {
   "id": "corpo-10",
+  "category": "atencao",
   "title": "Escaneamento Corporal",
   "description": "Uma varredura lenta da atenção, do topo da cabeça até os pés.",
   "targetDuration": 600,
