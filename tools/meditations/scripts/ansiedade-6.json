@@ -1,0 +1,75 @@
+{
+  "id": "ansiedade-6",
+  "category": "dificeis",
+  "title": "Quando a Ansiedade Chega",
+  "description": "Seis minutos para fazer espaço para a ansiedade, em vez de tentar empurrá-la para longe.",
+  "targetDuration": 360,
+  "leadIn": 3,
+  "leadOut": 6,
+  "voice": {
+    "provider": "elevenlabs",
+    "voiceId": "jotBQRDYDizrWQAbv9VO",
+    "model": "eleven_multilingual_v2",
+    "stability": 0.5,
+    "similarityBoost": 0.75,
+    "style": 0,
+    "speed": 0.85
+  },
+  "segments": [
+    {
+      "say": "Esta prática não vai tirar a ansiedade. Vamos apenas fazer espaço para ela.",
+      "wait": 10,
+      "audio": "luna-ansiedade-esta-pratica-nao-vai-tirar-a-ansiedade.mp3"
+    },
+    {
+      "say": "Sente-se ou fique em pé, do jeito que estiver.",
+      "wait": 8,
+      "audio": "luna-ansiedade-sente-se-ou-fique-em-pe.mp3"
+    },
+    {
+      "say": "Comece alongando a expiração. Puxe o ar, e solte mais devagar do que puxou.",
+      "wait": 15,
+      "audio": "luna-ansiedade-comece-alongando-a-expiracao.mp3"
+    },
+    {
+      "say": "De novo. Solte devagar.",
+      "wait": 20,
+      "audio": "luna-ansiedade-de-novo-solte-devagar.mp3"
+    },
+    {
+      "say": "Agora perceba onde a ansiedade está no corpo. O peito, a garganta, a barriga.",
+      "wait": 40,
+      "audio": "luna-ansiedade-agora-perceba-onde-a-ansiedade-esta-no-corpo.mp3"
+    },
+    {
+      "say": "Não tente mudar. Só repare no formato dela.",
+      "wait": 40,
+      "audio": "luna-ansiedade-nao-tente-mudar-so-repare-no-formato-dela.mp3"
+    },
+    {
+      "say": "Se puder, diga em silêncio: isso é ansiedade, e ela vai passar.",
+      "wait": 40,
+      "audio": "luna-ansiedade-se-puder-diga-em-silencio.mp3"
+    },
+    {
+      "say": "Ansiedade é uma sensação, não é uma previsão.",
+      "wait": 45,
+      "audio": "luna-ansiedade-ansiedade-e-uma-sensacao.mp3"
+    },
+    {
+      "say": "Volte para a respiração longa. Puxe, e solte devagar.",
+      "wait": 38,
+      "audio": "luna-ansiedade-volte-para-a-respiracao-longa.mp3"
+    },
+    {
+      "say": "Você não precisa que ela vá embora para continuar o seu dia.",
+      "wait": 30,
+      "audio": "luna-ansiedade-voce-nao-precisa-que-ela-va-embora-para-continuar-o-seu-dia.mp3"
+    },
+    {
+      "say": "Quando estiver pronto, olhe ao redor e volte.",
+      "wait": 8,
+      "audio": "luna-ansiedade-quando-estiver-pronto-olhe-ao-redor-e-volte.mp3"
+    }
+  ]
+}

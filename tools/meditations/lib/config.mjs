@@ -51,6 +51,8 @@ export function loadEnv() {
 export const GUIDED_CATEGORIES = [
   { id: 'atencao', title: 'Atenção Plena' },
   { id: 'compaixao', title: 'Compaixão' },
+  { id: 'dificeis', title: 'Momentos Difíceis' },
+  { id: 'sono', title: 'Sono' },
 ];
 
 export const CATEGORY_IDS = GUIDED_CATEGORIES.map((c) => c.id);

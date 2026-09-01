@@ -1,0 +1,70 @@
+{
+  "id": "ancoragem-4",
+  "category": "dificeis",
+  "title": "Ancoragem",
+  "description": "Quatro minutos para sair da espiral e voltar para o lugar onde você está. De olhos abertos.",
+  "targetDuration": 240,
+  "leadIn": 3,
+  "leadOut": 5,
+  "voice": {
+    "provider": "elevenlabs",
+    "voiceId": "jotBQRDYDizrWQAbv9VO",
+    "model": "eleven_multilingual_v2",
+    "stability": 0.5,
+    "similarityBoost": 0.75,
+    "style": 0,
+    "speed": 0.85
+  },
+  "segments": [
+    {
+      "say": "Você pode manter os olhos abertos nesta prática.",
+      "wait": 6,
+      "audio": "luna-ancoragem-voce-pode-manter-os-olhos-abertos-nessa-pratica.mp3"
+    },
+    {
+      "say": "Comece sentindo os pés no chão. O peso do corpo na cadeira ou no chão.",
+      "wait": 12,
+      "audio": "luna-ancoragem-comece-sentindo-os-pes-no-chao.mp3"
+    },
+    {
+      "say": "Agora olhe ao redor e encontre cinco coisas que você consegue ver. Sem pressa.",
+      "wait": 25,
+      "audio": "luna-ancoragem-agora-olhe-ao-redor.mp3"
+    },
+    {
+      "say": "Agora quatro coisas que você consegue tocar. A roupa, a cadeira, o ar na pele.",
+      "wait": 25,
+      "audio": "luna-ancoragem-agora-4-coisas-que-voce-consegue-tocar.mp3"
+    },
+    {
+      "say": "Agora três sons. Perto ou longe.",
+      "wait": 25,
+      "audio": "luna-ancoragem-agora-3-sons.mp3"
+    },
+    {
+      "say": "Dois cheiros, se houver. Ou apenas o ar entrando pelo nariz.",
+      "wait": 20,
+      "audio": "luna-ancoragem-dois-cheiros-se-houver.mp3"
+    },
+    {
+      "say": "E um sabor. Ou só a sensação da boca.",
+      "wait": 20,
+      "audio": "luna-ancoragem-e-um-sabor.mp3"
+    },
+    {
+      "say": "Perceba onde você está agora. Neste lugar, neste momento.",
+      "wait": 25,
+      "audio": "luna-ancoragem-perceba-onde-voce-esta-agora.mp3"
+    },
+    {
+      "say": "O corpo está aqui. Você está aqui.",
+      "wait": 20,
+      "audio": "luna-ancoragem-o-corpo-esta-aqui.mp3"
+    },
+    {
+      "say": "Quando quiser, siga com o seu dia.",
+      "wait": 5,
+      "audio": "luna-ancoragem-quando-quiser-siga-com-o-seu-dia.mp3"
+    }
+  ]
+}

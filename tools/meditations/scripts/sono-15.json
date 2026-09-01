@@ -1,0 +1,90 @@
+{
+  "id": "sono-15",
+  "category": "sono",
+  "title": "Corpo em Repouso",
+  "description": "Quinze minutos para soltar o corpo e adormecer. Não termina — apenas se afasta.",
+  "targetDuration": 900,
+  "leadIn": 5,
+  "leadOut": 30,
+  "voice": {
+    "provider": "elevenlabs",
+    "voiceId": "jotBQRDYDizrWQAbv9VO",
+    "model": "eleven_multilingual_v2",
+    "stability": 0.5,
+    "similarityBoost": 0.75,
+    "style": 0,
+    "speed": 0.85
+  },
+  "segments": [
+    {
+      "say": "Deite-se confortavelmente. Deixe o corpo pesar no colchão.",
+      "wait": 15,
+      "audio": "luna-sono-deite-se-confortavemente.mp3"
+    },
+    {
+      "say": "Não há mais nada para resolver hoje.",
+      "wait": 20,
+      "audio": "luna-sono-nao-ha-mais-nada-para-resolver-hoje.mp3"
+    },
+    {
+      "say": "Deixe os olhos se fecharem, e a respiração seguir sozinha.",
+      "wait": 25,
+      "audio": "luna-sono-deixe-os-olhos-se-fecharem.mp3"
+    },
+    {
+      "say": "Sinta o peso da cabeça no travesseiro. Solte o rosto, a testa, a mandíbula.",
+      "wait": 35,
+      "audio": "luna-sono-sinta-o-peso-da-cabeca-no-travesseiro.mp3"
+    },
+    {
+      "say": "Deixe os ombros afundarem. Sinta os braços pesados, até a ponta dos dedos.",
+      "wait": 40,
+      "audio": "luna-sono-deixe-os-ombros-afundarem.mp3"
+    },
+    {
+      "say": "Sinta o peito subindo e descendo. Sem mudar nada.",
+      "wait": 45,
+      "audio": "luna-sono-sinta-o-peito-subindo-e-descendo.mp3"
+    },
+    {
+      "say": "Solte a barriga. Solte as costas contra a cama.",
+      "wait": 50,
+      "audio": "luna-sono-solte-a-barriga.mp3"
+    },
+    {
+      "say": "Deixe os quadris pesarem. As pernas. Os pés.",
+      "wait": 60,
+      "audio": "luna-sono-deixe-os-quadris-pesarem.mp3"
+    },
+    {
+      "say": "O corpo inteiro entregue, pesado, sustentado.",
+      "wait": 70,
+      "audio": "luna-sono-o-corpo-inteiro-entregue.mp3"
+    },
+    {
+      "say": "Se a mente for para o dia de amanhã, tudo bem. Amanhã ainda não chegou.",
+      "wait": 80,
+      "audio": "luna-sono-se-a-mente-for-para-o-dia-de-amanha.mp3"
+    },
+    {
+      "say": "Volte para o peso do corpo.",
+      "wait": 90,
+      "audio": "luna-sono-volte-para-o-peso-do-corpo.mp3"
+    },
+    {
+      "say": "Nada a fazer. Nada a esperar.",
+      "wait": 100,
+      "audio": "luna-sono-nada-a-fazer.mp3"
+    },
+    {
+      "say": "Descanse.",
+      "wait": 120,
+      "audio": "luna-sono-descanse.mp3"
+    },
+    {
+      "say": "Só descanse.",
+      "wait": 60,
+      "audio": "luna-sono-so-descanse.mp3"
+    }
+  ]
+}

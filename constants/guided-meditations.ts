@@ -15,7 +15,7 @@ export interface GuidedSegment {
   waitSeconds: number;
 }
 
-export type GuidedCategoryId = "atencao" | "compaixao";
+export type GuidedCategoryId = "atencao" | "compaixao" | "dificeis" | "sono";
 
 export interface GuidedCategory {
   id: GuidedCategoryId;
@@ -26,6 +26,8 @@ export interface GuidedCategory {
 export const GUIDED_CATEGORIES: GuidedCategory[] = [
   { id: "atencao", title: "Atenção Plena" },
   { id: "compaixao", title: "Compaixão" },
+  { id: "dificeis", title: "Momentos Difíceis" },
+  { id: "sono", title: "Sono" },
 ];
 
 export interface GuidedMeditation {
@@ -1033,6 +1035,249 @@ export const GUIDED_MEDITATIONS: GuidedMeditation[] = [
         source: require('@/assets/audios/speeches-luna/bondade-12/luna-bondade-e-quando-estiver-pronto-abra-os-olhos.mp3'),
         audioSeconds: 4.258,
         waitSeconds: 5,
+      },
+    ],
+  },
+  {
+    id: "ancoragem-4",
+    category: "dificeis",
+    title: "Ancoragem",
+    description: "Quatro minutos para sair da espiral e voltar para o lugar onde você está. De olhos abertos.",
+    durationSeconds: 250,
+    leadInSeconds: 3,
+    leadOutSeconds: 5,
+    segments: [
+      {
+        text: "Você pode manter os olhos abertos nesta prática.",
+        source: require('@/assets/audios/speeches-luna/ancoragem-4/luna-ancoragem-voce-pode-manter-os-olhos-abertos-nessa-pratica.mp3'),
+        audioSeconds: 4.362,
+        waitSeconds: 6,
+      },
+      {
+        text: "Comece sentindo os pés no chão. O peso do corpo na cadeira ou no chão.",
+        source: require('@/assets/audios/speeches-luna/ancoragem-4/luna-ancoragem-comece-sentindo-os-pes-no-chao.mp3'),
+        audioSeconds: 7.523,
+        waitSeconds: 12,
+      },
+      {
+        text: "Agora olhe ao redor e encontre cinco coisas que você consegue ver. Sem pressa.",
+        source: require('@/assets/audios/speeches-luna/ancoragem-4/luna-ancoragem-agora-olhe-ao-redor.mp3'),
+        audioSeconds: 8.202,
+        waitSeconds: 25,
+      },
+      {
+        text: "Agora quatro coisas que você consegue tocar. A roupa, a cadeira, o ar na pele.",
+        source: require('@/assets/audios/speeches-luna/ancoragem-4/luna-ancoragem-agora-4-coisas-que-voce-consegue-tocar.mp3'),
+        audioSeconds: 9.038,
+        waitSeconds: 25,
+      },
+      {
+        text: "Agora três sons. Perto ou longe.",
+        source: require('@/assets/audios/speeches-luna/ancoragem-4/luna-ancoragem-agora-3-sons.mp3'),
+        audioSeconds: 4.859,
+        waitSeconds: 25,
+      },
+      {
+        text: "Dois cheiros, se houver. Ou apenas o ar entrando pelo nariz.",
+        source: require('@/assets/audios/speeches-luna/ancoragem-4/luna-ancoragem-dois-cheiros-se-houver.mp3'),
+        audioSeconds: 6.922,
+        waitSeconds: 20,
+      },
+      {
+        text: "E um sabor. Ou só a sensação da boca.",
+        source: require('@/assets/audios/speeches-luna/ancoragem-4/luna-ancoragem-e-um-sabor.mp3'),
+        audioSeconds: 4.598,
+        waitSeconds: 20,
+      },
+      {
+        text: "Perceba onde você está agora. Neste lugar, neste momento.",
+        source: require('@/assets/audios/speeches-luna/ancoragem-4/luna-ancoragem-perceba-onde-voce-esta-agora.mp3'),
+        audioSeconds: 6.4,
+        waitSeconds: 25,
+      },
+      {
+        text: "O corpo está aqui. Você está aqui.",
+        source: require('@/assets/audios/speeches-luna/ancoragem-4/luna-ancoragem-o-corpo-esta-aqui.mp3'),
+        audioSeconds: 4.362,
+        waitSeconds: 20,
+      },
+      {
+        text: "Quando quiser, siga com o seu dia.",
+        source: require('@/assets/audios/speeches-luna/ancoragem-4/luna-ancoragem-quando-quiser-siga-com-o-seu-dia.mp3'),
+        audioSeconds: 3.187,
+        waitSeconds: 5,
+      },
+    ],
+  },
+  {
+    id: "ansiedade-6",
+    category: "dificeis",
+    title: "Quando a Ansiedade Chega",
+    description: "Seis minutos para fazer espaço para a ansiedade, em vez de tentar empurrá-la para longe.",
+    durationSeconds: 369,
+    leadInSeconds: 3,
+    leadOutSeconds: 6,
+    segments: [
+      {
+        text: "Esta prática não vai tirar a ansiedade. Vamos apenas fazer espaço para ela.",
+        source: require('@/assets/audios/speeches-luna/ansiedade-6/luna-ansiedade-esta-pratica-nao-vai-tirar-a-ansiedade.mp3'),
+        audioSeconds: 8.124,
+        waitSeconds: 10,
+      },
+      {
+        text: "Sente-se ou fique em pé, do jeito que estiver.",
+        source: require('@/assets/audios/speeches-luna/ansiedade-6/luna-ansiedade-sente-se-ou-fique-em-pe.mp3'),
+        audioSeconds: 4.441,
+        waitSeconds: 8,
+      },
+      {
+        text: "Comece alongando a expiração. Puxe o ar, e solte mais devagar do que puxou.",
+        source: require('@/assets/audios/speeches-luna/ansiedade-6/luna-ansiedade-comece-alongando-a-expiracao.mp3'),
+        audioSeconds: 7.889,
+        waitSeconds: 15,
+      },
+      {
+        text: "De novo. Solte devagar.",
+        source: require('@/assets/audios/speeches-luna/ansiedade-6/luna-ansiedade-de-novo-solte-devagar.mp3'),
+        audioSeconds: 2.455,
+        waitSeconds: 20,
+      },
+      {
+        text: "Agora perceba onde a ansiedade está no corpo. O peito, a garganta, a barriga.",
+        source: require('@/assets/audios/speeches-luna/ansiedade-6/luna-ansiedade-agora-perceba-onde-a-ansiedade-esta-no-corpo.mp3'),
+        audioSeconds: 8.908,
+        waitSeconds: 40,
+      },
+      {
+        text: "Não tente mudar. Só repare no formato dela.",
+        source: require('@/assets/audios/speeches-luna/ansiedade-6/luna-ansiedade-nao-tente-mudar-so-repare-no-formato-dela.mp3'),
+        audioSeconds: 4.728,
+        waitSeconds: 40,
+      },
+      {
+        text: "Se puder, diga em silêncio: isso é ansiedade, e ela vai passar.",
+        source: require('@/assets/audios/speeches-luna/ansiedade-6/luna-ansiedade-se-puder-diga-em-silencio.mp3'),
+        audioSeconds: 8.307,
+        waitSeconds: 40,
+      },
+      {
+        text: "Ansiedade é uma sensação, não é uma previsão.",
+        source: require('@/assets/audios/speeches-luna/ansiedade-6/luna-ansiedade-ansiedade-e-uma-sensacao.mp3'),
+        audioSeconds: 5.146,
+        waitSeconds: 45,
+      },
+      {
+        text: "Volte para a respiração longa. Puxe, e solte devagar.",
+        source: require('@/assets/audios/speeches-luna/ansiedade-6/luna-ansiedade-volte-para-a-respiracao-longa.mp3'),
+        audioSeconds: 6.922,
+        waitSeconds: 38,
+      },
+      {
+        text: "Você não precisa que ela vá embora para continuar o seu dia.",
+        source: require('@/assets/audios/speeches-luna/ansiedade-6/luna-ansiedade-voce-nao-precisa-que-ela-va-embora-para-continuar-o-seu-dia.mp3'),
+        audioSeconds: 4.78,
+        waitSeconds: 30,
+      },
+      {
+        text: "Quando estiver pronto, olhe ao redor e volte.",
+        source: require('@/assets/audios/speeches-luna/ansiedade-6/luna-ansiedade-quando-estiver-pronto-olhe-ao-redor-e-volte.mp3'),
+        audioSeconds: 4.545,
+        waitSeconds: 8,
+      },
+    ],
+  },
+  {
+    id: "sono-15",
+    category: "sono",
+    title: "Corpo em Repouso",
+    description: "Quinze minutos para soltar o corpo e adormecer. Não termina — apenas se afasta.",
+    durationSeconds: 913,
+    leadInSeconds: 5,
+    leadOutSeconds: 30,
+    segments: [
+      {
+        text: "Deite-se confortavelmente. Deixe o corpo pesar no colchão.",
+        source: require('@/assets/audios/speeches-luna/sono-15/luna-sono-deite-se-confortavemente.mp3'),
+        audioSeconds: 6.504,
+        waitSeconds: 15,
+      },
+      {
+        text: "Não há mais nada para resolver hoje.",
+        source: require('@/assets/audios/speeches-luna/sono-15/luna-sono-nao-ha-mais-nada-para-resolver-hoje.mp3'),
+        audioSeconds: 3.187,
+        waitSeconds: 20,
+      },
+      {
+        text: "Deixe os olhos se fecharem, e a respiração seguir sozinha.",
+        source: require('@/assets/audios/speeches-luna/sono-15/luna-sono-deixe-os-olhos-se-fecharem.mp3'),
+        audioSeconds: 5.512,
+        waitSeconds: 25,
+      },
+      {
+        text: "Sinta o peso da cabeça no travesseiro. Solte o rosto, a testa, a mandíbula.",
+        source: require('@/assets/audios/speeches-luna/sono-15/luna-sono-sinta-o-peso-da-cabeca-no-travesseiro.mp3'),
+        audioSeconds: 8.777,
+        waitSeconds: 35,
+      },
+      {
+        text: "Deixe os ombros afundarem. Sinta os braços pesados, até a ponta dos dedos.",
+        source: require('@/assets/audios/speeches-luna/sono-15/luna-sono-deixe-os-ombros-afundarem.mp3'),
+        audioSeconds: 7.001,
+        waitSeconds: 40,
+      },
+      {
+        text: "Sinta o peito subindo e descendo. Sem mudar nada.",
+        source: require('@/assets/audios/speeches-luna/sono-15/luna-sono-sinta-o-peito-subindo-e-descendo.mp3'),
+        audioSeconds: 5.251,
+        waitSeconds: 45,
+      },
+      {
+        text: "Solte a barriga. Solte as costas contra a cama.",
+        source: require('@/assets/audios/speeches-luna/sono-15/luna-sono-solte-a-barriga.mp3'),
+        audioSeconds: 5.616,
+        waitSeconds: 50,
+      },
+      {
+        text: "Deixe os quadris pesarem. As pernas. Os pés.",
+        source: require('@/assets/audios/speeches-luna/sono-15/luna-sono-deixe-os-quadris-pesarem.mp3'),
+        audioSeconds: 6.087,
+        waitSeconds: 60,
+      },
+      {
+        text: "O corpo inteiro entregue, pesado, sustentado.",
+        source: require('@/assets/audios/speeches-luna/sono-15/luna-sono-o-corpo-inteiro-entregue.mp3'),
+        audioSeconds: 4.18,
+        waitSeconds: 70,
+      },
+      {
+        text: "Se a mente for para o dia de amanhã, tudo bem. Amanhã ainda não chegou.",
+        source: require('@/assets/audios/speeches-luna/sono-15/luna-sono-se-a-mente-for-para-o-dia-de-amanha.mp3'),
+        audioSeconds: 7.184,
+        waitSeconds: 80,
+      },
+      {
+        text: "Volte para o peso do corpo.",
+        source: require('@/assets/audios/speeches-luna/sono-15/luna-sono-volte-para-o-peso-do-corpo.mp3'),
+        audioSeconds: 2.351,
+        waitSeconds: 90,
+      },
+      {
+        text: "Nada a fazer. Nada a esperar.",
+        source: require('@/assets/audios/speeches-luna/sono-15/luna-sono-nada-a-fazer.mp3'),
+        audioSeconds: 3.762,
+        waitSeconds: 100,
+      },
+      {
+        text: "Descanse.",
+        source: require('@/assets/audios/speeches-luna/sono-15/luna-sono-descanse.mp3'),
+        audioSeconds: 1.489,
+        waitSeconds: 120,
+      },
+      {
+        text: "Só descanse.",
+        source: require('@/assets/audios/speeches-luna/sono-15/luna-sono-so-descanse.mp3'),
+        audioSeconds: 1.384,
+        waitSeconds: 60,
       },
     ],
   },
