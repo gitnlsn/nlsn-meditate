@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback } from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useLocalSearchParams, useRouter } from 'expo-router';
@@ -10,7 +10,7 @@ import { IconSymbol } from '@/components/ui/icon-symbol';
 import { CircularProgress } from '@/components/timer/circular-progress';
 import { TimerControls } from '@/components/timer/timer-controls';
 import { Caption } from '@/components/guided/caption';
-import { AmbiencePicker } from '@/components/guided/ambience-picker';
+import { AmbienceField } from '@/components/audio/ambience-field';
 import { findMeditation, type GuidedMeditation } from '@/constants/guided-meditations';
 import { findAmbience } from '@/constants/ambiences';
 import { Colors } from '@/constants/theme';
@@ -18,9 +18,7 @@ import { useColorScheme } from '@/hooks/use-color-scheme';
 import { useGuidedSession } from '@/hooks/use-guided-session';
 import { useAmbience } from '@/hooks/use-ambience';
 import { useAddSession } from '@/contexts/history-context';
-import {
-  loadAudioSettings, saveAudioSettings, DEFAULT_AUDIO_SETTINGS, type AudioSettings,
-} from '@/utils/settings-storage';
+import { useAudioSettings } from '@/contexts/audio-settings-context';
 
 export default function GuidedPlayerScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -30,11 +28,7 @@ export default function GuidedPlayerScreen() {
   const addSession = useAddSession();
 
   const meditation = findMeditation(id);
-  const [settings, setSettings] = useState<AudioSettings>(DEFAULT_AUDIO_SETTINGS);
-
-  useEffect(() => {
-    loadAudioSettings().then(setSettings);
-  }, []);
+  const { settings } = useAudioSettings();
 
   const handleComplete = useCallback((finished: GuidedMeditation) => {
     addSession(finished.durationSeconds, {
@@ -53,14 +47,6 @@ export default function GuidedPlayerScreen() {
     volume: settings.ambienceVolume,
     active: session.state === 'running',
   });
-
-  // Persisting happens here rather than inside a state updater: React may invoke
-  // an updater more than once, which would turn one tap into several writes.
-  const selectAmbience = useCallback((ambienceId: string | null) => {
-    const next = { ...settings, ambienceId };
-    setSettings(next);
-    saveAudioSettings(next);
-  }, [settings]);
 
   if (!meditation) {
     return (
@@ -105,8 +91,7 @@ export default function GuidedPlayerScreen() {
         </View>
 
         <View style={styles.footer}>
-          <ThemedText style={styles.footerLabel}>Som de fundo</ThemedText>
-          <AmbiencePicker selectedId={settings.ambienceId} onSelect={selectAmbience} />
+          <AmbienceField />
         </View>
       </SafeAreaView>
     </ThemedView>
@@ -133,12 +118,5 @@ const styles = StyleSheet.create({
     opacity: 0.6,
   },
   body: { flex: 1, alignItems: 'center', justifyContent: 'center', gap: 32 },
-  footer: { gap: 12, paddingBottom: 16 },
-  footerLabel: {
-    fontSize: 13,
-    opacity: 0.5,
-    paddingHorizontal: 24,
-    textTransform: 'uppercase',
-    letterSpacing: 2,
-  },
+  footer: { paddingHorizontal: 24, paddingBottom: 16 },
 });

@@ -9,6 +9,7 @@ import { useColorScheme } from '@/hooks/use-color-scheme';
 import { MeditationProvider } from '@/contexts/meditation-context';
 import { HistoryProvider } from '@/contexts/history-context';
 import { FavoritesProvider } from '@/contexts/favorites-context';
+import { AudioSettingsProvider } from '@/contexts/audio-settings-context';
 import { loadReminderSettings } from '@/utils/reminder-storage';
 import { scheduleAllReminders } from '@/utils/notifications';
 import { useAudioSession } from '@/hooks/use-audio-session';
@@ -44,6 +45,7 @@ export default function RootLayout() {
     <MeditationProvider>
       <HistoryProvider>
         <FavoritesProvider>
+          <AudioSettingsProvider>
         <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
           <Stack>
             <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
@@ -51,6 +53,7 @@ export default function RootLayout() {
           </Stack>
           <StatusBar style="auto" />
         </ThemeProvider>
+          </AudioSettingsProvider>
         </FavoritesProvider>
       </HistoryProvider>
     </MeditationProvider>

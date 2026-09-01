@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, Switch, View } from 'react-native';
 import Constants from 'expo-constants';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -9,9 +9,8 @@ import { IconSymbol } from '@/components/ui/icon-symbol';
 import { DurationInput } from '@/components/settings/duration-input';
 import { ClockPickerModal } from '@/components/settings/clock-picker-modal';
 import { TimePickerModal } from '@/components/settings/time-picker-modal';
-import {
-  loadAudioSettings, saveAudioSettings, DEFAULT_AUDIO_SETTINGS, type AudioSettings,
-} from '@/utils/settings-storage';
+import { type AudioSettings } from '@/utils/settings-storage';
+import { useAudioSettings, useUpdateAudioSettings } from '@/contexts/audio-settings-context';
 import { useReminders } from '@/hooks/use-reminders';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { Colors } from '@/constants/theme';
@@ -32,17 +31,12 @@ export default function SettingsScreen() {
 
   const [pickerVisible, setPickerVisible] = useState(false);
   const [showTimePicker, setShowTimePicker] = useState(false);
-  const [audioSettings, setAudioSettings] = useState<AudioSettings>(DEFAULT_AUDIO_SETTINGS);
+  const { settings: audioSettings } = useAudioSettings();
+  const updateAudioSettings = useUpdateAudioSettings();
   const { settings: reminderSettings, addReminder, removeReminder } = useReminders();
 
-  useEffect(() => {
-    loadAudioSettings().then(setAudioSettings);
-  }, []);
-
-  function toggle(key: keyof AudioSettings) {
-    const updated = { ...audioSettings, [key]: !audioSettings[key] };
-    setAudioSettings(updated);
-    saveAudioSettings(updated);
+  function toggle(key: 'playGongAtStart' | 'playGongAtEnd') {
+    updateAudioSettings({ [key]: !audioSettings[key] } as Partial<AudioSettings>);
   }
 
   function onTimeConfirmed(hour: number, minute: number) {

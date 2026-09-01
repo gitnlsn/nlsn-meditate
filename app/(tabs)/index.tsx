@@ -1,41 +1,60 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { CircularProgress } from '@/components/timer/circular-progress';
 import { TimerControls } from '@/components/timer/timer-controls';
+import { AmbienceField } from '@/components/audio/ambience-field';
 import { useTimer } from '@/hooks/use-timer';
+import { useAmbience } from '@/hooks/use-ambience';
+import { useAudioSettings } from '@/contexts/audio-settings-context';
+import { findAmbience } from '@/constants/ambiences';
 
 export default function TimerScreen() {
   const { timerState, remainingSeconds, progress, play, pause, reset } = useTimer();
+  const { settings } = useAudioSettings();
+
+  // The bed plays only while the timer runs, and pauses with it.
+  useAmbience({
+    ambience: findAmbience(settings.ambienceId),
+    volume: settings.ambienceVolume,
+    active: timerState === 'running',
+  });
 
   return (
     <ThemedView style={styles.container}>
       <SafeAreaView style={styles.safeArea}>
-        <ThemedText style={styles.subtitle}>Meditate</ThemedText>
-        <CircularProgress progress={progress} remainingSeconds={remainingSeconds} />
-        <TimerControls
-          timerState={timerState}
-          onPlay={play}
-          onPause={pause}
-          onReset={reset}
-        />
+        <View style={styles.body}>
+          <ThemedText style={styles.subtitle}>Meditate</ThemedText>
+          <CircularProgress progress={progress} remainingSeconds={remainingSeconds} />
+          <TimerControls
+            timerState={timerState}
+            onPlay={play}
+            onPause={pause}
+            onReset={reset}
+          />
+        </View>
+
+        <View style={styles.footer}>
+          <AmbienceField />
+        </View>
       </SafeAreaView>
     </ThemedView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  safeArea: {
+  container: { flex: 1 },
+  safeArea: { flex: 1 },
+  // The timer keeps the centre of the screen; the picker sits out of the way.
+  body: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
     gap: 48,
   },
+  footer: { paddingHorizontal: 24, paddingBottom: 16 },
   subtitle: {
     fontSize: 18,
     fontWeight: '300',

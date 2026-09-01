@@ -31,6 +31,7 @@ const MAPPING = {
   'stop.fill': 'stop',
   'heart': 'favorite-border',
   'heart.fill': 'favorite',
+  'checkmark': 'check',
 } as IconMapping;
 
 /**
