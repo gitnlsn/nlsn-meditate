@@ -9,6 +9,17 @@ import { useColorScheme } from '@/hooks/use-color-scheme';
 const FADE_IN_MS = 600;
 const FADE_OUT_MS = 400;
 
+/**
+ * Corner radius as a share of the pill's height.
+ *
+ * The app rounds its controls to about this much — a SelectField row is 12
+ * against a height of 52 — so the two read as the same kind of thing. Half would
+ * make a stadium, which is what a chip or a status badge looks like: these are
+ * inputs, and inside a circle a second full curve competes with the ring rather
+ * than sitting in it. Turn this up for rounder.
+ */
+const RADIUS_RATIO = 0.25;
+
 interface RingControlProps {
   /** What a screen reader announces while the press is available. */
   accessibilityLabel: string;
@@ -24,7 +35,8 @@ interface RingControlProps {
    * offered while idle and withdrawn for the rest of it.
    */
   editable?: boolean;
-  radius: number;
+  /** The content's line height; with the padding it gives the pill its shape. */
+  lineHeight: number;
   paddingHorizontal: number;
   paddingVertical: number;
   /** Caps the pill, for content that can run wider than the ring. */
@@ -49,7 +61,7 @@ export function RingControl({
   accessibilityLabel,
   onPress,
   editable = false,
-  radius,
+  lineHeight,
   paddingHorizontal,
   paddingVertical,
   maxWidth,
@@ -59,6 +71,7 @@ export function RingControl({
   const colors = Colors[colorScheme];
 
   const pressable = onPress != null && editable;
+  const radius = Math.round((lineHeight + paddingVertical * 2) * RADIUS_RATIO);
 
   const pill = useSharedValue(pressable ? 1 : 0);
   useEffect(() => {

@@ -18,8 +18,6 @@ const MIN_FONT_SIZE = 11;
 const LINE_HEIGHT_RATIO = 21 / 15;
 const MAX_PADDING_X = 12;
 const MAX_PADDING_Y = 5;
-/** A stadium at any size, rather than a radius that has to track the text. */
-const PILL_RADIUS = 999;
 
 interface AmbienceDisplayProps {
   /** Whether the bed can be changed now — see RingControl. */
@@ -42,6 +40,7 @@ export function AmbienceDisplay({ editable }: AmbienceDisplayProps) {
   const [open, setOpen] = useState(false);
 
   const fontSize = Math.max(MIN_FONT_SIZE, Math.round(MAX_FONT_SIZE * scale));
+  const lineHeight = Math.round(fontSize * LINE_HEIGHT_RATIO);
 
   return (
     <>
@@ -49,16 +48,11 @@ export function AmbienceDisplay({ editable }: AmbienceDisplayProps) {
         accessibilityLabel={`${strings.ambience.label}: ${title}`}
         onPress={() => setOpen(true)}
         editable={editable}
-        radius={PILL_RADIUS}
+        lineHeight={lineHeight}
         paddingHorizontal={Math.round(MAX_PADDING_X * scale)}
         paddingVertical={Math.round(MAX_PADDING_Y * scale)}
         maxWidth={Math.round(size / Math.SQRT2)}>
-        <ThemedText
-          numberOfLines={1}
-          style={[
-            styles.name,
-            { fontSize, lineHeight: Math.round(fontSize * LINE_HEIGHT_RATIO) },
-          ]}>
+        <ThemedText numberOfLines={1} style={[styles.name, { fontSize, lineHeight }]}>
           {title}
         </ThemedText>
       </RingControl>

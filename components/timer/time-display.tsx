@@ -28,17 +28,17 @@ export function TimeDisplay({ remainingSeconds, onPress, editable }: TimeDisplay
   const formatted = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
 
   const fontSize = Math.round(MAX_FONT_SIZE * scale);
+  const lineHeight = Math.round(fontSize * LINE_HEIGHT_RATIO);
 
   return (
     <RingControl
       accessibilityLabel={`${strings.timer.sessionLength}: ${strings.duration.minutes(minutes)}`}
       onPress={onPress}
       editable={editable}
-      radius={fontSize}
+      lineHeight={lineHeight}
       paddingHorizontal={Math.round(MAX_PADDING_X * scale)}
       paddingVertical={Math.round(MAX_PADDING_Y * scale)}>
-      <ThemedText
-        style={[styles.time, { fontSize, lineHeight: Math.round(fontSize * LINE_HEIGHT_RATIO) }]}>
+      <ThemedText style={[styles.time, { fontSize, lineHeight }]}>
         {formatted}
       </ThemedText>
     </RingControl>
