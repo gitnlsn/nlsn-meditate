@@ -7,20 +7,14 @@ import { CircularProgress } from '@/components/timer/circular-progress';
 import { TimerControls } from '@/components/timer/timer-controls';
 import { AmbienceField } from '@/components/audio/ambience-field';
 import { useTimer } from '@/hooks/use-timer';
-import { useAmbience } from '@/hooks/use-ambience';
-import { useAudioSettings } from '@/contexts/audio-settings-context';
-import { findAmbience } from '@/constants/ambiences';
 
+/**
+ * A view onto the timer, not the timer itself. The clock and the background bed
+ * run in SessionRuntime at the root, so leaving this tab leaves the session
+ * running and coming back rejoins it where it is.
+ */
 export default function TimerScreen() {
   const { timerState, remainingSeconds, progress, play, pause, reset } = useTimer();
-  const { settings } = useAudioSettings();
-
-  // The bed plays only while the timer runs, and pauses with it.
-  useAmbience({
-    ambience: findAmbience(settings.ambienceId),
-    volume: settings.ambienceVolume,
-    active: timerState === 'running',
-  });
 
   return (
     <ThemedView style={styles.container}>

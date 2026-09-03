@@ -10,6 +10,8 @@ import { MeditationProvider } from '@/contexts/meditation-context';
 import { HistoryProvider } from '@/contexts/history-context';
 import { FavoritesProvider } from '@/contexts/favorites-context';
 import { AudioSettingsProvider } from '@/contexts/audio-settings-context';
+import { GuidedSessionProvider } from '@/contexts/guided-session-context';
+import { SessionRuntime } from '@/components/session/session-runtime';
 import { loadReminderSettings } from '@/utils/reminder-storage';
 import { scheduleAllReminders } from '@/utils/notifications';
 import { useAudioSession } from '@/hooks/use-audio-session';
@@ -46,13 +48,20 @@ export default function RootLayout() {
       <HistoryProvider>
         <FavoritesProvider>
           <AudioSettingsProvider>
-        <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-          <Stack>
-            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-            <Stack.Screen name="guided/[id]" options={{ headerShown: false }} />
-          </Stack>
-          <StatusBar style="auto" />
-        </ThemeProvider>
+            <GuidedSessionProvider>
+              {/*
+                * Outside the Stack on purpose: the running session must not be
+                * a child of any screen, or navigating away unmounts it.
+                */}
+              <SessionRuntime />
+              <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+                <Stack>
+                  <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+                  <Stack.Screen name="guided/[id]" options={{ headerShown: false }} />
+                </Stack>
+                <StatusBar style="auto" />
+              </ThemeProvider>
+            </GuidedSessionProvider>
           </AudioSettingsProvider>
         </FavoritesProvider>
       </HistoryProvider>

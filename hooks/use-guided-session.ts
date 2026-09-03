@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { AppState } from 'react-native';
 import { createAudioPlayer, type AudioPlayer } from 'expo-audio';
 
 import type { GuidedMeditation } from '@/constants/guided-meditations';
@@ -228,6 +229,31 @@ export function useGuidedSession(meditation: GuidedMeditation | undefined, optio
     setElapsedSeconds(0);
     setState('idle');
   }, [clearWait]);
+
+  /**
+   * A silence outliving a suspended runtime.
+   *
+   * setTimeout only fires while the JS thread is alive. If the OS suspends the
+   * app mid-silence — screen locked with no bed playing to keep it awake — the
+   * continuation is still pending on return, holding the session at a line it
+   * should already have moved past. Anything whose deadline has come and gone
+   * fires on the way back in.
+   */
+  useEffect(() => {
+    if (state !== 'running') return;
+
+    const subscription = AppState.addEventListener('change', (next) => {
+      if (next !== 'active') return;
+      if (!waitTimerRef.current) return;
+      if (Date.now() < waitEndsAtRef.current) return;
+
+      const onDone = waitDoneRef.current;
+      clearWait();
+      onDone?.();
+    });
+
+    return () => subscription.remove();
+  }, [state, clearWait]);
 
   useEffect(() => () => clearWait(), [clearWait]);
 

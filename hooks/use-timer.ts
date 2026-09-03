@@ -1,61 +1,18 @@
-import { useEffect, useRef, useCallback } from 'react';
-import { activateKeepAwakeAsync, deactivateKeepAwake } from 'expo-keep-awake';
-import { useMeditation, useMeditationDispatch, type TimerState } from '@/contexts/meditation-context';
-import { useAddSession } from '@/contexts/history-context';
-import { useGong } from '@/hooks/use-gong';
-import { loadAudioSettings } from '@/utils/settings-storage';
+import { useCallback } from 'react';
+import { useMeditation, useMeditationDispatch } from '@/contexts/meditation-context';
 
+/**
+ * The timer as a screen sees it: current state plus the three controls.
+ *
+ * Deliberately side-effect free. Ticking, the keep-awake lock, the gongs and
+ * writing the finished session to history all used to live here, which tied the
+ * running session to whichever screen happened to have mounted the hook —
+ * leaving the tab stopped the clock. They now run once at the root, in
+ * SessionRuntime, so a session outlives any screen that shows it.
+ */
 export function useTimer() {
   const { timerState, durationSeconds, elapsedSeconds } = useMeditation();
   const dispatch = useMeditationDispatch();
-  const addSession = useAddSession();
-  const { playGong } = useGong();
-  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  const prevTimerStateRef = useRef<TimerState>(timerState);
-
-  const remainingSeconds = durationSeconds - elapsedSeconds;
-  const progress = durationSeconds > 0 ? elapsedSeconds / durationSeconds : 0;
-
-  useEffect(() => {
-    if (timerState === 'running') {
-      intervalRef.current = setInterval(() => {
-        dispatch({ type: 'TICK' });
-      }, 1000);
-    }
-    return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-        intervalRef.current = null;
-      }
-    };
-  }, [timerState, dispatch]);
-
-  useEffect(() => {
-    if (timerState === 'running') {
-      activateKeepAwakeAsync();
-    } else {
-      deactivateKeepAwake();
-    }
-    return () => {
-      deactivateKeepAwake();
-    };
-  }, [timerState]);
-
-  useEffect(() => {
-    const prev = prevTimerStateRef.current;
-
-    if (prev === 'idle' && timerState === 'running') {
-      loadAudioSettings().then((s) => { if (s.playGongAtStart) playGong(); });
-    }
-
-    if (timerState === 'complete' && prev !== 'complete') {
-      addSession(durationSeconds);
-      loadAudioSettings().then((s) => { if (s.playGongAtEnd) playGong(); });
-      dispatch({ type: 'RESET' });
-    }
-
-    prevTimerStateRef.current = timerState;
-  }, [timerState, durationSeconds, addSession, playGong]);
 
   const play = useCallback(() => dispatch({ type: 'PLAY' }), [dispatch]);
   const pause = useCallback(() => dispatch({ type: 'PAUSE' }), [dispatch]);
@@ -64,9 +21,10 @@ export function useTimer() {
   return {
     timerState,
     durationSeconds,
-    elapsedSeconds,
-    remainingSeconds,
-    progress,
+    elapsedSeconds: Math.floor(elapsedSeconds),
+    // Ceiling, so a fresh 10:00 session reads 10:00 rather than 09:59.
+    remainingSeconds: Math.max(0, Math.ceil(durationSeconds - elapsedSeconds)),
+    progress: durationSeconds > 0 ? Math.min(1, elapsedSeconds / durationSeconds) : 0,
     play,
     pause,
     reset,

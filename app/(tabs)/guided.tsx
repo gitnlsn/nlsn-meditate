@@ -13,6 +13,7 @@ import {
 import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { useFavorites, useToggleFavorite } from '@/contexts/favorites-context';
+import { useNowPlayingGuidedId } from '@/contexts/guided-session-context';
 
 const FAVORITES_TITLE = 'Favoritas';
 
@@ -26,6 +27,12 @@ export default function GuidedScreen() {
   const router = useRouter();
   const { favorites } = useFavorites();
   const toggleFavorite = useToggleFavorite();
+  /*
+   * A session survives leaving the player now, so the library has to say which
+   * one is still going. Without it a meditation you backed out of keeps playing
+   * with nothing on screen pointing at where to stop it.
+   */
+  const playingId = useNowPlayingGuidedId();
 
   const onTint = colorScheme === 'dark' ? Colors.dark.background : '#FFFFFF';
 
@@ -53,6 +60,7 @@ export default function GuidedScreen() {
 
   const renderRow = (meditation: GuidedMeditation) => {
     const isFavorite = favorites.has(meditation.id);
+    const isPlaying = playingId === meditation.id;
     return (
       <Pressable
         key={meditation.id}
@@ -60,17 +68,27 @@ export default function GuidedScreen() {
           Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
           router.push(`/guided/${meditation.id}`);
         }}
+        accessibilityRole="button"
+        accessibilityLabel={
+          isPlaying ? `${meditation.title}, em reprodução` : meditation.title
+        }
         style={({ pressed }) => [
           styles.row,
           {
             backgroundColor: colors.chipBackground,
-            borderColor: colors.icon + '4D',
+            borderColor: isPlaying ? colors.tint : colors.icon + '4D',
             opacity: pressed ? 0.7 : 1,
           },
         ]}>
         <View style={[styles.play, { backgroundColor: colors.tint }]}>
-          {/* Nudged right to optically centre the triangle in the circle. */}
-          <IconSymbol name="play.fill" size={18} color={onTint} style={styles.playIcon} />
+          {/* The triangle is nudged right to sit optically centred; the two bars
+              of the pause glyph already are. */}
+          <IconSymbol
+            name={isPlaying ? 'pause.fill' : 'play.fill'}
+            size={18}
+            color={onTint}
+            style={isPlaying ? undefined : styles.playIcon}
+          />
         </View>
 
         <View style={styles.content}>

@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useEffect } from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useLocalSearchParams, useRouter } from 'expo-router';
@@ -11,42 +11,39 @@ import { CircularProgress } from '@/components/timer/circular-progress';
 import { TimerControls } from '@/components/timer/timer-controls';
 import { Caption } from '@/components/guided/caption';
 import { AmbienceField } from '@/components/audio/ambience-field';
-import { findMeditation, type GuidedMeditation } from '@/constants/guided-meditations';
-import { findAmbience } from '@/constants/ambiences';
+import { findMeditation } from '@/constants/guided-meditations';
 import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
-import { useGuidedSession } from '@/hooks/use-guided-session';
-import { useAmbience } from '@/hooks/use-ambience';
-import { useAddSession } from '@/contexts/history-context';
-import { useAudioSettings } from '@/contexts/audio-settings-context';
+import { useGuidedSessionContext } from '@/contexts/guided-session-context';
 
+/**
+ * A view onto the guided session, not the session itself.
+ *
+ * The session lives in GuidedSessionProvider at the root, so leaving this screen
+ * — back gesture, back button, going to look at something else — leaves the
+ * voice and the bed playing. Re-opening the same meditation rejoins it rather
+ * than starting it over; opening a different one ends the first.
+ */
 export default function GuidedPlayerScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
   const colorScheme = useColorScheme() ?? 'light';
   const colors = Colors[colorScheme];
-  const addSession = useAddSession();
 
   const meditation = findMeditation(id);
-  const { settings } = useAudioSettings();
+  const session = useGuidedSessionContext();
+  const { load } = session;
 
-  const handleComplete = useCallback((finished: GuidedMeditation) => {
-    addSession(finished.durationSeconds, {
-      meditationId: finished.id,
-      title: finished.title,
-    });
-  }, [addSession]);
+  useEffect(() => {
+    load(meditation);
+  }, [load, meditation]);
 
-  const session = useGuidedSession(meditation, {
-    onComplete: handleComplete,
-    volume: settings.voiceVolume,
-  });
-
-  useAmbience({
-    ambience: findAmbience(settings.ambienceId),
-    volume: settings.ambienceVolume,
-    active: session.state === 'running',
-  });
+  /*
+   * `load` lands in an effect, so the first render still reports whatever was
+   * playing before. Reading the session only once it points at this meditation
+   * keeps another session's progress off this screen.
+   */
+  const isCurrent = session.meditation?.id === meditation?.id;
 
   if (!meditation) {
     return (
@@ -65,7 +62,7 @@ export default function GuidedPlayerScreen() {
           <Pressable
             onPress={() => {
               Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-              session.stop();
+              // Leaving is not stopping. Use the reset control to end a session.
               router.back();
             }}
             hitSlop={12}
@@ -78,12 +75,12 @@ export default function GuidedPlayerScreen() {
 
         <View style={styles.body}>
           <CircularProgress
-            progress={session.progress}
-            remainingSeconds={session.remainingSeconds}
+            progress={isCurrent ? session.progress : 0}
+            remainingSeconds={isCurrent ? session.remainingSeconds : meditation.durationSeconds}
           />
-          <Caption text={session.currentText} />
+          <Caption text={isCurrent ? session.currentText : null} />
           <TimerControls
-            timerState={session.state}
+            timerState={isCurrent ? session.state : 'idle'}
             onPlay={session.play}
             onPause={session.pause}
             onReset={session.stop}
