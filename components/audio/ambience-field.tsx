@@ -1,150 +1,63 @@
-import { useState } from 'react';
-import { Modal, Pressable, ScrollView, StyleSheet, View } from 'react-native';
-import * as Haptics from 'expo-haptics';
-
-import { ThemedText } from '@/components/themed-text';
-import { IconSymbol } from '@/components/ui/icon-symbol';
-import { AMBIENCES, findAmbience } from '@/constants/ambiences';
-import { Colors } from '@/constants/theme';
-import { useColorScheme } from '@/hooks/use-color-scheme';
+import { SelectField, type SelectOption } from '@/components/ui/select-field';
+import { AMBIENCES } from '@/constants/ambiences';
 import { useAudioSettings, useUpdateAudioSettings } from '@/contexts/audio-settings-context';
-
-const SILENCE_TITLE = 'Silêncio';
+import { DEFAULT_AMBIENCE_ID } from '@/utils/settings-storage';
+import { useStrings } from '@/contexts/locale-context';
 
 interface AmbienceFieldProps {
+  /** Overrides the field's own label where a screen wants different wording. */
   label?: string;
+  hideLabel?: boolean;
 }
 
 /**
  * Picks the background bed.
  *
- * A row showing the current choice, opening a list of all of them. The previous
- * version was a horizontal strip of chips, which hid most of the options
- * off-screen — you could not see what was on offer without scrolling sideways,
- * and it cost a full row on every screen that used it. A field plus a dialog
- * costs one line, shows everything at once when open, and matches the picker
- * pattern the settings screen already uses.
+ * Only the options and where they are stored; the row-and-dialog shape it wears
+ * lives in SelectField, which the language setting wears too.
  */
-export function AmbienceField({ label = 'Som de fundo' }: AmbienceFieldProps) {
-  const colorScheme = useColorScheme() ?? 'light';
-  const colors = Colors[colorScheme];
+export function AmbienceField({ label, hideLabel }: AmbienceFieldProps) {
   const { settings } = useAudioSettings();
   const update = useUpdateAudioSettings();
+  const strings = useStrings();
 
-  const [open, setOpen] = useState(false);
+  /*
+   * The bed manifest is generated with Portuguese titles, so a name the
+   * catalogue has not been taught falls back to what the manifest carries
+   * rather than surfacing an id.
+   */
+  const nameOf = (id: string, fallback: string) => strings.ambience.names[id] ?? fallback;
 
-  const current = findAmbience(settings.ambienceId);
-  const options = [{ id: null as string | null, title: SILENCE_TITLE }, ...AMBIENCES];
+  /*
+   * Silence sits at the end. It is the one option that is the absence of the
+   * others, and leading with it framed the whole list as opting out of something
+   * — the beds are the point, so they come first.
+   */
+  const options: SelectOption<string | null>[] = [
+    ...AMBIENCES.map((ambience) => ({
+      value: ambience.id,
+      title: nameOf(ambience.id, ambience.title),
+    })),
+    { value: null, title: strings.ambience.silence },
+  ];
 
-  const select = (id: string | null) => {
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-    update({ ambienceId: id });
-    setOpen(false);
-  };
+  /*
+   * A bed dropped from the manifest since it was chosen would leave the row with
+   * nothing to show, so a stored id we no longer recognise reads as the default.
+   * Silence is a real choice and passes through untouched.
+   */
+  const stored = settings.ambienceId;
+  const value = stored === null || AMBIENCES.some((a) => a.id === stored)
+    ? stored
+    : DEFAULT_AMBIENCE_ID;
 
   return (
-    <>
-      <Pressable
-        onPress={() => {
-          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-          setOpen(true);
-        }}
-        style={({ pressed }) => [
-          styles.field,
-          {
-            backgroundColor: colors.chipBackground,
-            borderColor: colors.icon + '4D',
-            opacity: pressed ? 0.7 : 1,
-          },
-        ]}>
-        <ThemedText style={styles.label}>{label}</ThemedText>
-        <View style={styles.value}>
-          <ThemedText type="defaultSemiBold">{current?.title ?? SILENCE_TITLE}</ThemedText>
-          <IconSymbol name="chevron.right" size={16} color={colors.icon} />
-        </View>
-      </Pressable>
-
-      <Modal visible={open} transparent animationType="fade" onRequestClose={() => setOpen(false)}>
-        <Pressable style={styles.overlay} onPress={() => setOpen(false)}>
-          <Pressable
-            style={[styles.dialog, { backgroundColor: colors.background }]}
-            onPress={(event) => event.stopPropagation()}>
-            <ThemedText style={styles.dialogTitle}>{label}</ThemedText>
-
-            <ScrollView style={styles.options}>
-              {options.map((option) => {
-                const selected = option.id === settings.ambienceId;
-                return (
-                  <Pressable
-                    key={option.id ?? 'silence'}
-                    onPress={() => select(option.id)}
-                    style={({ pressed }) => [styles.option, { opacity: pressed ? 0.6 : 1 }]}>
-                    <ThemedText style={selected ? undefined : styles.optionIdle}>
-                      {option.title}
-                    </ThemedText>
-                    {selected && <IconSymbol name="checkmark" size={18} color={colors.tint} />}
-                  </Pressable>
-                );
-              })}
-            </ScrollView>
-
-            <View style={styles.buttonRow}>
-              <Pressable style={styles.button} onPress={() => setOpen(false)}>
-                <ThemedText style={[styles.buttonText, { color: colors.tint }]}>Fechar</ThemedText>
-              </Pressable>
-            </View>
-          </Pressable>
-        </Pressable>
-      </Modal>
-    </>
+    <SelectField
+      title={label ?? strings.ambience.label}
+      hideLabel={hideLabel}
+      options={options}
+      value={value}
+      onSelect={(ambienceId) => update({ ambienceId })}
+    />
   );
 }
-
-const styles = StyleSheet.create({
-  field: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    borderRadius: 12,
-    borderWidth: 1,
-    paddingHorizontal: 16,
-    paddingVertical: 14,
-  },
-  label: { opacity: 0.6 },
-  value: { flexDirection: 'row', alignItems: 'center', gap: 6 },
-
-  overlay: {
-    flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.5)',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  dialog: {
-    borderRadius: 28,
-    padding: 24,
-    width: 320,
-  },
-  dialogTitle: {
-    fontSize: 20,
-    fontWeight: '600',
-    marginBottom: 8,
-  },
-  // Capped so a long list scrolls inside the dialog instead of growing past the
-  // screen; ten beds already overflow a small phone.
-  options: { maxHeight: 380 },
-  option: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingVertical: 14,
-  },
-  optionIdle: { opacity: 0.7 },
-  buttonRow: {
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    width: '100%',
-    marginTop: 12,
-  },
-  button: { paddingHorizontal: 12, paddingVertical: 8 },
-  buttonText: { fontSize: 16, fontWeight: '500' },
-});

@@ -10,6 +10,7 @@ import * as Haptics from 'expo-haptics';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { useColorScheme } from '@/hooks/use-color-scheme';
+import { useStrings } from '@/contexts/locale-context';
 import { Colors } from '@/constants/theme';
 
 const CLOCK_SIZE = 256;
@@ -55,6 +56,7 @@ export function ClockPickerModal({
   onCancel,
 }: ClockPickerModalProps) {
   const colorScheme = useColorScheme() ?? 'light';
+  const strings = useStrings();
   const colors = Colors[colorScheme];
   const [selected, setSelected] = useState(currentMinutes);
   const lastHapticMinute = useRef(currentMinutes);
@@ -116,8 +118,8 @@ export function ClockPickerModal({
           style={[styles.dialog, { backgroundColor: colors.background }]}
           onPress={(e) => e.stopPropagation()}
         >
-          <ThemedText style={styles.dialogTitle}>Select Duration</ThemedText>
-          <ThemedText style={styles.selectedValue}>{selected} min</ThemedText>
+          <ThemedText style={styles.dialogTitle}>{strings.picker.selectDuration}</ThemedText>
+          <ThemedText style={styles.selectedValue}>{strings.duration.minutes(selected)}</ThemedText>
 
           {/* Clock face */}
           <View
@@ -184,7 +186,7 @@ export function ClockPickerModal({
           <View style={styles.buttonRow}>
             <Pressable onPress={onCancel} style={styles.button}>
               <ThemedText style={[styles.buttonText, { color: colors.tint }]}>
-                Cancel
+                {strings.picker.cancel}
               </ThemedText>
             </Pressable>
             <Pressable
@@ -192,7 +194,7 @@ export function ClockPickerModal({
               style={styles.button}
             >
               <ThemedText style={[styles.buttonText, { color: colors.tint }]}>
-                OK
+                {strings.picker.ok}
               </ThemedText>
             </Pressable>
           </View>

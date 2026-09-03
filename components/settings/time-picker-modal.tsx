@@ -10,6 +10,7 @@ import * as Haptics from 'expo-haptics';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { useColorScheme } from '@/hooks/use-color-scheme';
+import { useStrings } from '@/contexts/locale-context';
 import { Colors } from '@/constants/theme';
 
 const CLOCK_SIZE = 256;
@@ -73,6 +74,7 @@ export function TimePickerModal({
   onCancel,
 }: TimePickerModalProps) {
   const colorScheme = useColorScheme() ?? 'light';
+  const strings = useStrings();
   const colors = Colors[colorScheme];
   const [phase, setPhase] = useState<'hour' | 'minute'>('hour');
   const [selectedHour, setSelectedHour] = useState(9);
@@ -168,7 +170,7 @@ export function TimePickerModal({
           style={[styles.dialog, { backgroundColor: colors.background }]}
           onPress={(e) => e.stopPropagation()}
         >
-          <ThemedText style={styles.dialogTitle}>Select Time</ThemedText>
+          <ThemedText style={styles.dialogTitle}>{strings.picker.selectTime}</ThemedText>
 
           {/* Time display with AM/PM */}
           <View style={styles.timeRow}>
@@ -306,12 +308,12 @@ export function TimePickerModal({
           <View style={styles.buttonRow}>
             <Pressable onPress={handleCancel} style={styles.button}>
               <ThemedText style={[styles.buttonText, { color: colors.tint }]}>
-                Cancel
+                {strings.picker.cancel}
               </ThemedText>
             </Pressable>
             <Pressable onPress={handleOk} style={styles.button}>
               <ThemedText style={[styles.buttonText, { color: colors.tint }]}>
-                OK
+                {strings.picker.ok}
               </ThemedText>
             </Pressable>
           </View>

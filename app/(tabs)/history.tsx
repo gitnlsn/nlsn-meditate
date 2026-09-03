@@ -6,10 +6,14 @@ import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { CalendarView } from '@/components/history/calendar-view';
 import { SessionSummary } from '@/components/history/session-summary';
+import { CalendarLegend } from '@/components/history/calendar-legend';
 import { useHistory } from '@/contexts/history-context';
+import { useStrings } from '@/contexts/locale-context';
+import { TAB_SCREEN_EDGES } from '@/constants/layout';
 
 export default function HistoryScreen() {
   const { sessions } = useHistory();
+  const strings = useStrings();
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
 
   const now = new Date();
@@ -46,8 +50,9 @@ export default function HistoryScreen() {
 
   return (
     <ThemedView style={styles.container}>
-      <SafeAreaView style={styles.safeArea}>
-        <ThemedText type="title" style={styles.title}>History</ThemedText>
+      <SafeAreaView style={styles.safeArea} edges={TAB_SCREEN_EDGES}>
+        <ThemedText type="title" style={styles.title}>{strings.history.heading}</ThemedText>
+        <ThemedText style={styles.intro}>{strings.history.intro}</ThemedText>
         <CalendarView
           year={year}
           month={month}
@@ -57,6 +62,7 @@ export default function HistoryScreen() {
           onPrevMonth={handlePrevMonth}
           onNextMonth={handleNextMonth}
         />
+        <CalendarLegend />
         {selectedDate && selectedSessions.length > 0 && (
           <SessionSummary date={selectedDate} sessions={selectedSessions} />
         )}
@@ -75,6 +81,12 @@ const styles = StyleSheet.create({
     paddingTop: 16,
   },
   title: {
-    marginBottom: 32,
+    marginBottom: 12,
+  },
+  intro: {
+    fontSize: 15,
+    lineHeight: 22,
+    opacity: 0.6,
+    marginBottom: 28,
   },
 });

@@ -6,6 +6,7 @@ import * as Notifications from 'expo-notifications';
 import 'react-native-reanimated';
 
 import { useColorScheme } from '@/hooks/use-color-scheme';
+import { LocaleProvider } from '@/contexts/locale-context';
 import { MeditationProvider } from '@/contexts/meditation-context';
 import { HistoryProvider } from '@/contexts/history-context';
 import { FavoritesProvider } from '@/contexts/favorites-context';
@@ -44,7 +45,8 @@ export default function RootLayout() {
   }, []);
 
   return (
-    <MeditationProvider>
+    <LocaleProvider>
+      <MeditationProvider>
       <HistoryProvider>
         <FavoritesProvider>
           <AudioSettingsProvider>
@@ -65,6 +67,7 @@ export default function RootLayout() {
           </AudioSettingsProvider>
         </FavoritesProvider>
       </HistoryProvider>
-    </MeditationProvider>
+      </MeditationProvider>
+    </LocaleProvider>
   );
 }

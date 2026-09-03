@@ -15,6 +15,7 @@ import { findMeditation } from '@/constants/guided-meditations';
 import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { useGuidedSessionContext } from '@/contexts/guided-session-context';
+import { useStrings } from '@/contexts/locale-context';
 
 /**
  * A view onto the guided session, not the session itself.
@@ -29,6 +30,7 @@ export default function GuidedPlayerScreen() {
   const router = useRouter();
   const colorScheme = useColorScheme() ?? 'light';
   const colors = Colors[colorScheme];
+  const strings = useStrings();
 
   const meditation = findMeditation(id);
   const session = useGuidedSessionContext();
@@ -44,12 +46,15 @@ export default function GuidedPlayerScreen() {
    * keeps another session's progress off this screen.
    */
   const isCurrent = session.meditation?.id === meditation?.id;
+  const state = isCurrent ? session.state : 'idle';
+  /** Whether the voice owns the caption slot, rather than the description. */
+  const inSession = state === 'running' || state === 'paused';
 
   if (!meditation) {
     return (
       <ThemedView style={styles.container}>
         <SafeAreaView style={styles.missing}>
-          <ThemedText>Meditação não encontrada.</ThemedText>
+          <ThemedText>{strings.guided.notFound}</ThemedText>
         </SafeAreaView>
       </ThemedView>
     );
@@ -78,9 +83,18 @@ export default function GuidedPlayerScreen() {
             progress={isCurrent ? session.progress : 0}
             remainingSeconds={isCurrent ? session.remainingSeconds : meditation.durationSeconds}
           />
-          <Caption text={isCurrent ? session.currentText : null} />
+          {/*
+            * The caption slot already holds a line's worth of height whether or
+            * not anything is being spoken, and outside a session nothing is. So
+            * it holds what this meditation is — the same description the library
+            * lists it under — and lends the slot to the voice in between,
+            * returning to it once the session finishes. The lead-in silence
+            * fades the description out before the first line arrives, so the two
+            * never swap mid-sentence.
+            */}
+          <Caption text={inSession ? session.currentText : meditation.description} />
           <TimerControls
-            timerState={isCurrent ? session.state : 'idle'}
+            timerState={state}
             onPlay={session.play}
             onPause={session.pause}
             onReset={session.stop}

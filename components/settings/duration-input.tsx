@@ -2,6 +2,7 @@ import { Pressable, StyleSheet } from 'react-native';
 import { ThemedText } from '@/components/themed-text';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { Colors } from '@/constants/theme';
+import { useStrings } from '@/contexts/locale-context';
 
 interface DurationInputProps {
   minutes: number;
@@ -11,6 +12,7 @@ interface DurationInputProps {
 export function DurationInput({ minutes, onPress }: DurationInputProps) {
   const colorScheme = useColorScheme() ?? 'light';
   const colors = Colors[colorScheme];
+  const strings = useStrings();
 
   return (
     <Pressable
@@ -23,7 +25,7 @@ export function DurationInput({ minutes, onPress }: DurationInputProps) {
         },
       ]}
     >
-      <ThemedText style={styles.text}>{minutes} min</ThemedText>
+      <ThemedText style={styles.text}>{strings.duration.minutes(minutes)}</ThemedText>
     </Pressable>
   );
 }

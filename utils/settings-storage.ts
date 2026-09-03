@@ -13,10 +13,23 @@ export interface AudioSettings {
   voiceVolume: number;
 }
 
+/**
+ * The bed a session opens with.
+ *
+ * A default of silence meant a first session played nothing at all, which reads
+ * as the audio being broken rather than as a choice. Forest is the least
+ * particular of the beds — no traffic, no voices, nothing that pulls attention
+ * to itself. Anyone who wants silence can still pick it.
+ *
+ * Only new installs see this: loadAudioSettings merges stored settings over the
+ * defaults, so someone who has already chosen silence keeps it.
+ */
+export const DEFAULT_AMBIENCE_ID = 'nature-02';
+
 export const DEFAULT_AUDIO_SETTINGS: AudioSettings = {
   playGongAtStart: false,
   playGongAtEnd: false,
-  ambienceId: null,
+  ambienceId: DEFAULT_AMBIENCE_ID,
   ambienceVolume: 0.6,
   voiceVolume: 1,
 };

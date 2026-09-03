@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+
 import { useRouter } from 'expo-router';
 import * as Haptics from 'expo-haptics';
 
@@ -14,12 +15,8 @@ import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { useFavorites, useToggleFavorite } from '@/contexts/favorites-context';
 import { useNowPlayingGuidedId } from '@/contexts/guided-session-context';
-
-const FAVORITES_TITLE = 'Favoritas';
-
-function formatDuration(seconds: number): string {
-  return `${Math.round(seconds / 60)} min`;
-}
+import { useStrings } from '@/contexts/locale-context';
+import { TAB_SCREEN_EDGES } from '@/constants/layout';
 
 export default function GuidedScreen() {
   const colorScheme = useColorScheme() ?? 'light';
@@ -27,6 +24,7 @@ export default function GuidedScreen() {
   const router = useRouter();
   const { favorites } = useFavorites();
   const toggleFavorite = useToggleFavorite();
+  const strings = useStrings();
   /*
    * A session survives leaving the player now, so the library has to say which
    * one is still going. Without it a meditation you backed out of keeps playing
@@ -54,9 +52,9 @@ export default function GuidedScreen() {
       .filter((section) => section.items.length > 0);
 
     return favourited.length
-      ? [{ title: FAVORITES_TITLE, items: favourited }, ...rest]
+      ? [{ title: strings.guided.favorites, items: favourited }, ...rest]
       : rest;
-  }, [favorites]);
+  }, [favorites, strings]);
 
   const renderRow = (meditation: GuidedMeditation) => {
     const isFavorite = favorites.has(meditation.id);
@@ -70,7 +68,7 @@ export default function GuidedScreen() {
         }}
         accessibilityRole="button"
         accessibilityLabel={
-          isPlaying ? `${meditation.title}, em reprodução` : meditation.title
+          isPlaying ? strings.guided.rowPlaying(meditation.title) : meditation.title
         }
         style={({ pressed }) => [
           styles.row,
@@ -101,7 +99,7 @@ export default function GuidedScreen() {
         <View style={styles.side}>
           <View style={[styles.badge, { backgroundColor: colors.tint + '22' }]}>
             <ThemedText style={[styles.badgeText, { color: colors.tint }]}>
-              {formatDuration(meditation.durationSeconds)}
+              {strings.duration.minutes(Math.round(meditation.durationSeconds / 60))}
             </ThemedText>
           </View>
 
@@ -116,8 +114,8 @@ export default function GuidedScreen() {
             accessibilityRole="button"
             accessibilityLabel={
               isFavorite
-                ? `Remover ${meditation.title} das favoritas`
-                : `Adicionar ${meditation.title} às favoritas`
+                ? strings.guided.favoriteRemove(meditation.title)
+                : strings.guided.favoriteAdd(meditation.title)
             }
             style={styles.favorite}>
             <IconSymbol
@@ -133,10 +131,11 @@ export default function GuidedScreen() {
 
   return (
     <ThemedView style={styles.container}>
-      <SafeAreaView style={styles.safeArea}>
+      <SafeAreaView style={styles.safeArea} edges={TAB_SCREEN_EDGES}>
         <ThemedText type="title" style={styles.title}>
-          Guiadas
+          {strings.guided.heading}
         </ThemedText>
+        <ThemedText style={styles.intro}>{strings.guided.intro}</ThemedText>
 
         <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.list}>
           {sections.map((section) => (
@@ -154,7 +153,8 @@ export default function GuidedScreen() {
 const styles = StyleSheet.create({
   container: { flex: 1 },
   safeArea: { flex: 1, paddingHorizontal: 24, paddingTop: 16 },
-  title: { marginBottom: 24 },
+  title: { marginBottom: 12 },
+  intro: { fontSize: 15, lineHeight: 22, opacity: 0.6, marginBottom: 20 },
   list: { paddingBottom: 24 },
   section: { marginBottom: 28 },
   sectionTitle: {

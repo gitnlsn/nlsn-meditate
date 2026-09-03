@@ -2,8 +2,7 @@ import { Pressable, StyleSheet, View } from 'react-native';
 import { ThemedText } from '@/components/themed-text';
 import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
-
-const WEEKDAYS = ['S', 'M', 'T', 'W', 'T', 'F', 'S'] as const;
+import { useStrings } from '@/contexts/locale-context';
 
 interface CalendarViewProps {
   year: number;
@@ -26,15 +25,20 @@ export function CalendarView({
 }: CalendarViewProps) {
   const colorScheme = useColorScheme() ?? 'light';
   const colors = Colors[colorScheme];
+  const strings = useStrings();
 
   const firstDay = new Date(year, month, 1).getDay();
   const daysInMonth = new Date(year, month + 1, 0).getDate();
   const daysInPrevMonth = new Date(year, month, 0).getDate();
 
-  const monthLabel = new Date(year, month).toLocaleDateString('en-US', {
-    month: 'long',
-    year: 'numeric',
-  });
+  /*
+   * Month and weekday names are read from the catalogue rather than through
+   * toLocaleDateString. Hermes does not always ship full ICU data, and when it
+   * does not the formatter quietly answers in English whatever locale it is
+   * handed — a translation that fails silently is worse than none.
+   */
+  const monthLabel = strings.history.monthYear(strings.history.months[month], year);
+  const todayStr = todayDateString();
 
   const cells: { day: number; inMonth: boolean; dateStr: string }[] = [];
 
@@ -72,7 +76,7 @@ export function CalendarView({
       </View>
 
       <View style={styles.weekdayRow}>
-        {WEEKDAYS.map((label, i) => (
+        {strings.history.weekdayInitials.map((label, i) => (
           <View key={i} style={styles.cell}>
             <ThemedText style={[styles.weekdayLabel, { color: colors.icon }]}>{label}</ThemedText>
           </View>
@@ -84,12 +88,18 @@ export function CalendarView({
           {cells.slice(row * 7, row * 7 + 7).map((cell) => {
             const isSelected = cell.dateStr === selectedDate;
             const hasSession = sessionDates.has(cell.dateStr);
+            const isToday = cell.dateStr === todayStr;
 
             return (
               <Pressable
                 key={cell.dateStr}
+                accessibilityRole="button"
+                accessibilityState={{ selected: isSelected }}
                 style={[
                   styles.cell,
+                  // Every cell carries the border; only today's is visible, so
+                  // ringing a day never nudges its number off centre.
+                  isToday && { borderColor: colors.calendarToday },
                   isSelected && { backgroundColor: colors.calendarSelectedDay },
                 ]}
                 onPress={() => onSelectDate(cell.dateStr)}>
@@ -117,6 +127,16 @@ export function CalendarView({
 
 function formatDate(year: number, month: number, day: number): string {
   return `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+}
+
+/**
+ * Today in the same shape the session records use. Built from the local
+ * calendar rather than toISOString, which would answer in UTC and land on the
+ * wrong day for anyone west of Greenwich for part of every evening.
+ */
+function todayDateString(): string {
+  const now = new Date();
+  return formatDate(now.getFullYear(), now.getMonth(), now.getDate());
 }
 
 const styles = StyleSheet.create({
@@ -151,6 +171,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingVertical: 6,
     borderRadius: 8,
+    borderWidth: 1.5,
+    borderColor: 'transparent',
   },
   dayText: {
     fontSize: 15,

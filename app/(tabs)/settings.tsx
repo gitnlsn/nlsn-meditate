@@ -7,6 +7,8 @@ import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import { DurationInput } from '@/components/settings/duration-input';
+import { LanguageField } from '@/components/settings/language-field';
+import { AmbienceField } from '@/components/audio/ambience-field';
 import { ClockPickerModal } from '@/components/settings/clock-picker-modal';
 import { TimePickerModal } from '@/components/settings/time-picker-modal';
 import { type AudioSettings } from '@/utils/settings-storage';
@@ -15,12 +17,10 @@ import { useReminders } from '@/hooks/use-reminders';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { Colors } from '@/constants/theme';
 import { useMeditation, useMeditationDispatch } from '@/contexts/meditation-context';
-
-function formatTime(hour: number, minute: number): string {
-  const date = new Date();
-  date.setHours(hour, minute, 0, 0);
-  return date.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
-}
+import { useSetLocale, useStrings } from '@/contexts/locale-context';
+import { scheduleAllReminders } from '@/utils/notifications';
+import type { LocalePreference } from '@/utils/locale-storage';
+import { TAB_SCREEN_EDGES } from '@/constants/layout';
 
 export default function SettingsScreen() {
   const colorScheme = useColorScheme() ?? 'light';
@@ -34,9 +34,24 @@ export default function SettingsScreen() {
   const { settings: audioSettings } = useAudioSettings();
   const updateAudioSettings = useUpdateAudioSettings();
   const { settings: reminderSettings, addReminder, removeReminder } = useReminders();
+  const strings = useStrings();
+  const setLocale = useSetLocale();
 
   function toggle(key: 'playGongAtStart' | 'playGongAtEnd') {
     updateAudioSettings({ [key]: !audioSettings[key] } as Partial<AudioSettings>);
+  }
+
+  /*
+   * Reminders already sitting in the OS queue keep the wording they were
+   * scheduled with, so a language change has to write them again. The store is
+   * awaited first: scheduleAllReminders reads the language back off disk, and
+   * would otherwise reschedule in the language just replaced.
+   */
+  async function onLanguageChange(preference: LocalePreference) {
+    await setLocale(preference);
+    if (reminderSettings.times.length > 0) {
+      await scheduleAllReminders(reminderSettings.times);
+    }
   }
 
   function onTimeConfirmed(hour: number, minute: number) {
@@ -46,20 +61,23 @@ export default function SettingsScreen() {
 
   return (
     <ThemedView style={styles.container}>
-      <SafeAreaView style={styles.safeArea}>
+      <SafeAreaView style={styles.safeArea} edges={TAB_SCREEN_EDGES}>
         <ScrollView showsVerticalScrollIndicator={false}>
-          <ThemedText type="title" style={styles.title}>Settings</ThemedText>
+          <ThemedText type="title" style={styles.title}>{strings.settings.heading}</ThemedText>
           <ThemedView style={styles.section}>
-            <ThemedText type="subtitle" style={styles.sectionTitle}>Session Length</ThemedText>
+            <ThemedText type="subtitle" style={styles.sectionTitle}>
+              {strings.settings.sessionLength}
+            </ThemedText>
             <DurationInput
               minutes={currentMinutes}
               onPress={() => setPickerVisible(true)}
             />
           </ThemedView>
           <ThemedView style={styles.section}>
-            <ThemedText type="subtitle" style={styles.sectionTitle}>Sound</ThemedText>
+            <ThemedText type="subtitle" style={styles.sectionTitle}>{strings.settings.sound}</ThemedText>
+            <AmbienceField />
             <View style={styles.row}>
-              <ThemedText>Play gong at start</ThemedText>
+              <ThemedText>{strings.settings.gongAtStart}</ThemedText>
               <Switch
                 value={audioSettings.playGongAtStart}
                 onValueChange={() => toggle('playGongAtStart')}
@@ -67,7 +85,7 @@ export default function SettingsScreen() {
               />
             </View>
             <View style={styles.row}>
-              <ThemedText>Play gong at end</ThemedText>
+              <ThemedText>{strings.settings.gongAtEnd}</ThemedText>
               <Switch
                 value={audioSettings.playGongAtEnd}
                 onValueChange={() => toggle('playGongAtEnd')}
@@ -76,19 +94,30 @@ export default function SettingsScreen() {
             </View>
           </ThemedView>
           <ThemedView style={styles.section}>
-            <ThemedText type="subtitle" style={styles.sectionTitle}>Reminders</ThemedText>
+            <ThemedText type="subtitle" style={styles.sectionTitle}>{strings.settings.reminders}</ThemedText>
             {reminderSettings.times.map((time) => (
               <View key={time.id} style={styles.row}>
-                <ThemedText>{formatTime(time.hour, time.minute)}</ThemedText>
-                <Pressable onPress={() => removeReminder(time.id)}>
+                <ThemedText>{strings.clock(time.hour, time.minute)}</ThemedText>
+                <Pressable
+                  onPress={() => removeReminder(time.id)}
+                  accessibilityRole="button"
+                  accessibilityLabel={strings.settings.removeReminder(
+                    strings.clock(time.hour, time.minute),
+                  )}>
                   <IconSymbol name="xmark.circle.fill" size={22} color={Colors[colorScheme].icon} />
                 </Pressable>
               </View>
             ))}
             <Pressable style={styles.addButton} onPress={() => setShowTimePicker(true)}>
               <IconSymbol name="plus.circle.fill" size={22} color={tintColor} />
-              <ThemedText style={{ color: tintColor }}>Add Reminder</ThemedText>
+              <ThemedText style={{ color: tintColor }}>{strings.settings.addReminder}</ThemedText>
             </Pressable>
+          </ThemedView>
+          <ThemedView style={styles.section}>
+            <ThemedText type="subtitle" style={styles.sectionTitle}>
+              {strings.settings.language}
+            </ThemedText>
+            <LanguageField onChange={onLanguageChange} hideLabel />
           </ThemedView>
           <ThemedText style={styles.version}>
             v{Constants.expoConfig?.version ?? '1.0.0'}
