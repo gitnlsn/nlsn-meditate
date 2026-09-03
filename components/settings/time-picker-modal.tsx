@@ -5,18 +5,23 @@ import {
   Modal,
   Pressable,
   PanResponder,
+  ScrollView,
+  useWindowDimensions,
 } from 'react-native';
 import * as Haptics from 'expo-haptics';
 import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { useStrings } from '@/contexts/locale-context';
 import { Colors } from '@/constants/theme';
+import { DIALOG_MAX_WIDTH } from '@/constants/layout';
 
-const CLOCK_SIZE = 256;
-const NUMBER_RADIUS = CLOCK_SIZE / 2.5;
+const MAX_CLOCK_SIZE = 256;
+const MIN_CLOCK_SIZE = 176;
+/** Title, the time being set, the buttons and padding, above and below the face. */
+const DIALOG_CHROME_HEIGHT = 250;
 const LABEL_SIZE = 48;
-const CENTER = CLOCK_SIZE / 2;
+
+const numberRadius = (clockSize: number) => clockSize / 2.5;
 
 const HOUR_LABELS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 const MINUTE_LABELS = [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55];
@@ -27,9 +32,9 @@ interface TimePickerModalProps {
   onCancel: () => void;
 }
 
-function getAngle(x: number, y: number): number {
-  const dx = x - CENTER;
-  const dy = y - CENTER;
+function getAngle(x: number, y: number, center: number): number {
+  const dx = x - center;
+  const dy = y - center;
   let angle = Math.atan2(dx, -dy);
   if (angle < 0) angle += 2 * Math.PI;
   return angle;
@@ -46,13 +51,15 @@ function getMinuteValue(angle: number): number {
   return snapped >= 60 ? 0 : snapped;
 }
 
-function getLabelPosition(index: number, isMinute: boolean) {
+function getLabelPosition(index: number, isMinute: boolean, clockSize: number) {
   // Hours: index 0 = "1" at 1 o'clock (offset +1)
   // Minutes: index 0 = "00" at 12 o'clock (no offset)
+  const center = clockSize / 2;
+  const radius = numberRadius(clockSize);
   const slot = isMinute ? index : index + 1;
   const angle = (slot * 2 * Math.PI) / 12 - Math.PI / 2;
-  const x = Math.round(CENTER + NUMBER_RADIUS * Math.cos(angle));
-  const y = Math.round(CENTER + NUMBER_RADIUS * Math.sin(angle));
+  const x = Math.round(center + radius * Math.cos(angle));
+  const y = Math.round(center + radius * Math.sin(angle));
   return { x, y };
 }
 
@@ -76,6 +83,22 @@ export function TimePickerModal({
   const colorScheme = useColorScheme() ?? 'light';
   const strings = useStrings();
   const colors = Colors[colorScheme];
+
+  /*
+   * The face shrinks to fit rather than overflowing. Android 16 ignores the
+   * portrait lock on large screens, so this dialog now has to open on a phone
+   * held sideways, where the height left over after the title and buttons is
+   * less than the face's full 256.
+   */
+  const { width, height } = useWindowDimensions();
+  const clockSize = Math.round(
+    Math.max(
+      MIN_CLOCK_SIZE,
+      Math.min(MAX_CLOCK_SIZE, width - 96, height - DIALOG_CHROME_HEIGHT),
+    ),
+  );
+  const center = clockSize / 2;
+
   const [phase, setPhase] = useState<'hour' | 'minute'>('hour');
   const [selectedHour, setSelectedHour] = useState(9);
   const [selectedMinute, setSelectedMinute] = useState(0);
@@ -95,7 +118,7 @@ export function TimePickerModal({
 
   const handleTouch = useCallback(
     (locationX: number, locationY: number) => {
-      const angle = getAngle(locationX, locationY);
+      const angle = getAngle(locationX, locationY, center);
       if (phase === 'hour') {
         const hour = getHour(angle);
         setSelectedHour(hour);
@@ -112,7 +135,7 @@ export function TimePickerModal({
         }
       }
     },
-    [phase],
+    [phase, center],
   );
 
   const panResponder = useMemo(
@@ -170,153 +193,175 @@ export function TimePickerModal({
           style={[styles.dialog, { backgroundColor: colors.background }]}
           onPress={(e) => e.stopPropagation()}
         >
-          <ThemedText style={styles.dialogTitle}>{strings.picker.selectTime}</ThemedText>
-
-          {/* Time display with AM/PM */}
-          <View style={styles.timeRow}>
-            <View style={styles.timeDisplay}>
-              <Pressable onPress={() => { setPhase('hour'); lastHapticValue.current = -1; }}>
-                <ThemedText
-                  style={[
-                    styles.timeDigit,
-                    { color: phase === 'hour' ? colors.tint : colors.text },
-                  ]}
-                >
-                  {pad2(selectedHour)}
-                </ThemedText>
-              </Pressable>
-              <ThemedText style={styles.timeColon}>:</ThemedText>
-              <Pressable onPress={() => { setPhase('minute'); lastHapticValue.current = -1; }}>
-                <ThemedText
-                  style={[
-                    styles.timeDigit,
-                    { color: phase === 'minute' ? colors.tint : colors.text },
-                  ]}
-                >
-                  {pad2(selectedMinute)}
-                </ThemedText>
-              </Pressable>
-            </View>
-            <View style={styles.periodRow}>
-            <Pressable
-              style={[
-                styles.periodButton,
-                {
-                  backgroundColor:
-                    period === 'AM' ? colors.tint : colors.chipBackground,
-                  borderTopLeftRadius: 8,
-                  borderBottomLeftRadius: 8,
-                },
-              ]}
-              onPress={() => setPeriod('AM')}
-            >
-              <ThemedText
-                style={[
-                  styles.periodText,
-                  { color: period === 'AM' ? colors.chipSelectedText : colors.text },
-                ]}
-              >
-                AM
-              </ThemedText>
-            </Pressable>
-            <Pressable
-              style={[
-                styles.periodButton,
-                {
-                  backgroundColor:
-                    period === 'PM' ? colors.tint : colors.chipBackground,
-                  borderTopRightRadius: 8,
-                  borderBottomRightRadius: 8,
-                },
-              ]}
-              onPress={() => setPeriod('PM')}
-            >
-              <ThemedText
-                style={[
-                  styles.periodText,
-                  { color: period === 'PM' ? colors.chipSelectedText : colors.text },
-                ]}
-              >
-                PM
-              </ThemedText>
-            </Pressable>
-            </View>
-          </View>
-
-          {/* Clock face */}
-          <View
-            style={[
-              styles.clockFace,
-              { backgroundColor: colors.chipBackground },
-            ]}
-            {...panResponder.panHandlers}
+          {/*
+            * The face has a size below which its numbers stop being reachable,
+            * so on a short screen the dialog scrolls rather than shrinking past
+            * that and putting OK off the bottom. A drag on the face itself still
+            * sets the time: a child pan responder wins the gesture over an
+            * enclosing scroll view.
+            */}
+          <ScrollView
+            contentContainerStyle={styles.dialogContent}
+            showsVerticalScrollIndicator={false}
           >
-            {/* Center dot */}
-            <View
-              style={[styles.centerDot, { backgroundColor: colors.progressRing }]}
-            />
+            <ThemedText style={styles.dialogTitle}>{strings.picker.selectTime}</ThemedText>
 
-            {/* Selector arm */}
-            <View
-              style={[
-                styles.selectorArm,
-                {
-                  backgroundColor: colors.progressRing,
-                  width: NUMBER_RADIUS,
-                  transform: [{ rotate: `${selectorAngle}deg` }],
-                },
-              ]}
-            />
-
-            {/* Number labels */}
-            {labels.map((value, index) => {
-              const pos = getLabelPosition(index, phase === 'minute');
-              const isSelected = selectedValue === value;
-              return (
-                <View
-                  key={value}
-                  pointerEvents="none"
-                  style={[
-                    styles.labelContainer,
-                    {
-                      left: pos.x - LABEL_SIZE / 2,
-                      top: pos.y - LABEL_SIZE / 2,
-                      backgroundColor: isSelected
-                        ? colors.progressRing
-                        : 'transparent',
-                    },
-                  ]}
-                >
+            {/* Time display with AM/PM */}
+            <View style={styles.timeRow}>
+              <View style={styles.timeDisplay}>
+                <Pressable onPress={() => { setPhase('hour'); lastHapticValue.current = -1; }}>
                   <ThemedText
                     style={[
-                      styles.labelText,
+                      styles.timeDigit,
+                      { color: phase === 'hour' ? colors.tint : colors.text },
+                    ]}
+                  >
+                    {pad2(selectedHour)}
+                  </ThemedText>
+                </Pressable>
+                <ThemedText style={styles.timeColon}>:</ThemedText>
+                <Pressable onPress={() => { setPhase('minute'); lastHapticValue.current = -1; }}>
+                  <ThemedText
+                    style={[
+                      styles.timeDigit,
+                      { color: phase === 'minute' ? colors.tint : colors.text },
+                    ]}
+                  >
+                    {pad2(selectedMinute)}
+                  </ThemedText>
+                </Pressable>
+              </View>
+              <View style={styles.periodRow}>
+              <Pressable
+                style={[
+                  styles.periodButton,
+                  {
+                    backgroundColor:
+                      period === 'AM' ? colors.tint : colors.chipBackground,
+                    borderTopLeftRadius: 8,
+                    borderBottomLeftRadius: 8,
+                  },
+                ]}
+                onPress={() => setPeriod('AM')}
+              >
+                <ThemedText
+                  style={[
+                    styles.periodText,
+                    { color: period === 'AM' ? colors.chipSelectedText : colors.text },
+                  ]}
+                >
+                  AM
+                </ThemedText>
+              </Pressable>
+              <Pressable
+                style={[
+                  styles.periodButton,
+                  {
+                    backgroundColor:
+                      period === 'PM' ? colors.tint : colors.chipBackground,
+                    borderTopRightRadius: 8,
+                    borderBottomRightRadius: 8,
+                  },
+                ]}
+                onPress={() => setPeriod('PM')}
+              >
+                <ThemedText
+                  style={[
+                    styles.periodText,
+                    { color: period === 'PM' ? colors.chipSelectedText : colors.text },
+                  ]}
+                >
+                  PM
+                </ThemedText>
+              </Pressable>
+              </View>
+            </View>
+
+            {/* Clock face */}
+            <View
+              style={[
+                styles.clockFace,
+                {
+                  backgroundColor: colors.chipBackground,
+                  width: clockSize,
+                  height: clockSize,
+                  borderRadius: center,
+                },
+              ]}
+              {...panResponder.panHandlers}
+            >
+              {/* Center dot */}
+              <View
+                style={[
+                  styles.centerDot,
+                  { backgroundColor: colors.progressRing, left: center - 4, top: center - 4 },
+                ]}
+              />
+
+              {/* Selector arm */}
+              <View
+                style={[
+                  styles.selectorArm,
+                  {
+                    backgroundColor: colors.progressRing,
+                    width: numberRadius(clockSize),
+                    left: center,
+                    top: center - 1,
+                    transform: [{ rotate: `${selectorAngle}deg` }],
+                  },
+                ]}
+              />
+
+              {/* Number labels */}
+              {labels.map((value, index) => {
+                const pos = getLabelPosition(index, phase === 'minute', clockSize);
+                const isSelected = selectedValue === value;
+                return (
+                  <View
+                    key={value}
+                    pointerEvents="none"
+                    style={[
+                      styles.labelContainer,
                       {
-                        color: isSelected
-                          ? colors.chipSelectedText
-                          : colors.text,
+                        left: pos.x - LABEL_SIZE / 2,
+                        top: pos.y - LABEL_SIZE / 2,
+                        backgroundColor: isSelected
+                          ? colors.progressRing
+                          : 'transparent',
                       },
                     ]}
                   >
-                    {phase === 'minute' ? pad2(value) : value}
-                  </ThemedText>
-                </View>
-              );
-            })}
-          </View>
+                    <ThemedText
+                      style={[
+                        styles.labelText,
+                        {
+                          color: isSelected
+                            ? colors.chipSelectedText
+                            : colors.text,
+                        },
+                      ]}
+                    >
+                      {phase === 'minute' ? pad2(value) : value}
+                    </ThemedText>
+                  </View>
+                );
+              })}
+            </View>
 
-          {/* Button row */}
-          <View style={styles.buttonRow}>
-            <Pressable onPress={handleCancel} style={styles.button}>
-              <ThemedText style={[styles.buttonText, { color: colors.tint }]}>
-                {strings.picker.cancel}
-              </ThemedText>
-            </Pressable>
-            <Pressable onPress={handleOk} style={styles.button}>
-              <ThemedText style={[styles.buttonText, { color: colors.tint }]}>
-                {strings.picker.ok}
-              </ThemedText>
-            </Pressable>
-          </View>
+            {/* Button row */}
+            <View style={styles.buttonRow}>
+              <Pressable onPress={handleCancel} style={styles.button}>
+                <ThemedText style={[styles.buttonText, { color: colors.tint }]}>
+                  {strings.picker.cancel}
+                </ThemedText>
+              </Pressable>
+              <Pressable onPress={handleOk} style={styles.button}>
+                <ThemedText style={[styles.buttonText, { color: colors.tint }]}>
+                  {strings.picker.ok}
+                </ThemedText>
+              </Pressable>
+            </View>
+          </ScrollView>
         </Pressable>
       </Pressable>
     </Modal>
@@ -329,11 +374,20 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.5)',
     justifyContent: 'center',
     alignItems: 'center',
+    paddingHorizontal: 24,
+    paddingVertical: 24,
   },
   dialog: {
     borderRadius: 28,
+    // Keeps its phone width and gains a margin on anything larger, rather than
+    // stretching across a tablet.
+    width: '100%',
+    maxWidth: DIALOG_MAX_WIDTH,
+    maxHeight: '100%',
+    flexShrink: 1,
+  },
+  dialogContent: {
     padding: 24,
-    width: 320,
     alignItems: 'center',
   },
   dialogTitle: {
@@ -376,9 +430,6 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   clockFace: {
-    width: CLOCK_SIZE,
-    height: CLOCK_SIZE,
-    borderRadius: CLOCK_SIZE / 2,
     position: 'relative',
   },
   centerDot: {
@@ -386,15 +437,11 @@ const styles = StyleSheet.create({
     width: 8,
     height: 8,
     borderRadius: 4,
-    left: CENTER - 4,
-    top: CENTER - 4,
     zIndex: 2,
   },
   selectorArm: {
     position: 'absolute',
     height: 2,
-    left: CENTER,
-    top: CENTER - 1,
     transformOrigin: 'left center',
     zIndex: 1,
   },

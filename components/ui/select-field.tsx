@@ -7,6 +7,7 @@ import { IconSymbol } from '@/components/ui/icon-symbol';
 import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { useStrings } from '@/contexts/locale-context';
+import { DIALOG_MAX_WIDTH } from '@/constants/layout';
 
 export interface SelectOption<T> {
   value: T;
@@ -144,20 +145,27 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.5)',
     justifyContent: 'center',
     alignItems: 'center',
+    paddingHorizontal: 24,
+    paddingVertical: 24,
   },
   dialog: {
     borderRadius: 28,
     padding: 24,
-    width: 320,
+    // Keeps its phone width and gains a margin on anything larger, rather than
+    // stretching across a tablet. On a screen turned sideways the margin is what
+    // stops the dialog reaching the edges.
+    width: '100%',
+    maxWidth: DIALOG_MAX_WIDTH,
+    maxHeight: '90%',
   },
   dialogTitle: {
     fontSize: 20,
     fontWeight: '600',
     marginBottom: 8,
   },
-  // Capped so a long list scrolls inside the dialog instead of growing past the
-  // screen; ten beds already overflow a small phone.
-  options: { maxHeight: 380 },
+  // Shrinks within the dialog rather than growing past it; ten beds already
+  // overflow a small phone, and a phone in landscape has far less to give.
+  options: { flexShrink: 1 },
   option: {
     flexDirection: 'row',
     alignItems: 'center',

@@ -20,7 +20,7 @@ import { useMeditation, useMeditationDispatch } from '@/contexts/meditation-cont
 import { useSetLocale, useStrings } from '@/contexts/locale-context';
 import { scheduleAllReminders } from '@/utils/notifications';
 import type { LocalePreference } from '@/utils/locale-storage';
-import { TAB_SCREEN_EDGES } from '@/constants/layout';
+import { TAB_SCREEN_EDGES, CONTENT_MAX_WIDTH } from '@/constants/layout';
 
 export default function SettingsScreen() {
   const colorScheme = useColorScheme() ?? 'light';
@@ -150,6 +150,9 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 24,
     paddingTop: 16,
+    width: '100%',
+    maxWidth: CONTENT_MAX_WIDTH,
+    alignSelf: 'center',
   },
   title: {
     marginBottom: 32,

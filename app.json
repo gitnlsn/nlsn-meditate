@@ -3,7 +3,7 @@
     "name": "nlsn-meditate",
     "slug": "nlsn-meditate",
     "version": "1.0.0",
-    "orientation": "portrait",
+    "orientation": "default",
     "icon": "./assets/images/icon.png",
     "scheme": "nlsnmeditate",
     "userInterfaceStyle": "automatic",
@@ -51,7 +51,8 @@
         {
           "recordAudioAndroid": false
         }
-      ]
+      ],
+      "./plugins/with-recording-service-removed"
     ],
     "experiments": {
       "typedRoutes": true,

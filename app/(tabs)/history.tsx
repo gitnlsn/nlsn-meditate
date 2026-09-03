@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { StyleSheet } from 'react-native';
+import { ScrollView, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { ThemedText } from '@/components/themed-text';
@@ -9,7 +9,7 @@ import { SessionSummary } from '@/components/history/session-summary';
 import { CalendarLegend } from '@/components/history/calendar-legend';
 import { useHistory } from '@/contexts/history-context';
 import { useStrings } from '@/contexts/locale-context';
-import { TAB_SCREEN_EDGES } from '@/constants/layout';
+import { TAB_SCREEN_EDGES, CONTENT_MAX_WIDTH } from '@/constants/layout';
 
 export default function HistoryScreen() {
   const { sessions } = useHistory();
@@ -51,21 +51,30 @@ export default function HistoryScreen() {
   return (
     <ThemedView style={styles.container}>
       <SafeAreaView style={styles.safeArea} edges={TAB_SCREEN_EDGES}>
-        <ThemedText type="title" style={styles.title}>{strings.history.heading}</ThemedText>
-        <ThemedText style={styles.intro}>{strings.history.intro}</ThemedText>
-        <CalendarView
-          year={year}
-          month={month}
-          sessionDates={sessionDates}
-          selectedDate={selectedDate}
-          onSelectDate={setSelectedDate}
-          onPrevMonth={handlePrevMonth}
-          onNextMonth={handleNextMonth}
-        />
-        <CalendarLegend />
-        {selectedDate && selectedSessions.length > 0 && (
-          <SessionSummary date={selectedDate} sessions={selectedSessions} />
-        )}
+        {/*
+          * A month plus the legend plus a day's sessions is more than fits on a
+          * screen turned sideways, and the whole point of the calendar is being
+          * able to reach a day. So the page scrolls rather than clipping.
+          */}
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={styles.content}>
+          <ThemedText type="title" style={styles.title}>{strings.history.heading}</ThemedText>
+          <ThemedText style={styles.intro}>{strings.history.intro}</ThemedText>
+          <CalendarView
+            year={year}
+            month={month}
+            sessionDates={sessionDates}
+            selectedDate={selectedDate}
+            onSelectDate={setSelectedDate}
+            onPrevMonth={handlePrevMonth}
+            onNextMonth={handleNextMonth}
+          />
+          <CalendarLegend />
+          {selectedDate && selectedSessions.length > 0 && (
+            <SessionSummary date={selectedDate} sessions={selectedSessions} />
+          )}
+        </ScrollView>
       </SafeAreaView>
     </ThemedView>
   );
@@ -77,8 +86,14 @@ const styles = StyleSheet.create({
   },
   safeArea: {
     flex: 1,
+  },
+  content: {
     paddingHorizontal: 24,
     paddingTop: 16,
+    paddingBottom: 24,
+    width: '100%',
+    maxWidth: CONTENT_MAX_WIDTH,
+    alignSelf: 'center',
   },
   title: {
     marginBottom: 12,

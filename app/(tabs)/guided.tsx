@@ -16,7 +16,7 @@ import { useColorScheme } from '@/hooks/use-color-scheme';
 import { useFavorites, useToggleFavorite } from '@/contexts/favorites-context';
 import { useNowPlayingGuidedId } from '@/contexts/guided-session-context';
 import { useStrings } from '@/contexts/locale-context';
-import { TAB_SCREEN_EDGES } from '@/constants/layout';
+import { TAB_SCREEN_EDGES, CONTENT_MAX_WIDTH } from '@/constants/layout';
 
 export default function GuidedScreen() {
   const colorScheme = useColorScheme() ?? 'light';
@@ -152,7 +152,14 @@ export default function GuidedScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1 },
-  safeArea: { flex: 1, paddingHorizontal: 24, paddingTop: 16 },
+  safeArea: {
+    flex: 1,
+    paddingHorizontal: 24,
+    paddingTop: 16,
+    width: '100%',
+    maxWidth: CONTENT_MAX_WIDTH,
+    alignSelf: 'center',
+  },
   title: { marginBottom: 12 },
   intro: { fontSize: 15, lineHeight: 22, opacity: 0.6, marginBottom: 20 },
   list: { paddingBottom: 24 },

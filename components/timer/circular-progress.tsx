@@ -1,4 +1,4 @@
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, useWindowDimensions } from 'react-native';
 import Svg, { Circle } from 'react-native-svg';
 import Animated, { useAnimatedProps, withTiming, Easing } from 'react-native-reanimated';
 import { useColorScheme } from '@/hooks/use-color-scheme';
@@ -7,10 +7,13 @@ import { TimeDisplay } from './time-display';
 
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 
-const SIZE = 280;
+const MAX_SIZE = 280;
+const MIN_SIZE = 160;
+/** How much of the shorter screen edge the ring may take before it crowds out
+ * the controls below it. Landscape on a phone is the case that bites: the
+ * shorter edge is then the height, and 280 leaves nothing for anything else. */
+const SHORTER_EDGE_SHARE = 0.55;
 const STROKE_WIDTH = 12;
-const RADIUS = (SIZE - STROKE_WIDTH) / 2;
-const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
 
 interface CircularProgressProps {
   progress: number;
@@ -21,38 +24,45 @@ export function CircularProgress({ progress, remainingSeconds }: CircularProgres
   const colorScheme = useColorScheme() ?? 'light';
   const colors = Colors[colorScheme];
 
+  const { width, height } = useWindowDimensions();
+  const size = Math.round(
+    Math.max(MIN_SIZE, Math.min(MAX_SIZE, Math.min(width, height) * SHORTER_EDGE_SHARE)),
+  );
+  const radius = (size - STROKE_WIDTH) / 2;
+  const circumference = 2 * Math.PI * radius;
+
   const animatedProps = useAnimatedProps(() => {
-    const offset = CIRCUMFERENCE * (1 - withTiming(progress, { duration: 1000, easing: Easing.linear }));
+    const offset = circumference * (1 - withTiming(progress, { duration: 1000, easing: Easing.linear }));
     return {
       strokeDashoffset: offset,
     };
-  }, [progress]);
+  }, [progress, circumference]);
 
   return (
-    <View style={styles.container}>
-      <Svg width={SIZE} height={SIZE} style={styles.svg}>
+    <View style={[styles.container, { width: size, height: size }]}>
+      <Svg width={size} height={size} style={styles.svg}>
         <Circle
-          cx={SIZE / 2}
-          cy={SIZE / 2}
-          r={RADIUS}
+          cx={size / 2}
+          cy={size / 2}
+          r={radius}
           stroke={colors.progressTrack}
           strokeWidth={STROKE_WIDTH}
           fill="none"
         />
         <AnimatedCircle
-          cx={SIZE / 2}
-          cy={SIZE / 2}
-          r={RADIUS}
+          cx={size / 2}
+          cy={size / 2}
+          r={radius}
           stroke={colors.progressRing}
           strokeWidth={STROKE_WIDTH}
           fill="none"
-          strokeDasharray={CIRCUMFERENCE}
+          strokeDasharray={circumference}
           animatedProps={animatedProps}
           strokeLinecap="round"
         />
       </Svg>
       <View style={styles.timeContainer}>
-        <TimeDisplay remainingSeconds={remainingSeconds} />
+        <TimeDisplay remainingSeconds={remainingSeconds} scale={size / MAX_SIZE} />
       </View>
     </View>
   );
@@ -60,8 +70,6 @@ export function CircularProgress({ progress, remainingSeconds }: CircularProgres
 
 const styles = StyleSheet.create({
   container: {
-    width: SIZE,
-    height: SIZE,
     alignItems: 'center',
     justifyContent: 'center',
   },

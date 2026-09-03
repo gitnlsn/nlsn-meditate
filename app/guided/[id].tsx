@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Pressable, StyleSheet, View } from 'react-native';
+import { Pressable, StyleSheet, View, useWindowDimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import * as Haptics from 'expo-haptics';
@@ -16,6 +16,7 @@ import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { useGuidedSessionContext } from '@/contexts/guided-session-context';
 import { useStrings } from '@/contexts/locale-context';
+import { CONTENT_MAX_WIDTH } from '@/constants/layout';
 
 /**
  * A view onto the guided session, not the session itself.
@@ -31,6 +32,14 @@ export default function GuidedPlayerScreen() {
   const colorScheme = useColorScheme() ?? 'light';
   const colors = Colors[colorScheme];
   const strings = useStrings();
+
+  /*
+   * Landscape puts the ring beside the words instead of above them: sideways on
+   * a phone there is no height for a ring, a caption and the controls stacked,
+   * and on a tablet the caption would otherwise run the full width of the slab.
+   */
+  const { width, height } = useWindowDimensions();
+  const landscape = width > height;
 
   const meditation = findMeditation(id);
   const session = useGuidedSessionContext();
@@ -78,27 +87,29 @@ export default function GuidedPlayerScreen() {
           <View style={styles.back} />
         </View>
 
-        <View style={styles.body}>
+        <View style={[styles.body, landscape && styles.bodyLandscape]}>
           <CircularProgress
             progress={isCurrent ? session.progress : 0}
             remainingSeconds={isCurrent ? session.remainingSeconds : meditation.durationSeconds}
           />
-          {/*
-            * The caption slot already holds a line's worth of height whether or
-            * not anything is being spoken, and outside a session nothing is. So
-            * it holds what this meditation is — the same description the library
-            * lists it under — and lends the slot to the voice in between,
-            * returning to it once the session finishes. The lead-in silence
-            * fades the description out before the first line arrives, so the two
-            * never swap mid-sentence.
-            */}
-          <Caption text={inSession ? session.currentText : meditation.description} />
-          <TimerControls
-            timerState={state}
-            onPlay={session.play}
-            onPause={session.pause}
-            onReset={session.stop}
-          />
+          <View style={[styles.column, landscape ? styles.columnLandscape : styles.columnPortrait]}>
+            {/*
+              * The caption slot already holds a line's worth of height whether or
+              * not anything is being spoken, and outside a session nothing is. So
+              * it holds what this meditation is — the same description the library
+              * lists it under — and lends the slot to the voice in between,
+              * returning to it once the session finishes. The lead-in silence
+              * fades the description out before the first line arrives, so the two
+              * never swap mid-sentence.
+              */}
+            <Caption text={inSession ? session.currentText : meditation.description} />
+            <TimerControls
+              timerState={state}
+              onPlay={session.play}
+              onPause={session.pause}
+              onReset={session.stop}
+            />
+          </View>
         </View>
 
         <View style={styles.footer}>
@@ -119,6 +130,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: 24,
     paddingTop: 8,
+    width: '100%',
+    maxWidth: CONTENT_MAX_WIDTH,
+    alignSelf: 'center',
   },
   back: { width: 32, height: 32, alignItems: 'center', justifyContent: 'center' },
   headerTitle: {
@@ -128,6 +142,25 @@ const styles = StyleSheet.create({
     letterSpacing: 4,
     opacity: 0.6,
   },
-  body: { flex: 1, alignItems: 'center', justifyContent: 'center', gap: 32 },
-  footer: { paddingHorizontal: 24, paddingBottom: 16 },
+  body: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignSelf: 'center',
+    width: '100%',
+    maxWidth: CONTENT_MAX_WIDTH,
+    paddingHorizontal: 24,
+    gap: 32,
+  },
+  bodyLandscape: { flexDirection: 'row' },
+  column: { alignItems: 'center', justifyContent: 'center', gap: 32 },
+  columnPortrait: { width: '100%' },
+  columnLandscape: { flex: 1 },
+  footer: {
+    paddingHorizontal: 24,
+    paddingBottom: 16,
+    width: '100%',
+    maxWidth: CONTENT_MAX_WIDTH,
+    alignSelf: 'center',
+  },
 });
