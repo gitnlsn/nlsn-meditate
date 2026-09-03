@@ -4,7 +4,6 @@ import * as Haptics from 'expo-haptics';
 
 import { ThemedText } from '@/components/themed-text';
 import { IconSymbol } from '@/components/ui/icon-symbol';
-import { FieldRow } from '@/components/ui/field-row';
 import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { useStrings } from '@/contexts/locale-context';
@@ -63,12 +62,29 @@ export function SelectField<T extends string | null>({
 
   return (
     <>
-      <FieldRow
-        title={title}
-        value={selected?.title ?? ''}
-        hideLabel={hideLabel}
-        onPress={() => setOpen(true)}
-      />
+      <Pressable
+        onPress={() => {
+          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+          setOpen(true);
+        }}
+        accessibilityRole="button"
+        accessibilityLabel={`${title}: ${selected?.title ?? ''}`}
+        style={({ pressed }) => [
+          styles.field,
+          {
+            backgroundColor: colors.chipBackground,
+            borderColor: colors.icon + '4D',
+            opacity: pressed ? 0.7 : 1,
+          },
+        ]}>
+        {!hideLabel && <ThemedText style={styles.label}>{title}</ThemedText>}
+        {/* Without a label the value takes the row, so the chevron still lands
+            on the right edge rather than trailing the text. */}
+        <View style={[styles.value, hideLabel && styles.valueAlone]}>
+          <ThemedText type="defaultSemiBold">{selected?.title ?? ''}</ThemedText>
+          <IconSymbol name="chevron.right" size={16} color={colors.icon} />
+        </View>
+      </Pressable>
 
       <Modal visible={open} transparent animationType="fade" onRequestClose={() => setOpen(false)}>
         <Pressable style={styles.overlay} onPress={() => setOpen(false)}>
@@ -111,6 +127,19 @@ export function SelectField<T extends string | null>({
 }
 
 const styles = StyleSheet.create({
+  field: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    borderRadius: 12,
+    borderWidth: 1,
+    paddingHorizontal: 16,
+    paddingVertical: 14,
+  },
+  label: { opacity: 0.6 },
+  value: { flexDirection: 'row', alignItems: 'center', gap: 6 },
+  valueAlone: { flex: 1, justifyContent: 'space-between' },
+
   overlay: {
     flex: 1,
     backgroundColor: 'rgba(0,0,0,0.5)',

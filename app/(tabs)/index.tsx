@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { StyleSheet, View, useWindowDimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -7,8 +8,9 @@ import { CircularProgress } from '@/components/timer/circular-progress';
 import { TimerControls } from '@/components/timer/timer-controls';
 import { TimerHint } from '@/components/timer/timer-hint';
 import { AmbienceField } from '@/components/audio/ambience-field';
-import { DurationField } from '@/components/timer/duration-field';
+import { ClockPickerModal } from '@/components/settings/clock-picker-modal';
 import { useTimer } from '@/hooks/use-timer';
+import { useMeditation, useMeditationDispatch } from '@/contexts/meditation-context';
 import { rotatingIndex } from '@/utils/phrase-rotation';
 import { useStrings } from '@/contexts/locale-context';
 import { TAB_SCREEN_EDGES, CONTENT_MAX_WIDTH } from '@/constants/layout';
@@ -21,6 +23,14 @@ import { TAB_SCREEN_EDGES, CONTENT_MAX_WIDTH } from '@/constants/layout';
 export default function TimerScreen() {
   const { timerState, remainingSeconds, progress, play, pause, reset } = useTimer();
   const s = useStrings();
+
+  /*
+   * The length is set by pressing the clock itself — see TimeDisplay. Choosing
+   * one resets the timer, so the press is only offered while idle.
+   */
+  const { durationSeconds } = useMeditation();
+  const dispatch = useMeditationDispatch();
+  const [durationPickerVisible, setDurationPickerVisible] = useState(false);
 
   /*
    * Landscape stands the screen's parts side by side rather than stacking them:
@@ -42,7 +52,14 @@ export default function TimerScreen() {
       <TimerHint text={hint} visible={timerState === 'idle'} />
     </View>
   );
-  const ring = <CircularProgress progress={progress} remainingSeconds={remainingSeconds} />;
+  const ring = (
+    <CircularProgress
+      progress={progress}
+      remainingSeconds={remainingSeconds}
+      onPressTime={() => setDurationPickerVisible(true)}
+      timeEditable={timerState === 'idle'}
+    />
+  );
   const controls = (
     <TimerControls timerState={timerState} onPlay={play} onPause={pause} onReset={reset} />
   );
@@ -66,12 +83,20 @@ export default function TimerScreen() {
           </View>
         )}
 
-        {/* What you set before sitting down: how long, and what it sounds like. */}
         <View style={styles.footer}>
-          <DurationField />
           <AmbienceField />
         </View>
       </SafeAreaView>
+
+      <ClockPickerModal
+        visible={durationPickerVisible}
+        currentMinutes={durationSeconds / 60}
+        onConfirm={(minutes) => {
+          dispatch({ type: 'SET_DURATION', payload: minutes * 60 });
+          setDurationPickerVisible(false);
+        }}
+        onCancel={() => setDurationPickerVisible(false)}
+      />
     </ThemedView>
   );
 }
@@ -96,7 +121,6 @@ const styles = StyleSheet.create({
   footer: {
     paddingHorizontal: 24,
     paddingBottom: 16,
-    gap: 12,
     width: '100%',
     maxWidth: CONTENT_MAX_WIDTH,
     alignSelf: 'center',

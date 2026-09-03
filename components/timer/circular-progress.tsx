@@ -18,9 +18,21 @@ const STROKE_WIDTH = 12;
 interface CircularProgressProps {
   progress: number;
   remainingSeconds: number;
+  /**
+   * Makes the clock in the middle the way to set the session's length. Left off
+   * by the guided player, where the meditation carries its own.
+   */
+  onPressTime?: () => void;
+  /** Whether that press is available now — see TimeDisplay. */
+  timeEditable?: boolean;
 }
 
-export function CircularProgress({ progress, remainingSeconds }: CircularProgressProps) {
+export function CircularProgress({
+  progress,
+  remainingSeconds,
+  onPressTime,
+  timeEditable,
+}: CircularProgressProps) {
   const colorScheme = useColorScheme() ?? 'light';
   const colors = Colors[colorScheme];
 
@@ -62,7 +74,12 @@ export function CircularProgress({ progress, remainingSeconds }: CircularProgres
         />
       </Svg>
       <View style={styles.timeContainer}>
-        <TimeDisplay remainingSeconds={remainingSeconds} scale={size / MAX_SIZE} />
+        <TimeDisplay
+          remainingSeconds={remainingSeconds}
+          scale={size / MAX_SIZE}
+          onPress={onPressTime}
+          editable={timeEditable}
+        />
       </View>
     </View>
   );
