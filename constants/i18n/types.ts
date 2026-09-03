@@ -33,6 +33,8 @@ export interface Strings {
 
   timer: {
     heading: string;
+    /** Labels the duration row in the timer's footer. */
+    sessionLength: string;
     /**
      * Shown only while idle, and gone for the rest of the session. One of
      * these is picked per fortnight — see rotatingIndex. Non-empty by type, so
@@ -84,7 +86,6 @@ export interface Strings {
 
   settings: {
     heading: string;
-    sessionLength: string;
     sound: string;
     gongAtStart: string;
     gongAtEnd: string;

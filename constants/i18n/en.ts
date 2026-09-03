@@ -10,6 +10,7 @@ export const en: Strings = {
 
   timer: {
     heading: 'Meditate',
+    sessionLength: 'Session length',
     hints: [
       'Begin when you are ready.',
       'Take one deep breath.',
@@ -91,7 +92,6 @@ export const en: Strings = {
 
   settings: {
     heading: 'Settings',
-    sessionLength: 'Session length',
     sound: 'Sound',
     gongAtStart: 'Play gong at start',
     gongAtEnd: 'Play gong at end',

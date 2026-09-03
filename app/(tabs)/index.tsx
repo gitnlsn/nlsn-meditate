@@ -7,6 +7,7 @@ import { CircularProgress } from '@/components/timer/circular-progress';
 import { TimerControls } from '@/components/timer/timer-controls';
 import { TimerHint } from '@/components/timer/timer-hint';
 import { AmbienceField } from '@/components/audio/ambience-field';
+import { DurationField } from '@/components/timer/duration-field';
 import { useTimer } from '@/hooks/use-timer';
 import { rotatingIndex } from '@/utils/phrase-rotation';
 import { useStrings } from '@/contexts/locale-context';
@@ -65,7 +66,9 @@ export default function TimerScreen() {
           </View>
         )}
 
+        {/* What you set before sitting down: how long, and what it sounds like. */}
         <View style={styles.footer}>
+          <DurationField />
           <AmbienceField />
         </View>
       </SafeAreaView>
@@ -93,6 +96,7 @@ const styles = StyleSheet.create({
   footer: {
     paddingHorizontal: 24,
     paddingBottom: 16,
+    gap: 12,
     width: '100%',
     maxWidth: CONTENT_MAX_WIDTH,
     alignSelf: 'center',

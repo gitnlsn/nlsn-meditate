@@ -6,17 +6,14 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { IconSymbol } from '@/components/ui/icon-symbol';
-import { DurationInput } from '@/components/settings/duration-input';
 import { LanguageField } from '@/components/settings/language-field';
 import { AmbienceField } from '@/components/audio/ambience-field';
-import { ClockPickerModal } from '@/components/settings/clock-picker-modal';
 import { TimePickerModal } from '@/components/settings/time-picker-modal';
 import { type AudioSettings } from '@/utils/settings-storage';
 import { useAudioSettings, useUpdateAudioSettings } from '@/contexts/audio-settings-context';
 import { useReminders } from '@/hooks/use-reminders';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { Colors } from '@/constants/theme';
-import { useMeditation, useMeditationDispatch } from '@/contexts/meditation-context';
 import { useSetLocale, useStrings } from '@/contexts/locale-context';
 import { scheduleAllReminders } from '@/utils/notifications';
 import type { LocalePreference } from '@/utils/locale-storage';
@@ -25,11 +22,6 @@ import { TAB_SCREEN_EDGES, CONTENT_MAX_WIDTH } from '@/constants/layout';
 export default function SettingsScreen() {
   const colorScheme = useColorScheme() ?? 'light';
   const tintColor = Colors[colorScheme].tint;
-  const { durationSeconds } = useMeditation();
-  const dispatch = useMeditationDispatch();
-  const currentMinutes = durationSeconds / 60;
-
-  const [pickerVisible, setPickerVisible] = useState(false);
   const [showTimePicker, setShowTimePicker] = useState(false);
   const { settings: audioSettings } = useAudioSettings();
   const updateAudioSettings = useUpdateAudioSettings();
@@ -64,15 +56,6 @@ export default function SettingsScreen() {
       <SafeAreaView style={styles.safeArea} edges={TAB_SCREEN_EDGES}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <ThemedText type="title" style={styles.title}>{strings.settings.heading}</ThemedText>
-          <ThemedView style={styles.section}>
-            <ThemedText type="subtitle" style={styles.sectionTitle}>
-              {strings.settings.sessionLength}
-            </ThemedText>
-            <DurationInput
-              minutes={currentMinutes}
-              onPress={() => setPickerVisible(true)}
-            />
-          </ThemedView>
           <ThemedView style={styles.section}>
             <ThemedText type="subtitle" style={styles.sectionTitle}>{strings.settings.sound}</ThemedText>
             <AmbienceField />
@@ -128,15 +111,6 @@ export default function SettingsScreen() {
         visible={showTimePicker}
         onConfirm={onTimeConfirmed}
         onCancel={() => setShowTimePicker(false)}
-      />
-      <ClockPickerModal
-        visible={pickerVisible}
-        currentMinutes={currentMinutes}
-        onConfirm={(minutes) => {
-          dispatch({ type: 'SET_DURATION', payload: minutes * 60 });
-          setPickerVisible(false);
-        }}
-        onCancel={() => setPickerVisible(false)}
       />
     </ThemedView>
   );
