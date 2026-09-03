@@ -1,45 +1,34 @@
-import { StyleSheet, View, useWindowDimensions } from 'react-native';
+import type { ReactNode } from 'react';
+import { StyleSheet, View } from 'react-native';
 import Svg, { Circle } from 'react-native-svg';
 import Animated, { useAnimatedProps, withTiming, Easing } from 'react-native-reanimated';
+
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { Colors } from '@/constants/theme';
-import { TimeDisplay } from './time-display';
+import { useRingMetrics } from './ring-metrics';
 
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 
-const MAX_SIZE = 280;
-const MIN_SIZE = 160;
-/** How much of the shorter screen edge the ring may take before it crowds out
- * the controls below it. Landscape on a phone is the case that bites: the
- * shorter edge is then the height, and 280 leaves nothing for anything else. */
-const SHORTER_EDGE_SHARE = 0.55;
 const STROKE_WIDTH = 12;
+/** Between the clock and the bed's name, at the ring's full size. */
+const CENTRE_GAP = 8;
 
 interface CircularProgressProps {
   progress: number;
-  remainingSeconds: number;
   /**
-   * Makes the clock in the middle the way to set the session's length. Left off
-   * by the guided player, where the meditation carries its own.
+   * What sits in the middle. Passed in rather than named here, because the two
+   * screens that draw this ring put different things inside it — the guided
+   * player's clock is not the reader's to set. Children read their own size from
+   * useRingMetrics.
    */
-  onPressTime?: () => void;
-  /** Whether that press is available now — see TimeDisplay. */
-  timeEditable?: boolean;
+  children?: ReactNode;
 }
 
-export function CircularProgress({
-  progress,
-  remainingSeconds,
-  onPressTime,
-  timeEditable,
-}: CircularProgressProps) {
+export function CircularProgress({ progress, children }: CircularProgressProps) {
   const colorScheme = useColorScheme() ?? 'light';
   const colors = Colors[colorScheme];
 
-  const { width, height } = useWindowDimensions();
-  const size = Math.round(
-    Math.max(MIN_SIZE, Math.min(MAX_SIZE, Math.min(width, height) * SHORTER_EDGE_SHARE)),
-  );
+  const { size, scale } = useRingMetrics();
   const radius = (size - STROKE_WIDTH) / 2;
   const circumference = 2 * Math.PI * radius;
 
@@ -73,14 +62,12 @@ export function CircularProgress({
           strokeLinecap="round"
         />
       </Svg>
-      <View style={styles.timeContainer}>
-        <TimeDisplay
-          remainingSeconds={remainingSeconds}
-          scale={size / MAX_SIZE}
-          onPress={onPressTime}
-          editable={timeEditable}
-        />
-      </View>
+      {/*
+        * Deliberately unconstrained: the clock is sized to fit the ring already,
+        * and a width cap here would try to wrap a string with nowhere to break.
+        * What can run long — the bed's name — holds itself in.
+        */}
+      <View style={[styles.centre, { gap: Math.round(CENTRE_GAP * scale) }]}>{children}</View>
     </View>
   );
 }
@@ -93,7 +80,7 @@ const styles = StyleSheet.create({
   svg: {
     transform: [{ rotate: '-90deg' }],
   },
-  timeContainer: {
+  centre: {
     position: 'absolute',
     alignItems: 'center',
     justifyContent: 'center',

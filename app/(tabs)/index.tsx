@@ -7,7 +7,8 @@ import { ThemedView } from '@/components/themed-view';
 import { CircularProgress } from '@/components/timer/circular-progress';
 import { TimerControls } from '@/components/timer/timer-controls';
 import { TimerHint } from '@/components/timer/timer-hint';
-import { AmbienceField } from '@/components/audio/ambience-field';
+import { TimeDisplay } from '@/components/timer/time-display';
+import { AmbienceDisplay } from '@/components/timer/ambience-display';
 import { ClockPickerModal } from '@/components/settings/clock-picker-modal';
 import { useTimer } from '@/hooks/use-timer';
 import { useMeditation, useMeditationDispatch } from '@/contexts/meditation-context';
@@ -46,19 +47,25 @@ export default function TimerScreen() {
   // the date, so there is nothing stored and nothing to keep in sync.
   const hint = s.timer.hints[rotatingIndex(s.timer.hints.length)];
 
+  /* What belongs to the session you are about to start, rather than the one you
+     are in: the hint, and both of the ring's controls. */
+  const idle = timerState === 'idle';
+
   const header = (
     <View style={styles.header}>
       <ThemedText style={styles.subtitle}>{s.timer.heading}</ThemedText>
-      <TimerHint text={hint} visible={timerState === 'idle'} />
+      <TimerHint text={hint} visible={idle} />
     </View>
   );
   const ring = (
-    <CircularProgress
-      progress={progress}
-      remainingSeconds={remainingSeconds}
-      onPressTime={() => setDurationPickerVisible(true)}
-      timeEditable={timerState === 'idle'}
-    />
+    <CircularProgress progress={progress}>
+      <TimeDisplay
+        remainingSeconds={remainingSeconds}
+        onPress={() => setDurationPickerVisible(true)}
+        editable={idle}
+      />
+      <AmbienceDisplay editable={idle} />
+    </CircularProgress>
   );
   const controls = (
     <TimerControls timerState={timerState} onPlay={play} onPause={pause} onReset={reset} />
@@ -82,10 +89,6 @@ export default function TimerScreen() {
             {controls}
           </View>
         )}
-
-        <View style={styles.footer}>
-          <AmbienceField />
-        </View>
       </SafeAreaView>
 
       <ClockPickerModal
@@ -118,13 +121,6 @@ const styles = StyleSheet.create({
   bodyLandscape: { flexDirection: 'row', gap: 32 },
   sideColumn: { flex: 1, alignItems: 'center', justifyContent: 'center', gap: 32 },
   header: { alignItems: 'center', gap: 12 },
-  footer: {
-    paddingHorizontal: 24,
-    paddingBottom: 16,
-    width: '100%',
-    maxWidth: CONTENT_MAX_WIDTH,
-    alignSelf: 'center',
-  },
   subtitle: {
     fontSize: 18,
     fontWeight: '300',

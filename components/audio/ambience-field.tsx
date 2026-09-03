@@ -1,7 +1,5 @@
-import { SelectField, type SelectOption } from '@/components/ui/select-field';
-import { AMBIENCES } from '@/constants/ambiences';
-import { useAudioSettings, useUpdateAudioSettings } from '@/contexts/audio-settings-context';
-import { DEFAULT_AMBIENCE_ID } from '@/utils/settings-storage';
+import { SelectField } from '@/components/ui/select-field';
+import { useAmbienceOptions } from '@/hooks/use-ambience-options';
 import { useStrings } from '@/contexts/locale-context';
 
 interface AmbienceFieldProps {
@@ -11,45 +9,16 @@ interface AmbienceFieldProps {
 }
 
 /**
- * Picks the background bed.
+ * Picks the background bed, as a settings row.
  *
- * Only the options and where they are stored; the row-and-dialog shape it wears
- * lives in SelectField, which the language setting wears too.
+ * Only which options and where they are stored — see useAmbienceOptions — worn
+ * in the row-and-dialog shape that the language setting wears too. The timer and
+ * guided screens pick the same bed from inside the ring instead; see
+ * AmbienceDisplay.
  */
 export function AmbienceField({ label, hideLabel }: AmbienceFieldProps) {
-  const { settings } = useAudioSettings();
-  const update = useUpdateAudioSettings();
+  const { options, value, select } = useAmbienceOptions();
   const strings = useStrings();
-
-  /*
-   * The bed manifest is generated with Portuguese titles, so a name the
-   * catalogue has not been taught falls back to what the manifest carries
-   * rather than surfacing an id.
-   */
-  const nameOf = (id: string, fallback: string) => strings.ambience.names[id] ?? fallback;
-
-  /*
-   * Silence sits at the end. It is the one option that is the absence of the
-   * others, and leading with it framed the whole list as opting out of something
-   * — the beds are the point, so they come first.
-   */
-  const options: SelectOption<string | null>[] = [
-    ...AMBIENCES.map((ambience) => ({
-      value: ambience.id,
-      title: nameOf(ambience.id, ambience.title),
-    })),
-    { value: null, title: strings.ambience.silence },
-  ];
-
-  /*
-   * A bed dropped from the manifest since it was chosen would leave the row with
-   * nothing to show, so a stored id we no longer recognise reads as the default.
-   * Silence is a real choice and passes through untouched.
-   */
-  const stored = settings.ambienceId;
-  const value = stored === null || AMBIENCES.some((a) => a.id === stored)
-    ? stored
-    : DEFAULT_AMBIENCE_ID;
 
   return (
     <SelectField
@@ -57,7 +26,7 @@ export function AmbienceField({ label, hideLabel }: AmbienceFieldProps) {
       hideLabel={hideLabel}
       options={options}
       value={value}
-      onSelect={(ambienceId) => update({ ambienceId })}
+      onSelect={select}
     />
   );
 }

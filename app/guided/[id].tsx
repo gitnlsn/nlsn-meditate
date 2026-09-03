@@ -10,7 +10,8 @@ import { IconSymbol } from '@/components/ui/icon-symbol';
 import { CircularProgress } from '@/components/timer/circular-progress';
 import { TimerControls } from '@/components/timer/timer-controls';
 import { Caption } from '@/components/guided/caption';
-import { AmbienceField } from '@/components/audio/ambience-field';
+import { TimeDisplay } from '@/components/timer/time-display';
+import { AmbienceDisplay } from '@/components/timer/ambience-display';
 import { findMeditation } from '@/constants/guided-meditations';
 import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
@@ -88,10 +89,14 @@ export default function GuidedPlayerScreen() {
         </View>
 
         <View style={[styles.body, landscape && styles.bodyLandscape]}>
-          <CircularProgress
-            progress={isCurrent ? session.progress : 0}
-            remainingSeconds={isCurrent ? session.remainingSeconds : meditation.durationSeconds}
-          />
+          {/* The clock is not pressable here: the meditation carries its own
+              length. The bed under it is still the reader's to choose. */}
+          <CircularProgress progress={isCurrent ? session.progress : 0}>
+            <TimeDisplay
+              remainingSeconds={isCurrent ? session.remainingSeconds : meditation.durationSeconds}
+            />
+            <AmbienceDisplay editable={state === 'idle'} />
+          </CircularProgress>
           <View style={[styles.column, landscape ? styles.columnLandscape : styles.columnPortrait]}>
             {/*
               * The caption slot already holds a line's worth of height whether or
@@ -110,10 +115,6 @@ export default function GuidedPlayerScreen() {
               onReset={session.stop}
             />
           </View>
-        </View>
-
-        <View style={styles.footer}>
-          <AmbienceField />
         </View>
       </SafeAreaView>
     </ThemedView>
@@ -156,11 +157,4 @@ const styles = StyleSheet.create({
   column: { alignItems: 'center', justifyContent: 'center', gap: 32 },
   columnPortrait: { width: '100%' },
   columnLandscape: { flex: 1 },
-  footer: {
-    paddingHorizontal: 24,
-    paddingBottom: 16,
-    width: '100%',
-    maxWidth: CONTENT_MAX_WIDTH,
-    alignSelf: 'center',
-  },
 });
