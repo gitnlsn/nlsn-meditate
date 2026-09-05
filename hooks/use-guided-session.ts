@@ -2,15 +2,24 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { AppState } from 'react-native';
 import { createAudioPlayer, type AudioPlayer } from 'expo-audio';
 
-import type { GuidedMeditation } from '@/constants/guided-meditations';
+import type { AudioAsset, GuidedMeditation } from '@/constants/guided-meditations';
 import type { TimerState } from '@/contexts/meditation-context';
 
 export type GuidedPhase = 'idle' | 'lead-in' | 'speaking' | 'waiting' | 'lead-out';
 
 interface Options {
-  onComplete?: (meditation: GuidedMeditation) => void;
+  /** `endedAt` is the wall clock the session finished, for filing it by day. */
+  onComplete?: (meditation: GuidedMeditation, endedAt: number) => void;
   /** 0..1, applied to the guide's voice. */
   volume?: number;
+  /**
+   * Accepted and ignored, so both implementations of this hook take the same
+   * options. Where a session is played by the native service it is handed the
+   * bed and the closing bell as part of the timeline; here the bed is played
+   * separately by useAmbience, and nothing sounds a gong.
+   */
+  bed?: { source: AudioAsset; volume: number };
+  gong?: AudioAsset;
 }
 
 /**
@@ -89,7 +98,7 @@ export function useGuidedSession(meditation: GuidedMeditation | undefined, optio
     elapsedRef.current = total;
     setElapsedSeconds(total);
     setState('complete');
-    if (meditation) onCompleteRef.current?.(meditation);
+    if (meditation) onCompleteRef.current?.(meditation, Date.now());
   }, [clearWait, meditation, total]);
 
   /**

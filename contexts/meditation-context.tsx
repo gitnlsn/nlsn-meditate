@@ -11,6 +11,19 @@ interface MeditationState {
   baseElapsedSeconds: number;
   /** Wall clock (ms) the current run started, or null when not running. */
   startedAt: number | null;
+  /**
+   * Identity for this sit, held across pauses. What makes recording it twice
+   * harmless, whoever reports it.
+   */
+  sessionId: string | null;
+  /**
+   * Wall clock (ms) the sit actually ended, set with `complete`.
+   *
+   * Not the same as when we noticed. A session can run out with the screen
+   * locked and only be observed on the way back in, and history is filed by the
+   * day the sit ended, not the day we heard about it.
+   */
+  completedAt: number | null;
 }
 
 type MeditationAction =
@@ -19,7 +32,10 @@ type MeditationAction =
   | { type: 'PLAY' }
   | { type: 'PAUSE' }
   | { type: 'RESET' }
-  | { type: 'COMPLETE' };
+  /** `at` is when the sit ended; omit it only when that is now. */
+  | { type: 'COMPLETE'; at?: number }
+  /** Rejoin a sit the playback service is already part-way through. */
+  | { type: 'RESTORE'; payload: { sessionId: string; durationSeconds: number; elapsedSeconds: number; running: boolean } };
 
 const initialState: MeditationState = {
   timerState: 'idle',
@@ -27,6 +43,8 @@ const initialState: MeditationState = {
   elapsedSeconds: 0,
   baseElapsedSeconds: 0,
   startedAt: null,
+  sessionId: null,
+  completedAt: null,
 };
 
 /**
@@ -54,6 +72,8 @@ function meditationReducer(state: MeditationState, action: MeditationAction): Me
         elapsedSeconds: 0,
         baseElapsedSeconds: 0,
         startedAt: null,
+        sessionId: null,
+        completedAt: null,
       };
     case 'TICK': {
       if (state.timerState !== 'running') return state;
@@ -65,13 +85,26 @@ function meditationReducer(state: MeditationState, action: MeditationAction): Me
           elapsedSeconds: state.durationSeconds,
           baseElapsedSeconds: state.durationSeconds,
           startedAt: null,
+          // Where the clock ran out, not where we happened to look.
+          completedAt:
+            (state.startedAt ?? Date.now()) +
+            (state.durationSeconds - state.baseElapsedSeconds) * 1000,
         };
       }
       return { ...state, elapsedSeconds: elapsed };
     }
-    case 'PLAY':
+    case 'PLAY': {
       if (state.timerState === 'running') return state;
-      return { ...state, timerState: 'running', startedAt: Date.now() };
+      const now = Date.now();
+      return {
+        ...state,
+        timerState: 'running',
+        startedAt: now,
+        // A resume rejoins the sit it paused; only a fresh start is a new one.
+        sessionId: state.timerState === 'paused' ? state.sessionId : String(now),
+        completedAt: null,
+      };
+    }
     case 'PAUSE': {
       if (state.timerState !== 'running') return state;
       const elapsed = elapsedAt(state, Date.now());
@@ -98,6 +131,28 @@ function meditationReducer(state: MeditationState, action: MeditationAction): Me
         baseElapsedSeconds: 0,
         startedAt: null,
       };
+    /*
+     * The clock, rebuilt around a sit that never stopped.
+     *
+     * A silent session is held by the playback service, so it survives the app
+     * being torn down and put back together — and comes back to a timer that
+     * remembers nothing. Rather than show an idle clock over a meditation still
+     * running, the elapsed time is read back off the service and the start
+     * timestamp reconstructed from it, which is all `elapsedAt` needs.
+     */
+    case 'RESTORE': {
+      const { sessionId, durationSeconds, elapsedSeconds, running } = action.payload;
+      return {
+        ...state,
+        durationSeconds,
+        timerState: running ? 'running' : 'paused',
+        elapsedSeconds,
+        baseElapsedSeconds: running ? 0 : elapsedSeconds,
+        startedAt: running ? Date.now() - elapsedSeconds * 1000 : null,
+        sessionId,
+        completedAt: null,
+      };
+    }
     case 'COMPLETE':
       return { ...state, timerState: 'complete', startedAt: null };
     default:

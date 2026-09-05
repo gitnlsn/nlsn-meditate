@@ -52,7 +52,8 @@
           "recordAudioAndroid": false
         }
       ],
-      "./plugins/with-recording-service-removed"
+      "./plugins/with-recording-service-removed",
+      "expo-asset"
     ],
     "experiments": {
       "typedRoutes": true,

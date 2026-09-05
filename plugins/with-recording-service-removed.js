@@ -10,10 +10,13 @@ const RECORDING_SERVICE = 'expo.modules.audio.service.AudioRecordingService';
  * permissions, so `recordAudioAndroid: false` strips RECORD_AUDIO but leaves the
  * `microphone` service declared. The app never records, and Play flags both
  * services as reachable from expo-notifications' BOOT_COMPLETED receiver — the
- * one that reschedules daily reminders after a reboot. The playback service has
- * to stay, since it is what keeps a meditation running with the screen off, but
- * a microphone service the app cannot use is worth deleting rather than
- * explaining.
+ * one that reschedules daily reminders after a reboot. A microphone service the
+ * app cannot use is worth deleting rather than explaining.
+ *
+ * The playback service is left alone, though nothing here starts it: it only
+ * runs if something calls `setActiveForLockScreen`, and nothing does. What keeps
+ * a meditation running with the screen off is our own MeditationService, in
+ * modules/meditation-session.
  *
  * `tools:node="remove"` is a merger instruction, so this cannot be done by
  * editing android/ — that directory is generated and gitignored.

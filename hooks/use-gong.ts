@@ -1,7 +1,7 @@
 import { useEffect, useRef, useCallback } from 'react';
 import { createAudioPlayer, type AudioPlayer } from 'expo-audio';
 
-const GONG = require('@/assets/audios/meditation-gong-jam-fx-10-10-00-11.mp3');
+import { GONG } from '@/constants/gong';
 
 /**
  * The start/end bell. Held loaded for the lifetime of the consumer so the strike

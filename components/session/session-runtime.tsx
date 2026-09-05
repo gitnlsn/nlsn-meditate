@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { AppState } from 'react-native';
 import { activateKeepAwakeAsync, deactivateKeepAwake } from 'expo-keep-awake';
 
@@ -8,8 +8,11 @@ import { useAddSession } from '@/contexts/history-context';
 import { useAudioSettings } from '@/contexts/audio-settings-context';
 import { useAmbience } from '@/hooks/use-ambience';
 import { useGong } from '@/hooks/use-gong';
+import { useTimerService, type RunningSession } from '@/hooks/use-timer-service';
+import { useCompletionDrain } from '@/hooks/use-completion-drain';
 import { findAmbience } from '@/constants/ambiences';
 import { loadAudioSettings } from '@/utils/settings-storage';
+import { MeditationSessionModule } from '@/modules/meditation-session';
 
 /** How often the plain timer refreshes its reading of the clock. */
 const TICK_MS = 1000;
@@ -28,7 +31,7 @@ const TICK_MS = 1000;
  * only views onto it, free to come and go.
  */
 export function SessionRuntime() {
-  const { timerState, durationSeconds } = useMeditation();
+  const { timerState, durationSeconds, sessionId, completedAt } = useMeditation();
   const dispatch = useMeditationDispatch();
   const nowPlayingGuidedId = useNowPlayingGuidedId();
   const addSession = useAddSession();
@@ -37,6 +40,11 @@ export function SessionRuntime() {
 
   const prevTimerStateRef = useRef<TimerState>(timerState);
 
+  /** Whether the session is run by the playback service rather than from here. */
+  const served = MeditationSessionModule != null;
+
+  const ambience = findAmbience(settings.ambienceId);
+
   /**
    * Either kind of meditation, running. Both the bed and the display lock follow
    * this rather than the plain timer alone — as far as the device is concerned a
@@ -44,12 +52,32 @@ export function SessionRuntime() {
    */
   const isRunning = timerState === 'running' || nowPlayingGuidedId != null;
 
-  // The bed plays while a session is running, and pauses with it.
+  // The bed plays while a session is running, and pauses with it. Inert where
+  // the service owns the bed instead.
   useAmbience({
-    ambience: findAmbience(settings.ambienceId),
+    ambience,
     volume: settings.ambienceVolume,
     active: isRunning,
   });
+
+  const restore = useCallback(
+    (session: RunningSession) => dispatch({ type: 'RESTORE', payload: session }),
+    [dispatch],
+  );
+
+  // A plain silent sit, handed over so its end is something the system reaches.
+  useTimerService({
+    restore,
+    timerState,
+    durationSeconds,
+    sessionId,
+    ambience,
+    ambienceVolume: settings.ambienceVolume,
+    gongAtEnd: settings.playGongAtEnd,
+  });
+
+  // Sits the service finished while nobody was watching.
+  useCompletionDrain();
 
   useEffect(() => {
     if (timerState !== 'running') return;
@@ -97,13 +125,25 @@ export function SessionRuntime() {
     }
 
     if (timerState === 'complete' && prev !== 'complete') {
-      addSession(durationSeconds);
-      loadAudioSettings().then((s) => { if (s.playGongAtEnd) playGong(); });
+      /*
+       * Where the service ran the sit, it has already written it down and
+       * already struck the closing bell as the last item of the timeline —
+       * both at the true end, rather than whenever the app next woke up. All
+       * that is left here is to clear the clock.
+       */
+      if (!served) {
+        addSession({
+          durationSeconds,
+          endedAt: completedAt ?? Date.now(),
+          ...(sessionId && { sessionId }),
+        });
+        loadAudioSettings().then((s) => { if (s.playGongAtEnd) playGong(); });
+      }
       dispatch({ type: 'RESET' });
     }
 
     prevTimerStateRef.current = timerState;
-  }, [timerState, durationSeconds, addSession, playGong, dispatch]);
+  }, [timerState, durationSeconds, sessionId, completedAt, served, addSession, playGong, dispatch]);
 
   return null;
 }

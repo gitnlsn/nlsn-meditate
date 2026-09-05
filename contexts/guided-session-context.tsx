@@ -6,6 +6,9 @@ import type { GuidedMeditation } from '@/constants/guided-meditations';
 import { useGuidedSession } from '@/hooks/use-guided-session';
 import { useAddSession } from '@/contexts/history-context';
 import { useAudioSettings } from '@/contexts/audio-settings-context';
+import { findAmbience } from '@/constants/ambiences';
+import { GONG } from '@/constants/gong';
+import { MeditationSessionModule } from '@/modules/meditation-session';
 import { useMeditationDispatch } from '@/contexts/meditation-context';
 
 type Session = ReturnType<typeof useGuidedSession>;
@@ -45,16 +48,31 @@ export function GuidedSessionProvider({ children }: { children: ReactNode }) {
   const addSession = useAddSession();
   const { settings } = useAudioSettings();
 
-  const handleComplete = useCallback((finished: GuidedMeditation) => {
-    addSession(finished.durationSeconds, {
-      meditationId: finished.id,
-      title: finished.title,
+  /*
+   * Where the app records a sit it watched finish.
+   *
+   * Only where there is no playback service. Where there is one, the service
+   * has already written the session down at the moment it ended — which may
+   * have been while the app was asleep, or gone — and the app collects that
+   * record instead. Writing it from both ends would be harmless, since a
+   * session id makes the second write a no-op, but there is no reason to.
+   */
+  const handleComplete = useCallback((finished: GuidedMeditation, endedAt: number) => {
+    if (MeditationSessionModule) return;
+    addSession({
+      durationSeconds: finished.durationSeconds,
+      endedAt,
+      meta: { meditationId: finished.id, title: finished.title },
     });
   }, [addSession]);
+
+  const ambience = findAmbience(settings.ambienceId);
 
   const session = useGuidedSession(meditation, {
     onComplete: handleComplete,
     volume: settings.voiceVolume,
+    bed: ambience && { source: ambience.source, volume: settings.ambienceVolume },
+    gong: settings.playGongAtEnd ? GONG : undefined,
   });
 
   const { stop, play: playSession } = session;
@@ -89,8 +107,16 @@ export function GuidedSessionProvider({ children }: { children: ReactNode }) {
 
   const load = useCallback((next: GuidedMeditation | undefined) => {
     if (loadedIdRef.current === next?.id) return;
+    if (__DEV__) console.log(`[meditation] load ${loadedIdRef.current ?? 'none'} -> ${next?.id ?? 'none'}`);
     loadedIdRef.current = next?.id;
-    stop();
+    /*
+     * Ending whatever was playing is only this function's job where sessions
+     * live in JavaScript. Where a service runs them, it may be part-way through
+     * this very meditation — the app having been rebuilt around it — and
+     * stopping here would kill the session the screen is about to rejoin. The
+     * hook settles it instead, once it has asked the service what is playing.
+     */
+    if (!MeditationSessionModule) stop();
     setMeditation(next);
   }, [stop]);
 
