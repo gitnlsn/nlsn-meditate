@@ -14,11 +14,31 @@ const AMBIENCE_LUFS = -30;
 const AMBIENCE_TRUE_PEAK = -3;
 
 /**
- * The player overlaps two copies of a bed so their fades cross. A bed whose tail
- * does not fade has nothing to cross with and clicks on every wrap, so any file
- * shorter than this gets one applied.
+ * Candidate lengths for the fold that makes a bed loop on itself.
+ *
+ * The beds are repeated by the player natively now, so a file has to join back
+ * to its own beginning with nobody in the app awake to help it. Cross-fading the
+ * tail over the head does that — but how long the fold should be turns out to
+ * depend entirely on the material, and not in any direction you could guess.
+ * Measured across these beds, four seconds was the *worst* available choice for
+ * both the tonal drone and the birdsong, while eight suited one and half a
+ * second suited the other: uncorrelated stretches of the same recording partly
+ * cancel, and how much they cancel depends on what is in them.
+ *
+ * So the length is not chosen, it is measured. Every candidate is folded and the
+ * seam compared against the bed's own quiet floor; the one that dips least wins.
  */
-const MIN_FADE_OUT = 4;
+const LOOP_CROSSFADES = [0.5, 1, 2, 3, 4, 6, 8];
+
+/** The longest fold worth trying is a quarter of what there is to fold. */
+const MAX_CROSSFADE_FRACTION = 0.25;
+
+/**
+ * How far past a measured fade to start cutting. `measureFades` finds where the
+ * level crosses -3dB, which is partway up the ramp, so the shoulder either side
+ * needs trimming too or a little of the original fade survives into the loop.
+ */
+const EDGE_MARGIN = 0.5;
 
 /**
  * Beds are trimmed to this before bundling. They loop regardless, so the extra
@@ -82,13 +102,70 @@ export async function measureFades(file) {
 }
 
 /**
- * Level every bed and guarantee it has a tail to cross-fade with.
+ * Fold `crossfade` seconds of the tail back over the head.
+ *
+ * The result runs from body time `crossfade` round to body time `crossfade`, so
+ * playing it end to end joins onto itself. Equal-power (`qsin`) rather than the
+ * default linear curve: the two sides are uncorrelated stretches of one
+ * recording, and summing them linearly dips about 3dB at exactly the point a dip
+ * would be heard every time round.
+ */
+async function foldLoop(body, out, crossfade) {
+  const d = crossfade.toFixed(3);
+  await run('ffmpeg', ['-hide_banner', '-loglevel', 'error', '-y',
+    '-i', body, '-i', body,
+    '-filter_complex',
+    `[0:a]atrim=start=${d},asetpts=N/SR/TB[rest];`
+    + `[1:a]atrim=start=0:end=${d},asetpts=N/SR/TB[head];`
+    + `[rest][head]acrossfade=d=${d}:c1=qsin:c2=qsin[out]`,
+    '-map', '[out]', '-c:a', 'pcm_s16le', out]);
+  return out;
+}
+
+/**
+ * How far the loop point dips below the bed's own quiet floor, in dB.
+ *
+ * Measured by playing the file into itself and reading momentary loudness across
+ * the join. Compared against the tenth percentile of the whole file rather than
+ * its average, because these are ambient recordings: they have quiet moments
+ * everywhere, and a seam is only a fault if it is quieter than they are. Zero or
+ * above means the wrap is indistinguishable from the material around it.
+ */
+async function measureSeamDip(file) {
+  const duration = await probeDuration(file);
+  const stderr = await run('ffmpeg', ['-hide_banner', '-nostats',
+    '-i', file, '-i', file,
+    '-filter_complex', '[0][1]concat=n=2:v=0:a=1,ebur128', '-f', 'null', '-']);
+
+  const points = [];
+  for (const line of stderr.split('\n')) {
+    const m = line.match(/t:\s*([\d.]+).*?M:\s*(-?[\d.]+|-inf)/);
+    if (!m) continue;
+    const momentary = m[2] === '-inf' ? -120 : Number.parseFloat(m[2]);
+    if (momentary > -100) points.push([Number.parseFloat(m[1]), momentary]);
+  }
+  if (!points.length) return 0;
+
+  const sorted = points.map(([, m]) => m).sort((a, b) => a - b);
+  const floor = sorted[Math.floor(sorted.length * 0.1)];
+  const seam = points.filter(([t]) => t > duration - 1 && t < duration + 1).map(([, m]) => m);
+  if (!seam.length) return 0;
+
+  return Math.min(...seam) - floor;
+}
+
+/**
+ * Turn every bed into a seamless loop, and level it.
+ *
+ * The sources ship with a fade at each end, which is exactly wrong for a file
+ * meant to repeat: a wrap would dip to silence for several seconds every time
+ * round. So both fades are cut off and the tail is cross-faded back over the
+ * head, leaving a file whose last sample joins its first.
  *
  * Levelling is a single linear gain, not loudnorm. loudnorm's dynamic fallback
- * lifts quiet passages, which would flatten the very fades the overlap depends
- * on - and the voice pipeline's loudnorm also forces mono, which would collapse
- * the stereo image these beds rely on. Channels and sample rate pass through
- * untouched.
+ * lifts quiet passages, which would pump audibly across the loop point - and the
+ * voice pipeline's loudnorm also forces mono, which would collapse the stereo
+ * image these beds rely on. Channels and sample rate pass through untouched.
  */
 export async function processAmbiences({ onProgress } = {}) {
   const srcDir = path.join(ROOT, ENV_DIR);
@@ -106,22 +183,40 @@ export async function processAmbiences({ onProgress } = {}) {
 
     const sourceFades = await measureFades(src);
     const sourceDuration = await probeDuration(src);
-    const target = Math.min(sourceDuration, MAX_AMBIENCE_SECONDS);
-    const trimmed = target < sourceDuration;
 
-    // A trimmed bed ends mid-recording, so it always needs a fresh tail - the
-    // fade the file shipped with now sits past the cut.
-    const fadeAdded = trimmed || sourceFades.fadeOut < MIN_FADE_OUT;
+    // Stage 1a: cut the mastered fades off both ends and cap the length. What
+    // is left is flat recording, which is the only thing that can be looped.
+    const bodyStart = sourceFades.fadeIn + EDGE_MARGIN;
+    const longest = LOOP_CROSSFADES[LOOP_CROSSFADES.length - 1];
+    const bodyEnd = Math.min(
+      sourceDuration - sourceFades.fadeOut - EDGE_MARGIN,
+      bodyStart + MAX_AMBIENCE_SECONDS + longest,
+    );
+    const bodyLength = bodyEnd - bodyStart;
+    const trimmed = bodyStart + MAX_AMBIENCE_SECONDS + longest
+      < sourceDuration - sourceFades.fadeOut - EDGE_MARGIN;
 
-    // Stage 1: cut and shape. Measuring loudness only after this matters -
-    // levelling off the full-length average shipped the first 150s of the cafe
-    // bed 1.6 LU under everything else.
-    await run('ffmpeg', ['-hide_banner', '-loglevel', 'error', '-y', '-i', src,
-      ...(trimmed ? ['-t', target.toFixed(3)] : []),
-      ...(fadeAdded
-        ? ['-af', `afade=t=out:st=${Math.max(0, target - MIN_FADE_OUT).toFixed(3)}:d=${MIN_FADE_OUT}`]
-        : []),
-      '-c:a', 'pcm_s16le', work]);
+    const body = path.join(outDir, `.${id}-body.wav`);
+    await run('ffmpeg', ['-hide_banner', '-loglevel', 'error', '-y',
+      '-ss', bodyStart.toFixed(3), '-to', bodyEnd.toFixed(3), '-i', src,
+      '-c:a', 'pcm_s16le', body]);
+
+    // Stage 1b: fold the tail over the head, at whichever length leaves the
+    // least audible join. Levelling is a linear gain, so it cannot change which
+    // fold wins - measuring here, before it, is safe and saves nine encodes.
+    const candidates = LOOP_CROSSFADES.filter((x) => x <= bodyLength * MAX_CROSSFADE_FRACTION);
+    const tried = [];
+    const probe = path.join(outDir, `.${id}-probe.wav`);
+
+    for (const candidate of candidates.length ? candidates : [Math.max(0.25, bodyLength / 8)]) {
+      await foldLoop(body, probe, candidate);
+      tried.push({ crossfade: candidate, dip: await measureSeamDip(probe) });
+    }
+    await fs.rm(probe, { force: true });
+
+    const best = tried.reduce((a, b) => (b.dip > a.dip ? b : a));
+    await foldLoop(body, work, best.crossfade);
+    await fs.rm(body, { force: true });
 
     // Stage 2: level what will actually ship, then hold the ceiling.
     const level = await measureLoudness(work);
@@ -142,25 +237,26 @@ export async function processAmbiences({ onProgress } = {}) {
     const { size } = await fs.stat(out);
 
     /*
-     * The player uses this to decide how early to bring in the next copy, so it
-     * must be the full length of the fade. A measured value cannot give that -
-     * it finds where the level crosses -3dB, which is partway down the ramp, and
-     * reporting that would start the overlap late and let the bed dip. When we
-     * applied the fade we know its length exactly; otherwise fall back to the
-     * measurement of the fade the file arrived with.
+     * Reported as zero, and kept only so the field does not vanish from under
+     * anything still reading it. A seamless loop has no fade at either end -
+     * that is what makes it seamless - so there is no longer a ramp for a player
+     * to overlap the next copy with, and nothing left to measure.
      */
-    const fadeOut = fadeAdded ? MIN_FADE_OUT : sourceFades.fadeOut;
-
     results.push({
       id,
       title: TITLES[id] ?? id.replace(/-/g, ' '),
       file: path.basename(out),
       durationSeconds: Number((await probeDuration(out)).toFixed(3)),
-      fadeInSeconds: Number(sourceFades.fadeIn.toFixed(2)),
-      fadeOutSeconds: Number(fadeOut.toFixed(2)),
+      fadeInSeconds: 0,
+      fadeOutSeconds: 0,
+      loopCrossfade: Number(best.crossfade.toFixed(2)),
+      /**
+       * How far the wrap dips below the bed's own quiet floor, in dB. At or
+       * above zero the loop point is indistinguishable from the recording.
+       */
+      seamDip: Number(best.dip.toFixed(1)),
       loudness: Number(finalLevel.integrated.toFixed(1)),
       gainApplied: Number(gain.toFixed(2)),
-      fadeAdded,
       trimmed,
       bytes: size,
     });

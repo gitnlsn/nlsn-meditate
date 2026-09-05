@@ -342,9 +342,9 @@ async function cmdManifest() {
   const ambiences = await processAmbiences({
     onProgress: (a) => console.log(
       `  ${a.id.padEnd(24)} ${String(a.durationSeconds).padStart(7)}s  ${String(a.loudness).padStart(6)} LUFS  ` +
-      `fade-out ${a.fadeOutSeconds.toFixed(1).padStart(4)}s  ` +
+      `loop x-fade ${a.loopCrossfade.toFixed(1).padStart(4)}s  seam ${a.seamDip >= 0 ? '+' : ''}${a.seamDip.toFixed(1)}dB  ` +
       `${a.gainApplied >= 0 ? '+' : ''}${a.gainApplied}dB  ${(a.bytes / 1024 / 1024).toFixed(1)}MB` +
-      `${a.trimmed ? '  trimmed' : ''}${a.fadeAdded ? '  fade added' : ''}`),
+      `${a.trimmed ? '  trimmed' : ''}`),
   });
 
   const ids = await listScripts();
