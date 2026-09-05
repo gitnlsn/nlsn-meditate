@@ -1,0 +1,7 @@
+{
+  "name": "meditation-session",
+  "version": "0.1.0",
+  "description": "Runs a meditation timeline outside the JavaScript runtime.",
+  "main": "index.ts",
+  "private": true
+}

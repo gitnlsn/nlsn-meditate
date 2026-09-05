@@ -1,6 +1,16 @@
 {
-  "platforms": ["android"],
+  "platforms": [
+    "apple",
+    "android"
+  ],
+  "apple": {
+    "modules": [
+      "MeditationSessionModule"
+    ]
+  },
   "android": {
-    "modules": ["expo.modules.meditationsession.MeditationSessionModule"]
+    "modules": [
+      "expo.modules.meditationsession.MeditationSessionModule"
+    ]
   }
 }

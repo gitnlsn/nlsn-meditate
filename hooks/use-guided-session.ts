@@ -1,279 +1,237 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { AppState } from 'react-native';
-import { createAudioPlayer, type AudioPlayer } from 'expo-audio';
 
+import { MeditationSessionModule } from '@/modules/meditation-session';
 import type { AudioAsset, GuidedMeditation } from '@/constants/guided-meditations';
 import type { TimerState } from '@/contexts/meditation-context';
+import { assetUri, guidedTimeline } from '@/utils/timeline';
 
 export type GuidedPhase = 'idle' | 'lead-in' | 'speaking' | 'waiting' | 'lead-out';
 
 interface Options {
-  /** `endedAt` is the wall clock the session finished, for filing it by day. */
   onComplete?: (meditation: GuidedMeditation, endedAt: number) => void;
   /** 0..1, applied to the guide's voice. */
   volume?: number;
-  /**
-   * Accepted and ignored, so both implementations of this hook take the same
-   * options. Where a session is played by the native service it is handed the
-   * bed and the closing bell as part of the timeline; here the bed is played
-   * separately by useAmbience, and nothing sounds a gong.
-   */
+  /** The bed, handed to the service so it loops for as long as the sit does. */
   bed?: { source: AudioAsset; volume: number };
+  /** Sounded at the very end, as the last item of the timeline. */
   gong?: AudioAsset;
 }
 
 /**
- * Plays a guided meditation: speak a line, hold the silence written after it,
- * move on. Most of a session is the silence, so the silence is the part that has
- * to be right.
+ * A guided meditation, played natively.
  *
- * Reuses `TimerState` so the existing TimerControls component drives this
- * unchanged.
+ * The counterpart of the JavaScript sequencer it replaces, and deliberately much
+ * less: it hands the whole timeline over once and then only listens. Nothing
+ * here has to still be running for the meditation to reach its end, which is the
+ * entire reason it exists — behind a locked screen this side of the app is
+ * asleep, and the version that sequenced lines with `setTimeout` simply stopped
+ * partway through.
+ *
+ * Same shape as the version web still uses, so the screens cannot tell which one
+ * they are looking at.
  */
 export function useGuidedSession(meditation: GuidedMeditation | undefined, options: Options = {}) {
-  const { onComplete, volume = 1 } = options;
+  const { onComplete, volume = 1, bed, gong } = options;
 
   const [state, setState] = useState<TimerState>('idle');
-  const [phase, setPhase] = useState<GuidedPhase>('idle');
-  const [currentIndex, setCurrentIndex] = useState(-1);
-  const [elapsedSeconds, setElapsedSeconds] = useState(0);
+  const [positionMs, setPositionMs] = useState(0);
+  const [cueIndex, setCueIndex] = useState(-1);
 
-  const playerRef = useRef<AudioPlayer | null>(null);
-  const indexRef = useRef(-1);
-  const phaseRef = useRef<GuidedPhase>('idle');
-
-  // Guards against a stale `didJustFinish` advancing the sequence twice.
-  const settledRef = useRef(false);
-
-  const waitTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const waitEndsAtRef = useRef(0);
-  const waitRemainingRef = useRef(0);
-  /** What the current silence is waiting to do, so resuming can just re-arm it. */
-  const waitDoneRef = useRef<(() => void) | null>(null);
-
-  const elapsedRef = useRef(0);
-  // Kept in a ref so a changing callback identity does not tear down the
-  // sequencing effects mid-session. Assigned in an effect rather than during
+  // Kept in a ref so a changing callback identity does not resubscribe the
+  // event listeners mid-session. Assigned in an effect rather than during
   // render, since the React Compiler is enabled for this project.
   const onCompleteRef = useRef(onComplete);
   useEffect(() => {
     onCompleteRef.current = onComplete;
   }, [onComplete]);
 
-  const total = meditation?.durationSeconds ?? 0;
-
-  const clearWait = useCallback(() => {
-    if (waitTimerRef.current) {
-      clearTimeout(waitTimerRef.current);
-      waitTimerRef.current = null;
-    }
-  }, []);
-
-  /**
-   * One player for the whole session; the source is swapped per line. Seeded
-   * with the first line rather than null so the opening is already buffered when
-   * the lead-in silence ends.
-   */
+  const meditationRef = useRef(meditation);
   useEffect(() => {
-    if (!meditation) return;
-    const first = meditation.segments.find((s) => s.source != null)?.source ?? null;
-    const player = createAudioPlayer(first);
-    playerRef.current = player;
-    return () => {
-      playerRef.current = null;
-      player.remove();
-    };
+    meditationRef.current = meditation;
   }, [meditation]);
 
+  // Read inside the rehydration effect, which must not re-run just because the
+  // session it is guarding against moved on a tick.
+  const stateRef = useRef(state);
   useEffect(() => {
-    if (playerRef.current) playerRef.current.volume = volume;
-  }, [volume]);
+    stateRef.current = state;
+  }, [state]);
 
-  const finish = useCallback(() => {
-    clearWait();
-    phaseRef.current = 'idle';
-    setPhase('idle');
-    indexRef.current = -1;
-    setCurrentIndex(-1);
-    elapsedRef.current = total;
-    setElapsedSeconds(total);
-    setState('complete');
-    if (meditation) onCompleteRef.current?.(meditation, Date.now());
-  }, [clearWait, meditation, total]);
+  /** Back to nothing playing, without telling the service anything. */
+  const reset = useCallback(() => {
+    setPositionMs(0);
+    setCueIndex(-1);
+    setState('idle');
+  }, []);
 
-  /**
-   * Silence is scheduled from a deadline rather than a fixed timeout, so pausing
-   * can convert what is left into a remainder and resume from exactly there.
+  /*
+   * Come back to a session already in progress.
+   *
+   * The meditation outlives the app that started it, so a JavaScript runtime
+   * rebuilt underneath it — after a long lock, or memory pressure — returns
+   * knowing nothing while the voice carries on. Asking the service what it is
+   * playing is the difference between the screen telling the truth and offering
+   * a play button over a session that is already halfway through.
    */
-  const scheduleWait = useCallback((ms: number, onDone: () => void) => {
-    clearWait();
-    waitDoneRef.current = onDone;
-    waitEndsAtRef.current = Date.now() + ms;
-    waitRemainingRef.current = ms;
-    if (ms <= 0) {
-      onDone();
-      return;
-    }
-    waitTimerRef.current = setTimeout(onDone, ms);
-  }, [clearWait]);
+  useEffect(() => {
+    const module = MeditationSessionModule;
+    if (!module) return;
 
-  const startSegment = useCallback((index: number) => {
-    const segments = meditation?.segments;
-    const player = playerRef.current;
-    if (!segments || !player) return;
+    /*
+     * Nothing loaded yet is not the same as nothing wanted.
+     *
+     * On a fresh runtime the provider has no meditation until a screen asks for
+     * one, and treating that moment as "the reader moved on" would end the very
+     * session being rejoined. Leaving is not stopping here either — the reset
+     * control is what ends a meditation.
+     */
+    if (!meditation) return;
 
-    if (index >= segments.length) {
-      // Lead-out: the closing silence after the final line.
-      phaseRef.current = 'lead-out';
-      setPhase('lead-out');
-      scheduleWait((meditation?.leadOutSeconds ?? 0) * 1000, finish);
-      return;
-    }
+    let abandoned = false;
+    module.getState()
+      .then((running) => {
+        if (abandoned) return;
 
-    const segment = segments[index];
-    indexRef.current = index;
-    setCurrentIndex(index);
+        if (!running) {
+          if (stateRef.current !== 'idle') reset();
+          return;
+        }
 
-    const holdThenAdvance = () => {
-      phaseRef.current = 'waiting';
-      setPhase('waiting');
-      scheduleWait(segment.waitSeconds * 1000, () => startSegment(index + 1));
+        if (running.meditationId === meditation.id) {
+          // The same meditation, still going. Pick it up where it is.
+          if (__DEV__) console.log(`[meditation] rejoining ${running.meditationId} at ${running.positionMs}ms`);
+          setState(running.state);
+          setPositionMs(running.positionMs);
+          setCueIndex(running.cueIndex);
+          return;
+        }
+
+        // Something else is playing, and the reader has moved on from it.
+        if (__DEV__) console.log(`[meditation] ending ${running.meditationId} to load ${meditation.id}`);
+        module.stop();
+        reset();
+      })
+      .catch((error) => console.warn('[meditation] could not rejoin session:', error));
+
+    return () => {
+      abandoned = true;
     };
+  }, [meditation, reset]);
 
-    if (segment.source == null) {
-      // A wait-only beat: no line to speak, just the silence.
-      holdThenAdvance();
-      return;
-    }
+  const total = meditation?.durationSeconds ?? 0;
 
-    settledRef.current = false;
-    phaseRef.current = 'speaking';
-    setPhase('speaking');
-    player.replace(segment.source);
-    player.play();
-  }, [meditation, scheduleWait, finish]);
-
-  /** Advance when the current line finishes speaking. */
   useEffect(() => {
-    const player = playerRef.current;
-    if (!player || !meditation) return;
+    const module = MeditationSessionModule;
+    if (!module) return;
 
-    const subscription = player.addListener('playbackStatusUpdate', (status) => {
-      if (!status.didJustFinish) return;
-      if (phaseRef.current !== 'speaking' || settledRef.current) return;
-      settledRef.current = true;
+    const subscriptions = [
+      module.addListener('onProgress', ({ positionMs: at }) => setPositionMs(at)),
+      module.addListener('onItemChanged', ({ cueIndex: cue }) => setCueIndex(cue)),
+      module.addListener('onError', ({ message }) => {
+        console.warn('[meditation] session failed:', message);
+      }),
+      module.addListener('onCompleted', ({ endedAt }) => {
+        setState('complete');
+        setCueIndex(-1);
+        const current = meditationRef.current;
+        if (current) onCompleteRef.current?.(current, endedAt);
+      }),
+    ];
 
-      const index = indexRef.current;
-      const segment = meditation.segments[index];
-      if (!segment) return;
+    return () => {
+      for (const subscription of subscriptions) subscription.remove();
+    };
+  }, []);
 
-      phaseRef.current = 'waiting';
-      setPhase('waiting');
-      scheduleWait(segment.waitSeconds * 1000, () => startSegment(index + 1));
-    });
-
-    return () => subscription.remove();
-  }, [meditation, scheduleWait, startSegment]);
-
-  /**
-   * Elapsed time accumulates real milliseconds rather than counting ticks. A
-   * counted tick drifts whenever the JS thread stalls, which would slide the
-   * progress ring out of step with audio that is keeping its own time.
+  /*
+   * Position updates are only worth sending while somebody is looking. In the
+   * background they would wake the JavaScript thread four times a second to
+   * move a ring nobody can see — the exact dependency the service was built to
+   * remove.
    */
   useEffect(() => {
-    if (state !== 'running') return;
-    let last = Date.now();
-    const id = setInterval(() => {
-      const now = Date.now();
-      elapsedRef.current = Math.min(elapsedRef.current + (now - last) / 1000, total);
-      last = now;
-      setElapsedSeconds(elapsedRef.current);
-    }, 250);
-    return () => clearInterval(id);
-  }, [state, total]);
+    const module = MeditationSessionModule;
+    if (!module) return;
+
+    const subscription = AppState.addEventListener('change', (next) => {
+      module.setProgressUpdates(next === 'active');
+    });
+    return () => {
+      subscription.remove();
+    };
+  }, []);
 
   const play = useCallback(() => {
-    if (!meditation || state === 'running') return;
+    const module = MeditationSessionModule;
+    if (!module || !meditation || state === 'running') return;
 
     if (state === 'paused') {
-      if (phaseRef.current === 'speaking') {
-        playerRef.current?.play();
-      } else {
-        // Re-arm the same continuation with only the time that was left on it.
-        const onDone = waitDoneRef.current;
-        if (onDone) scheduleWait(waitRemainingRef.current, onDone);
-      }
+      module.resume();
       setState('running');
       return;
     }
 
-    // Fresh start: the opening silence before the first line.
-    elapsedRef.current = 0;
-    setElapsedSeconds(0);
+    setPositionMs(0);
+    setCueIndex(-1);
     setState('running');
-    phaseRef.current = 'lead-in';
-    setPhase('lead-in');
-    scheduleWait(meditation.leadInSeconds * 1000, () => startSegment(0));
-  }, [meditation, state, scheduleWait, startSegment]);
+
+    // The bed goes down with the timeline rather than being played alongside
+    // it from here: one service owns everything the session makes a sound with,
+    // so the bed cannot outlive the meditation or die before it does.
+    Promise.all([
+      guidedTimeline(meditation, gong),
+      bed ? assetUri(bed.source) : Promise.resolve(undefined),
+    ])
+      .then(([items, bedUri]) =>
+        module.start({
+          sessionId: String(Date.now()),
+          durationSeconds: meditation.durationSeconds,
+          items,
+          voiceVolume: volume,
+          ...(bedUri && { bedUri, bedVolume: bed?.volume ?? 0.6 }),
+          meditationId: meditation.id,
+          title: meditation.title,
+        }),
+      )
+      .catch((error) => {
+        console.warn('[meditation] could not start guided session:', error);
+        setState('idle');
+      });
+  }, [meditation, state, volume, bed, gong]);
 
   const pause = useCallback(() => {
     if (state !== 'running') return;
-    if (phaseRef.current === 'speaking') {
-      playerRef.current?.pause();
-    } else {
-      waitRemainingRef.current = Math.max(0, waitEndsAtRef.current - Date.now());
-      clearWait();
-    }
+    MeditationSessionModule?.pause();
     setState('paused');
-  }, [state, clearWait]);
+  }, [state]);
 
   const stop = useCallback(() => {
-    clearWait();
-    playerRef.current?.pause();
-    phaseRef.current = 'idle';
-    setPhase('idle');
-    indexRef.current = -1;
-    setCurrentIndex(-1);
-    elapsedRef.current = 0;
-    setElapsedSeconds(0);
-    setState('idle');
-  }, [clearWait]);
+    if (__DEV__) console.log('[meditation] guided stop()');
+    MeditationSessionModule?.stop();
+    reset();
+  }, [reset]);
 
-  /**
-   * A silence outliving a suspended runtime.
-   *
-   * setTimeout only fires while the JS thread is alive. If the OS suspends the
-   * app mid-silence — screen locked with no bed playing to keep it awake — the
-   * continuation is still pending on return, holding the session at a line it
-   * should already have moved past. Anything whose deadline has come and gone
-   * fires on the way back in.
-   */
-  useEffect(() => {
-    if (state !== 'running') return;
+  const elapsedSeconds = Math.min(positionMs / 1000, total);
+  const segment = cueIndex >= 0 ? meditation?.segments[cueIndex] : undefined;
 
-    const subscription = AppState.addEventListener('change', (next) => {
-      if (next !== 'active') return;
-      if (!waitTimerRef.current) return;
-      if (Date.now() < waitEndsAtRef.current) return;
-
-      const onDone = waitDoneRef.current;
-      clearWait();
-      onDone?.();
-    });
-
-    return () => subscription.remove();
-  }, [state, clearWait]);
-
-  useEffect(() => () => clearWait(), [clearWait]);
-
-  const segment = currentIndex >= 0 ? meditation?.segments[currentIndex] : undefined;
+  const phase: GuidedPhase =
+    state === 'idle' || state === 'complete'
+      ? 'idle'
+      : segment
+        ? 'speaking'
+        : elapsedSeconds < (meditation?.leadInSeconds ?? 0)
+          ? 'lead-in'
+          : elapsedSeconds >= total - (meditation?.leadOutSeconds ?? 0)
+            ? 'lead-out'
+            : 'waiting';
 
   return {
     state,
     phase,
-    currentIndex,
+    currentIndex: cueIndex,
     /** The line being spoken; null through silences and before the first line. */
-    currentText: phase === 'speaking' ? (segment?.text ?? null) : null,
+    currentText: segment?.text ?? null,
     elapsedSeconds: Math.round(elapsedSeconds),
     remainingSeconds: Math.max(0, Math.round(total - elapsedSeconds)),
     progress: total > 0 ? Math.min(1, elapsedSeconds / total) : 0,
