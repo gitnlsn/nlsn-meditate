@@ -3,6 +3,7 @@ import { ThemedText } from '@/components/themed-text';
 import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { useStrings } from '@/contexts/locale-context';
+import { dateKey, localDateString } from '@/utils/date';
 
 interface CalendarViewProps {
   year: number;
@@ -38,7 +39,7 @@ export function CalendarView({
    * handed — a translation that fails silently is worse than none.
    */
   const monthLabel = strings.history.monthYear(strings.history.months[month], year);
-  const todayStr = todayDateString();
+  const todayStr = localDateString();
 
   const cells: { day: number; inMonth: boolean; dateStr: string }[] = [];
 
@@ -47,12 +48,12 @@ export function CalendarView({
     const d = daysInPrevMonth - i;
     const m = month === 0 ? 11 : month - 1;
     const y = month === 0 ? year - 1 : year;
-    cells.push({ day: d, inMonth: false, dateStr: formatDate(y, m, d) });
+    cells.push({ day: d, inMonth: false, dateStr: dateKey(y, m, d) });
   }
 
   // Current month
   for (let d = 1; d <= daysInMonth; d++) {
-    cells.push({ day: d, inMonth: true, dateStr: formatDate(year, month, d) });
+    cells.push({ day: d, inMonth: true, dateStr: dateKey(year, month, d) });
   }
 
   // Next month fill
@@ -60,7 +61,7 @@ export function CalendarView({
   for (let d = 1; d <= remaining; d++) {
     const m = month === 11 ? 0 : month + 1;
     const y = month === 11 ? year + 1 : year;
-    cells.push({ day: d, inMonth: false, dateStr: formatDate(y, m, d) });
+    cells.push({ day: d, inMonth: false, dateStr: dateKey(y, m, d) });
   }
 
   return (
@@ -123,20 +124,6 @@ export function CalendarView({
       ))}
     </View>
   );
-}
-
-function formatDate(year: number, month: number, day: number): string {
-  return `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-}
-
-/**
- * Today in the same shape the session records use. Built from the local
- * calendar rather than toISOString, which would answer in UTC and land on the
- * wrong day for anyone west of Greenwich for part of every evening.
- */
-function todayDateString(): string {
-  const now = new Date();
-  return formatDate(now.getFullYear(), now.getMonth(), now.getDate());
 }
 
 const styles = StyleSheet.create({

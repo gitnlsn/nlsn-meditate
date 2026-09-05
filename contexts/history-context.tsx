@@ -4,6 +4,7 @@ import {
   addSession as persistSession,
   type MeditationSession,
 } from '@/utils/session-storage';
+import { localDateString } from '@/utils/date';
 
 interface HistoryState {
   sessions: MeditationSession[];
@@ -16,8 +17,23 @@ export interface SessionMeta {
   title: string;
 }
 
+/** One finished sit, as the thing that finished it reports it. */
+export interface FinishedSession {
+  durationSeconds: number;
+  /**
+   * Epoch ms the sit ended, which is not always when we heard about it. A
+   * session can end with the screen locked and only be reported on the way back
+   * in, so stamping the arrival would file a late-evening sit under the
+   * following day. Defaults to now, for a completion observed as it happens.
+   */
+  endedAt?: number;
+  /** Stable identity, so the same sit reported twice is recorded once. */
+  sessionId?: string;
+  meta?: SessionMeta;
+}
+
 interface HistoryActions {
-  addSession: (durationSeconds: number, meta?: SessionMeta) => Promise<void>;
+  addSession: (session: FinishedSession) => Promise<void>;
 }
 
 const HistoryStateContext = createContext<HistoryState>({ sessions: [], isLoading: true });
@@ -36,9 +52,15 @@ export function HistoryProvider({ children }: { children: ReactNode }) {
     });
   }, []);
 
-  const addSession = useCallback(async (durationSeconds: number, meta?: SessionMeta) => {
-    const date = new Date().toISOString().split('T')[0];
-    const updated = await persistSession({ date, durationSeconds, ...meta });
+  const addSession = useCallback(async (session: FinishedSession) => {
+    const { durationSeconds, endedAt = Date.now(), sessionId, meta } = session;
+    const updated = await persistSession({
+      date: localDateString(endedAt),
+      durationSeconds,
+      endedAt,
+      ...(sessionId && { sessionId }),
+      ...meta,
+    });
     setSessions(updated);
   }, []);
 
