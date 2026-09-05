@@ -102,6 +102,13 @@ export const en: Strings = {
     languageSystem: 'System',
   },
 
+  session: {
+    endTitle: 'End this meditation?',
+    endMessage: 'Leaving ends the session, and it will not enter your history.',
+    endConfirm: 'End',
+    endCancel: 'Keep meditating',
+  },
+
   picker: {
     selectDuration: 'Select duration',
     selectTime: 'Select time',

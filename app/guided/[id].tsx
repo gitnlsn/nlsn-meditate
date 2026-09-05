@@ -1,12 +1,14 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Pressable, StyleSheet, View, useWindowDimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useNavigation, usePreventRemove, type NavigationAction } from '@react-navigation/native';
 import * as Haptics from 'expo-haptics';
 
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { IconSymbol } from '@/components/ui/icon-symbol';
+import { ConfirmDialog } from '@/components/ui/confirm-dialog';
 import { CircularProgress } from '@/components/timer/circular-progress';
 import { TimerControls } from '@/components/timer/timer-controls';
 import { Caption } from '@/components/guided/caption';
@@ -22,14 +24,16 @@ import { CONTENT_MAX_WIDTH } from '@/constants/layout';
 /**
  * A view onto the guided session, not the session itself.
  *
- * The session lives in GuidedSessionProvider at the root, so leaving this screen
- * — back gesture, back button, going to look at something else — leaves the
- * voice and the bed playing. Re-opening the same meditation rejoins it rather
- * than starting it over; opening a different one ends the first.
+ * The session lives in GuidedSessionProvider at the root, so nothing about
+ * unmounting this screen would stop the voice. That is why leaving asks: a
+ * meditation you walked away from used to keep speaking with nothing on screen
+ * pointing at where to stop it, and starting the timer then laid a second
+ * session over the top of the first.
  */
 export default function GuidedPlayerScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
+  const navigation = useNavigation();
   const colorScheme = useColorScheme() ?? 'light';
   const colors = Colors[colorScheme];
   const strings = useStrings();
@@ -60,6 +64,26 @@ export default function GuidedPlayerScreen() {
   /** Whether the voice owns the caption slot, rather than the description. */
   const inSession = state === 'running' || state === 'paused';
 
+  /*
+   * Every way out of this screen, asked the same question.
+   *
+   * The chevron below is only one of them — there is also the Android back
+   * button and the swipe in from the edge, and a confirmation the chevron alone
+   * carried would be one the other two walked straight past. Preventing the
+   * removal catches all three at the navigator, and the action that was blocked
+   * is held until the question is answered, so confirming leaves exactly where
+   * the gesture was going.
+   */
+  const [pendingExit, setPendingExit] = useState<NavigationAction | null>(null);
+  usePreventRemove(inSession, ({ data }) => setPendingExit(data.action));
+
+  const leave = () => {
+    const action = pendingExit;
+    setPendingExit(null);
+    session.stop();
+    if (action) navigation.dispatch(action);
+  };
+
   if (!meditation) {
     return (
       <ThemedView style={styles.container}>
@@ -77,7 +101,7 @@ export default function GuidedPlayerScreen() {
           <Pressable
             onPress={() => {
               Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-              // Leaving is not stopping. Use the reset control to end a session.
+              // Intercepted while a session is going — see usePreventRemove above.
               router.back();
             }}
             hitSlop={12}
@@ -117,6 +141,16 @@ export default function GuidedPlayerScreen() {
           </View>
         </View>
       </SafeAreaView>
+
+      <ConfirmDialog
+        visible={pendingExit !== null}
+        title={strings.session.endTitle}
+        message={strings.session.endMessage}
+        confirmLabel={strings.session.endConfirm}
+        cancelLabel={strings.session.endCancel}
+        onConfirm={leave}
+        onCancel={() => setPendingExit(null)}
+      />
     </ThemedView>
   );
 }

@@ -1,11 +1,12 @@
 import {
-  createContext, useCallback, useContext, useRef, useState, type ReactNode,
+  createContext, useCallback, useContext, useMemo, useRef, useState, type ReactNode,
 } from 'react';
 
 import type { GuidedMeditation } from '@/constants/guided-meditations';
 import { useGuidedSession } from '@/hooks/use-guided-session';
 import { useAddSession } from '@/contexts/history-context';
 import { useAudioSettings } from '@/contexts/audio-settings-context';
+import { useMeditationDispatch } from '@/contexts/meditation-context';
 
 type Session = ReturnType<typeof useGuidedSession>;
 
@@ -20,8 +21,15 @@ interface GuidedSessionContextValue extends Session {
   load: (next: GuidedMeditation | undefined) => void;
 }
 
+/** Ending the guided session, and pointing it somewhere else. */
+interface GuidedControls {
+  stop: () => void;
+  load: (next: GuidedMeditation | undefined) => void;
+}
+
 const GuidedSessionContext = createContext<GuidedSessionContextValue | null>(null);
 const NowPlayingContext = createContext<string | undefined>(undefined);
+const GuidedControlsContext = createContext<GuidedControls | null>(null);
 
 /**
  * Holds the guided session for the whole app rather than for one screen.
@@ -49,7 +57,25 @@ export function GuidedSessionProvider({ children }: { children: ReactNode }) {
     volume: settings.voiceVolume,
   });
 
-  const { stop } = session;
+  const { stop, play: playSession } = session;
+
+  /*
+   * One meditation at a time.
+   *
+   * Both sessions outlive the screens that show them, which is what lets you
+   * leave a meditation running and come back to it — and also what let two of
+   * them run at once: a timer left going on its tab kept ticking underneath a
+   * guided voice, gonged over it, and wrote itself to history. Starting here
+   * ends the timer, and useTimer's play ends this session, so whichever one you
+   * begin is the only one playing. The prompt on leaving a session usually gets
+   * there first; this catches the paths it cannot see, a deep link into a
+   * player among them.
+   */
+  const meditationDispatch = useMeditationDispatch();
+  const play = useCallback(() => {
+    meditationDispatch({ type: 'RESET' });
+    playSession();
+  }, [meditationDispatch, playSession]);
 
   /*
    * What is loaded, tracked outside render state as well.
@@ -68,7 +94,17 @@ export function GuidedSessionProvider({ children }: { children: ReactNode }) {
     setMeditation(next);
   }, [stop]);
 
-  const value: GuidedSessionContextValue = { ...session, meditation, load };
+  const value: GuidedSessionContextValue = { ...session, play, meditation, load };
+
+  /*
+   * Ending the session, published on its own.
+   *
+   * Both of these keep their identity for the life of the provider, so a
+   * subscriber that only ever needs to stop the session — the timer's play, the
+   * confirmations on the way out of a screen — is not dragged into the four
+   * re-renders a second the full session makes.
+   */
+  const controls = useMemo<GuidedControls>(() => ({ stop, load }), [stop, load]);
 
   /*
    * The id of what is playing, published separately from the session itself.
@@ -82,9 +118,11 @@ export function GuidedSessionProvider({ children }: { children: ReactNode }) {
 
   return (
     <GuidedSessionContext.Provider value={value}>
-      <NowPlayingContext.Provider value={nowPlayingId}>
-        {children}
-      </NowPlayingContext.Provider>
+      <GuidedControlsContext.Provider value={controls}>
+        <NowPlayingContext.Provider value={nowPlayingId}>
+          {children}
+        </NowPlayingContext.Provider>
+      </GuidedControlsContext.Provider>
     </GuidedSessionContext.Provider>
   );
 }
@@ -101,4 +139,13 @@ export function useGuidedSessionContext(): GuidedSessionContextValue {
 /** The id of the guided meditation playing right now, if any. */
 export function useNowPlayingGuidedId(): string | undefined {
   return useContext(NowPlayingContext);
+}
+
+/** Stopping the guided session, or pointing it at another meditation. */
+export function useGuidedControls(): GuidedControls {
+  const value = useContext(GuidedControlsContext);
+  if (!value) {
+    throw new Error('useGuidedControls must be used inside a GuidedSessionProvider');
+  }
+  return value;
 }

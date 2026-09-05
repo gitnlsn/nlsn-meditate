@@ -84,6 +84,13 @@ function meditationReducer(state: MeditationState, action: MeditationAction): Me
       };
     }
     case 'RESET':
+      /*
+       * Nothing to clear is not a change. Starting a guided meditation resets
+       * the timer unconditionally — one session at a time — and most of the
+       * time there is no timer to end; returning the same state keeps that
+       * guard from re-rendering the app for nothing.
+       */
+      if (state.timerState === 'idle' && state.elapsedSeconds === 0) return state;
       return {
         ...state,
         timerState: 'idle',
@@ -101,13 +108,25 @@ function meditationReducer(state: MeditationState, action: MeditationAction): Me
 const MeditationContext = createContext<MeditationState>(initialState);
 const MeditationDispatchContext = createContext<Dispatch<MeditationAction>>(() => {});
 
+/**
+ * Whether the timer is running, published apart from the rest of the state.
+ *
+ * A running session dispatches a TICK every second, so anything subscribing to
+ * the whole state re-renders every second with it. The tab bar only needs to
+ * know which of the four states the timer is in — a bare string that changes
+ * on a transition and at no other time.
+ */
+const TimerStatusContext = createContext<TimerState>('idle');
+
 export function MeditationProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(meditationReducer, initialState);
 
   return (
     <MeditationContext.Provider value={state}>
       <MeditationDispatchContext.Provider value={dispatch}>
-        {children}
+        <TimerStatusContext.Provider value={state.timerState}>
+          {children}
+        </TimerStatusContext.Provider>
       </MeditationDispatchContext.Provider>
     </MeditationContext.Provider>
   );
@@ -119,4 +138,9 @@ export function useMeditation() {
 
 export function useMeditationDispatch() {
   return useContext(MeditationDispatchContext);
+}
+
+/** The timer's state alone, for anything that must not re-render on every tick. */
+export function useTimerState() {
+  return useContext(TimerStatusContext);
 }

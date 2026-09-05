@@ -106,6 +106,13 @@ export const pt: Strings = {
     languageSystem: 'Do aparelho',
   },
 
+  session: {
+    endTitle: 'Encerrar a meditação?',
+    endMessage: 'Sair encerra a sessão, e ela não entra no seu histórico.',
+    endConfirm: 'Encerrar',
+    endCancel: 'Continuar meditando',
+  },
+
   picker: {
     selectDuration: 'Escolha a duração',
     selectTime: 'Escolha o horário',

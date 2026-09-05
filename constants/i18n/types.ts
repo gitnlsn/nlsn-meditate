@@ -97,6 +97,15 @@ export interface Strings {
     languageSystem: string;
   };
 
+  /** Leaving a meditation that is still going. */
+  session: {
+    endTitle: string;
+    /** Says both what leaving does and that nothing is kept. */
+    endMessage: string;
+    endConfirm: string;
+    endCancel: string;
+  };
+
   picker: {
     selectDuration: string;
     selectTime: string;
