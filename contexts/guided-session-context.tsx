@@ -4,6 +4,7 @@ import {
 
 import type { GuidedMeditation } from '@/constants/guided-meditations';
 import { useGuidedSession } from '@/hooks/use-guided-session';
+import { useGong } from '@/hooks/use-gong';
 import { useAddSession } from '@/contexts/history-context';
 import { useAudioSettings } from '@/contexts/audio-settings-context';
 import { findAmbience } from '@/constants/ambiences';
@@ -90,10 +91,28 @@ export function GuidedSessionProvider({ children }: { children: ReactNode }) {
    * player among them.
    */
   const meditationDispatch = useMeditationDispatch();
+
+  /*
+   * The opening bell, for a guided sit too.
+   *
+   * "Play gong at start" is one setting for the whole app, but only the plain
+   * timer was ever struck for — a meditation with a voice began without it, on
+   * the same setting the reader had turned on. Struck from here rather than
+   * laid into the timeline the service plays, because the ring and the caption
+   * are read from that timeline's positions, and a bell eleven seconds long
+   * would push everything after it out of step with the clock. Nothing about
+   * this one has to survive a locked screen: it sounds at the moment of the
+   * press, while the app is by definition awake.
+   */
+  const { playGong } = useGong();
+  const { state: sessionState } = session;
+
   const play = useCallback(() => {
     meditationDispatch({ type: 'RESET' });
+    // Only a sit that is beginning. Picking a meditation back up is not.
+    if (sessionState !== 'paused' && settings.playGongAtStart) playGong();
     playSession();
-  }, [meditationDispatch, playSession]);
+  }, [meditationDispatch, sessionState, settings.playGongAtStart, playGong, playSession]);
 
   /*
    * What is loaded, tracked outside render state as well.
