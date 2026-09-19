@@ -121,7 +121,10 @@ export function SessionRuntime() {
     const prev = prevTimerStateRef.current;
 
     if (prev === 'idle' && timerState === 'running') {
-      loadAudioSettings().then((s) => { if (s.playGongAtStart) playGong(); });
+      loadAudioSettings().then((s) => {
+        if (__DEV__) console.log(`[meditation] session began; gongAtStart=${s.playGongAtStart}`);
+        if (s.playGongAtStart) playGong();
+      });
     }
 
     if (timerState === 'complete' && prev !== 'complete') {

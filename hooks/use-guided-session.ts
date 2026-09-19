@@ -58,8 +58,20 @@ export function useGuidedSession(meditation: GuidedMeditation | undefined, optio
     stateRef.current = state;
   }, [state]);
 
+  /*
+   * The sit in the service that is ours, if any.
+   *
+   * The service runs the plain timer's sits through the same door, and its
+   * events carry no hint of which kind they belong to — so a silent sit ending
+   * would otherwise land here as this meditation finishing, and leave a session
+   * this hook believes in long after there is one. Holding the id is what makes
+   * "ours" answerable.
+   */
+  const ownSessionIdRef = useRef<string | null>(null);
+
   /** Back to nothing playing, without telling the service anything. */
   const reset = useCallback(() => {
+    ownSessionIdRef.current = null;
     setPositionMs(0);
     setCueIndex(-1);
     setState('idle');
@@ -101,6 +113,7 @@ export function useGuidedSession(meditation: GuidedMeditation | undefined, optio
         if (running.meditationId === meditation.id) {
           // The same meditation, still going. Pick it up where it is.
           if (__DEV__) console.log(`[meditation] rejoining ${running.meditationId} at ${running.positionMs}ms`);
+          ownSessionIdRef.current = running.sessionId;
           setState(running.state);
           setPositionMs(running.positionMs);
           setCueIndex(running.cueIndex);
@@ -125,13 +138,23 @@ export function useGuidedSession(meditation: GuidedMeditation | undefined, optio
     const module = MeditationSessionModule;
     if (!module) return;
 
+    // Everything here is addressed to the sit this hook started. The service
+    // is shared with the plain timer, and its progress is not ours to draw.
     const subscriptions = [
-      module.addListener('onProgress', ({ positionMs: at }) => setPositionMs(at)),
-      module.addListener('onItemChanged', ({ cueIndex: cue }) => setCueIndex(cue)),
+      module.addListener('onProgress', ({ positionMs: at }) => {
+        if (ownSessionIdRef.current) setPositionMs(at);
+      }),
+      module.addListener('onItemChanged', ({ cueIndex: cue }) => {
+        if (ownSessionIdRef.current) setCueIndex(cue);
+      }),
       module.addListener('onError', ({ message }) => {
         console.warn('[meditation] session failed:', message);
       }),
-      module.addListener('onCompleted', ({ endedAt }) => {
+      module.addListener('onCompleted', ({ sessionId, endedAt }) => {
+        if (sessionId !== ownSessionIdRef.current) return;
+        // The service has already stopped itself; there is nothing of ours
+        // left in it to end.
+        ownSessionIdRef.current = null;
         setState('complete');
         setCueIndex(-1);
         const current = meditationRef.current;
@@ -172,6 +195,8 @@ export function useGuidedSession(meditation: GuidedMeditation | undefined, optio
       return;
     }
 
+    const sessionId = String(Date.now());
+    ownSessionIdRef.current = sessionId;
     setPositionMs(0);
     setCueIndex(-1);
     setState('running');
@@ -185,7 +210,7 @@ export function useGuidedSession(meditation: GuidedMeditation | undefined, optio
     ])
       .then(([items, bedUri]) =>
         module.start({
-          sessionId: String(Date.now()),
+          sessionId,
           durationSeconds: meditation.durationSeconds,
           items,
           voiceVolume: volume,
@@ -196,9 +221,9 @@ export function useGuidedSession(meditation: GuidedMeditation | undefined, optio
       )
       .catch((error) => {
         console.warn('[meditation] could not start guided session:', error);
-        setState('idle');
+        reset();
       });
-  }, [meditation, state, volume, bed, gong]);
+  }, [meditation, state, volume, bed, gong, reset]);
 
   const pause = useCallback(() => {
     if (state !== 'running') return;
@@ -206,9 +231,23 @@ export function useGuidedSession(meditation: GuidedMeditation | undefined, optio
     setState('paused');
   }, [state]);
 
+  /*
+   * End this meditation, and only this meditation.
+   *
+   * The service holds one session at a time, whatever kind it is, so a bare
+   * `stop()` reaches a plain silent sit just as readily as a voice. That is how
+   * resuming a paused timer went quiet: the timer's play ends any guided
+   * session before it starts one, which tore down the service the timer was
+   * paused inside, and the resume that followed had nothing left to resume.
+   *
+   * So the service is only told to stop while it is holding a sit of ours. A
+   * guided session the app has been rebuilt around — one running with this side
+   * knowing nothing of it yet — is ended by the next `start()` replacing it in
+   * the service, which is the same guarantee arriving by another route.
+   */
   const stop = useCallback(() => {
-    if (__DEV__) console.log('[meditation] guided stop()');
-    MeditationSessionModule?.stop();
+    if (__DEV__) console.log(`[meditation] guided stop() (ours=${ownSessionIdRef.current ?? 'none'})`);
+    if (ownSessionIdRef.current) MeditationSessionModule?.stop();
     reset();
   }, [reset]);
 

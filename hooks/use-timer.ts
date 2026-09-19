@@ -23,11 +23,27 @@ export function useTimer() {
   const { stop: stopGuided } = useGuidedControls();
 
   const play = useCallback(() => {
-    stopGuided();
+    if (__DEV__) console.log(`[meditation] timer play pressed while ${timerState}`);
+    /*
+     * Resuming is not starting.
+     *
+     * Ending the guided session on the way in is what keeps two meditations
+     * from sounding at once, and it belongs on a fresh start. A resume rejoins
+     * the sit already sitting in the playback service, and the service holds
+     * one session at a time — so the only thing there is to end on this path is
+     * the very sit being resumed.
+     */
+    if (timerState !== 'paused') stopGuided();
     dispatch({ type: 'PLAY' });
-  }, [stopGuided, dispatch]);
-  const pause = useCallback(() => dispatch({ type: 'PAUSE' }), [dispatch]);
-  const reset = useCallback(() => dispatch({ type: 'RESET' }), [dispatch]);
+  }, [timerState, stopGuided, dispatch]);
+  const pause = useCallback(() => {
+    if (__DEV__) console.log(`[meditation] timer pause pressed while ${timerState}`);
+    dispatch({ type: 'PAUSE' });
+  }, [timerState, dispatch]);
+  const reset = useCallback(() => {
+    if (__DEV__) console.log(`[meditation] timer reset pressed while ${timerState}`);
+    dispatch({ type: 'RESET' });
+  }, [timerState, dispatch]);
 
   return {
     timerState,

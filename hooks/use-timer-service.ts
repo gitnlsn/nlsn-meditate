@@ -97,6 +97,7 @@ export function useTimerService({
 
     if (timerState === 'running') {
       if (previous === 'paused') {
+        if (__DEV__) console.log('[meditation] timer resume -> service');
         module.resume();
         return;
       }
@@ -105,20 +106,22 @@ export function useTimerService({
         timerTimeline(seconds, gong ? GONG : undefined),
         bed ? assetUri(bed.source) : Promise.resolve(undefined),
       ])
-        .then(([items, bedUri]) =>
-          module.start({
+        .then(([items, bedUri]) => {
+          if (__DEV__) console.log(`[meditation] timer start -> service ${seconds}s bed=${bedUri ?? 'none'}`);
+          return module.start({
             sessionId: id ?? String(Date.now()),
             durationSeconds: seconds,
             items,
             voiceVolume: 1,
             ...(bedUri && { bedUri, bedVolume }),
-          }),
-        )
+          });
+        })
         .catch((error) => console.warn('[meditation] could not start timer session:', error));
       return;
     }
 
     if (timerState === 'paused') {
+      if (__DEV__) console.log('[meditation] timer pause -> service');
       module.pause();
       return;
     }
@@ -134,6 +137,7 @@ export function useTimerService({
     if (timerState === 'complete') return;
     if (previous === 'complete') return;
 
+    if (__DEV__) console.log(`[meditation] timer ${previous} -> ${timerState}: stopping the service`);
     module.stop();
   }, [timerState]);
 }

@@ -23,9 +23,17 @@ export function useGong() {
 
   const playGong = useCallback(async () => {
     const player = playerRef.current;
-    if (!player) return;
-    await player.seekTo(0);
-    player.play();
+    if (!player) {
+      if (__DEV__) console.log('[meditation] gong asked for with no player loaded');
+      return;
+    }
+    try {
+      if (__DEV__) console.log(`[meditation] gong strike (loaded=${player.isLoaded} volume=${player.volume})`);
+      await player.seekTo(0);
+      player.play();
+    } catch (error) {
+      console.warn('[meditation] gong failed:', error);
+    }
   }, []);
 
   return { playGong };
