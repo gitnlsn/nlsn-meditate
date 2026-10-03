@@ -39,7 +39,7 @@ If sign-in fails silently on a device, the usual cause is a missing SHA-1 for th
 
 ## 4. Achievements
 
-Play Games Services → **Achievements → Add achievement**, one for each badge. Use the titles and descriptions from `constants/i18n/en.ts` and add the Portuguese ones from `pt.ts` under *Add translations*. Each needs a 512×512 PNG icon, and the points across all achievements must add up to 1000 or less.
+Play Games Services → **Achievements → Add achievement**, one for each badge. Use the titles and descriptions from `constants/i18n/en.ts` and add the Portuguese ones from `pt.ts` under *Add translations*. Each needs a 512×512 PNG icon. Points must be multiples of 5, at most 200 per achievement and 1000 in total.
 
 | Key in `constants/play-games.ts` | Title (en / pt) | Points |
 |---|---|---|
@@ -49,15 +49,15 @@ Play Games Services → **Achievements → Add achievement**, one for each badge
 | `explorer` | Explorer / Exploração | 30 |
 | `early-bird` | Early bird / Madrugada | 15 |
 | `night-owl` | Night owl / Noite adentro | 15 |
-| `streak-7` | One week / Uma semana | 40 |
-| `streak-30` | One month / Um mês | 120 |
+| `streak-7` | One week / Uma semana | 60 |
+| `streak-30` | One month / Um mês | 200 |
 | `minutes-10` | 10 minutes / 10 minutos | 5 |
 | `minutes-60` | One hour / Uma hora | 15 |
 | `minutes-300` | Five hours / Cinco horas | 40 |
 | `minutes-600` | Ten hours / Dez horas | 70 |
 | `minutes-1440` | A whole day / Um dia inteiro | 120 |
 | `minutes-3000` | Fifty hours / Cinquenta horas | 200 |
-| `minutes-6000` | A hundred hours / Cem horas | 300 |
+| `minutes-6000` | A hundred hours / Cem horas | 200 |
 
 Leave them all **standard** (not incremental) and **revealed**. Copy each achievement's **ID** (like `CgkI…EAIQAQ`) into `PLAY_GAMES_ACHIEVEMENTS` in `constants/play-games.ts`.
 

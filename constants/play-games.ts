@@ -9,28 +9,28 @@ import type { AchievementKey } from '@/constants/achievements';
  * one side ahead of the other. See docs/play-games-setup.md.
  */
 export const PLAY_GAMES_ACHIEVEMENTS: Record<AchievementKey, string> = {
-  'first-sit': '',
-  'first-guided': '',
-  'deep-sit': '',
-  explorer: '',
-  'early-bird': '',
-  'night-owl': '',
-  'streak-7': '',
-  'streak-30': '',
-  'minutes-10': '',
-  'minutes-60': '',
-  'minutes-300': '',
-  'minutes-600': '',
-  'minutes-1440': '',
-  'minutes-3000': '',
-  'minutes-6000': '',
+  'first-sit': 'CgkI6Nbmp6kDEAIQAg',
+  'first-guided': 'CgkI6Nbmp6kDEAIQAw',
+  'deep-sit': 'CgkI6Nbmp6kDEAIQBA',
+  explorer: 'CgkI6Nbmp6kDEAIQBQ',
+  'early-bird': 'CgkI6Nbmp6kDEAIQBg',
+  'night-owl': 'CgkI6Nbmp6kDEAIQBw',
+  'streak-7': 'CgkI6Nbmp6kDEAIQCA',
+  'streak-30': 'CgkI6Nbmp6kDEAIQCQ',
+  'minutes-10': 'CgkI6Nbmp6kDEAIQCg',
+  'minutes-60': 'CgkI6Nbmp6kDEAIQCw',
+  'minutes-300': 'CgkI6Nbmp6kDEAIQDA',
+  'minutes-600': 'CgkI6Nbmp6kDEAIQDQ',
+  'minutes-1440': 'CgkI6Nbmp6kDEAIQDg',
+  'minutes-3000': 'CgkI6Nbmp6kDEAIQDw',
+  'minutes-6000': 'CgkI6Nbmp6kDEAIQEA',
 };
 
 export const PLAY_GAMES_LEADERBOARDS = {
   /** Lifetime minutes meditated. */
-  totalMinutes: '',
+  totalMinutes: 'CgkI6Nbmp6kDEAIQEQ',
   /** Minutes since the start of the Play Games week; compared on its Weekly tab. */
-  weekMinutes: '',
+  weekMinutes: 'CgkI6Nbmp6kDEAIQEg',
   /** Longest streak ever kept, in days. */
-  bestStreak: '',
+  bestStreak: 'CgkI6Nbmp6kDEAIQEw',
 };
