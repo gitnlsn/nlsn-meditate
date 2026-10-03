@@ -13,6 +13,8 @@ import { FavoritesProvider } from '@/contexts/favorites-context';
 import { AudioSettingsProvider } from '@/contexts/audio-settings-context';
 import { GuidedSessionProvider } from '@/contexts/guided-session-context';
 import { SessionRuntime } from '@/components/session/session-runtime';
+import { AchievementCelebration } from '@/components/progress/achievement-celebration';
+import { PlayGamesProvider } from '@/contexts/play-games-context';
 import { loadReminderSettings } from '@/utils/reminder-storage';
 import { scheduleAllReminders } from '@/utils/notifications';
 import { useAudioSession } from '@/hooks/use-audio-session';
@@ -48,6 +50,7 @@ export default function RootLayout() {
     <LocaleProvider>
       <MeditationProvider>
       <HistoryProvider>
+      <PlayGamesProvider>
         <FavoritesProvider>
           <AudioSettingsProvider>
             <GuidedSessionProvider>
@@ -56,16 +59,19 @@ export default function RootLayout() {
                 * a child of any screen, or navigating away unmounts it.
                 */}
               <SessionRuntime />
+              <AchievementCelebration />
               <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
                 <Stack>
                   <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
                   <Stack.Screen name="guided/[id]" options={{ headerShown: false }} />
+                  <Stack.Screen name="progress" options={{ headerShown: false }} />
                 </Stack>
                 <StatusBar style="auto" />
               </ThemeProvider>
             </GuidedSessionProvider>
           </AudioSettingsProvider>
         </FavoritesProvider>
+      </PlayGamesProvider>
       </HistoryProvider>
       </MeditationProvider>
     </LocaleProvider>

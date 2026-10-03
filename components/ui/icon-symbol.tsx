@@ -32,6 +32,16 @@ const MAPPING = {
   'heart': 'favorite-border',
   'heart.fill': 'favorite',
   'checkmark': 'check',
+  'leaf.fill': 'eco',
+  'headphones': 'headphones',
+  'map.fill': 'explore',
+  'moon.fill': 'nightlight',
+  'sunrise.fill': 'wb-twilight',
+  'hourglass': 'hourglass-bottom',
+  'flame.fill': 'local-fire-department',
+  'star.fill': 'star',
+  'trophy.fill': 'emoji-events',
+  'list.number': 'leaderboard',
 } as IconMapping;
 
 /**

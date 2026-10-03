@@ -12,6 +12,8 @@
  * Those live with their recordings in the generated guided-meditations.ts, one
  * set per language, so a title can never be translated ahead of its audio.
  */
+import type { AchievementKey } from '@/constants/achievements';
+
 export type Locale = 'pt' | 'en';
 
 /** The languages on offer, each written in its own language. */
@@ -81,6 +83,36 @@ export interface Strings {
     monthYear: (month: string, year: number) => string;
     fullDate: (weekday: string, day: number, month: string) => string;
     sessionCount: (count: number) => string;
+  };
+
+  /** The progress block at the top of History, its badges, and Play Games. */
+  progress: {
+    heading: string;
+    totalTime: string;
+    currentStreak: string;
+    bestStreak: string;
+    /** A count of days, as a streak's figure. */
+    days: (count: number) => string;
+    /** Under the milestone bar: what the next one is. */
+    nextMilestone: (target: string) => string;
+    allMilestones: string;
+    badgesHeading: string;
+    /** Badges earned out of all, as the History strip shows it. */
+    badgeCount: (earned: number, total: number) => string;
+    /** Accessibility label for the History strip that opens the progress screen. */
+    openDetails: string;
+    /** Total time in hours and minutes, for figures past an hour. */
+    hoursMinutes: (hours: number, minutes: number) => string;
+    /** Announcing a badge just earned. */
+    unlockedTitle: string;
+    unlockedClose: string;
+    lockedLabel: (title: string) => string;
+    badges: Record<AchievementKey, { title: string; description: string }>;
+    playGames: string;
+    playGamesIntro: string;
+    playGamesSignIn: string;
+    playGamesAchievements: string;
+    playGamesLeaderboards: string;
   };
 
   settings: {

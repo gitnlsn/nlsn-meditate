@@ -7,6 +7,7 @@ import { ThemedView } from '@/components/themed-view';
 import { CalendarView } from '@/components/history/calendar-view';
 import { SessionSummary } from '@/components/history/session-summary';
 import { CalendarLegend } from '@/components/history/calendar-legend';
+import { ProgressStrip } from '@/components/progress/progress-strip';
 import { useHistory } from '@/contexts/history-context';
 import { useStrings } from '@/contexts/locale-context';
 import { TAB_SCREEN_EDGES, CONTENT_MAX_WIDTH } from '@/constants/layout';
@@ -61,6 +62,7 @@ export default function HistoryScreen() {
           contentContainerStyle={styles.content}>
           <ThemedText type="title" style={styles.title}>{strings.history.heading}</ThemedText>
           <ThemedText style={styles.intro}>{strings.history.intro}</ThemedText>
+          <ProgressStrip />
           <CalendarView
             year={year}
             month={month}

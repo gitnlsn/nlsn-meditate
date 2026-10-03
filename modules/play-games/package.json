@@ -1,0 +1,7 @@
+{
+  "name": "play-games",
+  "version": "0.1.0",
+  "description": "Google Play Games Services sign-in, achievements and leaderboards.",
+  "main": "index.ts",
+  "private": true
+}

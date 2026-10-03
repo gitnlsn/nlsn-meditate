@@ -53,6 +53,12 @@
         }
       ],
       "./plugins/with-recording-service-removed",
+      [
+        "./plugins/with-play-games",
+        {
+          "projectId": ""
+        }
+      ],
       "expo-asset"
     ],
     "experiments": {
