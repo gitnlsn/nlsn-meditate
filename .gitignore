@@ -18,6 +18,10 @@ expo-env.d.ts
 *.key
 *.mobileprovision
 
+.agents
+.claude
+skills-lock.json
+
 # Metro
 .metro-health-check*
 
