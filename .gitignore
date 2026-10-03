@@ -22,6 +22,8 @@ expo-env.d.ts
 .claude
 skills-lock.json
 
+*apps.googleusercontent.com.json
+
 # Metro
 .metro-health-check*
 
