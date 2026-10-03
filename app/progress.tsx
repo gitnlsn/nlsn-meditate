@@ -12,7 +12,14 @@ import { CONTENT_MAX_WIDTH } from '@/constants/layout';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { useStrings } from '@/contexts/locale-context';
 
-/** Reached from the strip above History's calendar. Header as the guided player's. */
+/**
+ * Reached from the strip above History's calendar.
+ *
+ * Laid out like the tab screens — large title, a line under it — rather than
+ * the guided player's small centred header: this is a page to read, like
+ * History, not a session in progress. The back chevron gets a line of its own
+ * above the title, since nothing on a tab screen sits beside it.
+ */
 export default function ProgressScreen() {
   const router = useRouter();
   const colors = Colors[useColorScheme() ?? 'light'];
@@ -21,7 +28,7 @@ export default function ProgressScreen() {
   return (
     <ThemedView style={styles.container}>
       <SafeAreaView style={styles.container}>
-        <View style={styles.header}>
+        <View style={styles.topBar}>
           <Pressable
             onPress={() => {
               Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
@@ -32,10 +39,10 @@ export default function ProgressScreen() {
             accessibilityRole="button">
             <IconSymbol name="chevron.left" size={24} color={colors.text} />
           </Pressable>
-          <ThemedText style={styles.headerTitle}>{strings.progress.heading}</ThemedText>
-          <View style={styles.back} />
         </View>
         <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.content}>
+          <ThemedText type="title" style={styles.title}>{strings.progress.heading}</ThemedText>
+          <ThemedText style={styles.intro}>{strings.progress.intro}</ThemedText>
           <ProgressDetails />
         </ScrollView>
       </SafeAreaView>
@@ -45,27 +52,20 @@ export default function ProgressScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1 },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: 24,
+  topBar: {
+    paddingHorizontal: 16,
     paddingTop: 8,
     width: '100%',
     maxWidth: CONTENT_MAX_WIDTH,
     alignSelf: 'center',
   },
-  back: { width: 32, height: 32, alignItems: 'center', justifyContent: 'center' },
-  headerTitle: {
-    fontSize: 18,
-    fontWeight: '300',
-    textTransform: 'uppercase',
-    letterSpacing: 4,
-    opacity: 0.6,
-  },
+  back: { width: 40, height: 40, alignItems: 'center', justifyContent: 'center' },
+  // Title and intro as History's, so the two pages read as siblings.
+  title: { marginBottom: 12 },
+  intro: { fontSize: 15, lineHeight: 22, opacity: 0.6, marginBottom: 28 },
   content: {
     paddingHorizontal: 24,
-    paddingTop: 24,
+    paddingTop: 16,
     paddingBottom: 24,
     width: '100%',
     maxWidth: CONTENT_MAX_WIDTH,

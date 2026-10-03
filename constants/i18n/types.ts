@@ -88,6 +88,8 @@ export interface Strings {
   /** The progress block at the top of History, its badges, and Play Games. */
   progress: {
     heading: string;
+    /** Under the progress screen's title, orienting it — as History's intro does. */
+    intro: string;
     totalTime: string;
     currentStreak: string;
     bestStreak: string;

@@ -92,6 +92,7 @@ export const en: Strings = {
 
   progress: {
     heading: 'Your practice',
+    intro: 'Your minutes, streaks and week, all in one place.',
     totalTime: 'Total time',
     currentStreak: 'Streak',
     bestStreak: 'Best streak',

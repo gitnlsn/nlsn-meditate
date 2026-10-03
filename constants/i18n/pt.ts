@@ -96,6 +96,7 @@ export const pt: Strings = {
 
   progress: {
     heading: 'Sua prática',
+    intro: 'Seus minutos, sequências e semana, tudo em um só lugar.',
     totalTime: 'Tempo total',
     currentStreak: 'Sequência',
     bestStreak: 'Melhor sequência',
