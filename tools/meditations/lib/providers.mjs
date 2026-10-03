@@ -5,7 +5,10 @@
  *                    slowing changes prosody and phrasing; ffmpeg time-stretching
  *                    only slows playback, so we prefer native where available.
  *   ext            - container the API returns
- *   synth(text, voice) -> Buffer
+ *   synth(text, voice, context?) -> Buffer
+ *                    context is { previousText, nextText }: the lines either
+ *                    side, for providers that can carry intonation across
+ *                    separately synthesised lines. Others ignore it.
  */
 
 async function post(url, init, label) {
@@ -31,7 +34,7 @@ const elevenlabs = {
     style: 0.0,
     speed: 0.88,
   },
-  async synth(text, voice) {
+  async synth(text, voice, context = {}) {
     const key = process.env.ELEVENLABS_API_KEY;
     if (!key) throw new Error('ELEVENLABS_API_KEY is not set (put it in .env.local)');
     if (!voice.voiceId) throw new Error('script voice.voiceId is required for elevenlabs');
@@ -50,7 +53,15 @@ const elevenlabs = {
       {
         method: 'POST',
         headers: { 'xi-api-key': key, 'content-type': 'application/json' },
-        body: JSON.stringify({ text, model_id: voice.model, voice_settings: settings }),
+        body: JSON.stringify({
+          text,
+          model_id: voice.model,
+          voice_settings: settings,
+          // Request stitching: without it each line is read as if it opened a
+          // new text, and the pitch resets audibly from one line to the next.
+          previous_text: context.previousText || undefined,
+          next_text: context.nextText || undefined,
+        }),
       },
       'elevenlabs',
     );
@@ -125,11 +136,11 @@ export function getProvider(name) {
 export const providerNames = Object.keys(PROVIDERS);
 
 /** Retries transient failures (429s and 5xx) with exponential backoff. */
-export async function synthWithRetry(provider, text, voice, attempts = 4) {
+export async function synthWithRetry(provider, text, voice, { attempts = 4, context } = {}) {
   let lastError;
   for (let i = 0; i < attempts; i++) {
     try {
-      return await provider.synth(text, voice);
+      return await provider.synth(text, voice, context);
     } catch (err) {
       lastError = err;
       const retryable = !err.status || err.status === 429 || err.status >= 500;

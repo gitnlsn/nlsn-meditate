@@ -1,0 +1,116 @@
+{
+  "id": "respiracao-5",
+  "category": "atencao",
+  "title": "Breath Awareness",
+  "description": "Five minutes resting your attention on the breath, and coming back to it.",
+  "targetDuration": 300,
+  "leadIn": 3,
+  "leadOut": 6,
+  "voice": {
+    "provider": "elevenlabs",
+    "voiceId": "EXAVITQu4vr4xnSDxMaL",
+    "model": "eleven_multilingual_v2",
+    "stability": 0.55,
+    "similarityBoost": 0.75,
+    "style": 0,
+    "speed": 0.85
+  },
+  "segments": [
+    {
+      "say": "Let's begin. Find a position you can hold comfortably.",
+      "wait": 6,
+      "audio": "01-let-s-begin-find-a-position-you-can-hold.mp3"
+    },
+    {
+      "say": "Let your eyes close.",
+      "wait": 8,
+      "audio": "02-let-your-eyes-close.mp3"
+    },
+    {
+      "say": "Take a deep breath in.",
+      "wait": 4,
+      "audio": "03-take-a-deep-breath-in.mp3"
+    },
+    {
+      "say": "And let it out slowly.",
+      "wait": 8,
+      "audio": "04-and-let-it-out-slowly.mp3"
+    },
+    {
+      "say": "Now let your breathing return to normal. Don't control it.",
+      "wait": 10,
+      "audio": "05-now-let-your-breathing-return-to-normal-don-t.mp3"
+    },
+    {
+      "say": "Just notice.",
+      "wait": 10,
+      "audio": "06-just-notice.mp3"
+    },
+    {
+      "say": "Feel the air coming in through your nose.",
+      "wait": 12,
+      "audio": "07-feel-the-air-coming-in-through-your-nose.mp3"
+    },
+    {
+      "say": "Cooler on the way in.",
+      "wait": 10,
+      "audio": "08-cooler-on-the-way-in.mp3"
+    },
+    {
+      "say": "Warmer on the way out.",
+      "wait": 12,
+      "audio": "09-warmer-on-the-way-out.mp3"
+    },
+    {
+      "say": "You don't need to breathe deeply. Just notice what's already happening.",
+      "wait": 14,
+      "audio": "10-you-don-t-need-to-breathe-deeply-just-notice.mp3"
+    },
+    {
+      "say": "When your mind wanders, and it will, that isn't a mistake.",
+      "wait": 12,
+      "audio": "11-when-your-mind-wanders-and-it-will-that-isn-t-a.mp3"
+    },
+    {
+      "say": "Just notice where it went, and come back to the breath.",
+      "wait": 15,
+      "audio": "12-just-notice-where-it-went-and-come-back-to-the.mp3"
+    },
+    {
+      "say": "Back to the air at the tip of your nose.",
+      "wait": 15,
+      "audio": "13-back-to-the-air-at-the-tip-of-your-nose.mp3"
+    },
+    {
+      "say": "Resting here.",
+      "wait": 23,
+      "audio": "14-resting-here.mp3"
+    },
+    {
+      "wait": 23
+    },
+    {
+      "say": "Nothing to reach for.",
+      "wait": 24,
+      "audio": "15-nothing-to-reach-for.mp3"
+    },
+    {
+      "wait": 21
+    },
+    {
+      "say": "Take one more deep breath in.",
+      "wait": 4,
+      "audio": "16-take-one-more-deep-breath-in.mp3"
+    },
+    {
+      "say": "And let it go.",
+      "wait": 8,
+      "audio": "17-and-let-it-go.mp3"
+    },
+    {
+      "say": "When you're ready, open your eyes.",
+      "wait": 6,
+      "audio": "18-when-you-re-ready-open-your-eyes.mp3"
+    }
+  ]
+}

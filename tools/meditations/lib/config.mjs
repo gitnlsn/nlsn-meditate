@@ -6,6 +6,35 @@ const here = path.dirname(fileURLToPath(import.meta.url));
 export const TOOL_DIR = path.resolve(here, '..');
 export const ROOT = path.resolve(TOOL_DIR, '..', '..');
 export const SCRIPTS_DIR = path.join(TOOL_DIR, 'scripts');
+
+/**
+ * The languages the meditations are recorded in, matching the app's locales.
+ * Portuguese is the original: its scripts sit at the top of scripts/, and each
+ * other language keeps translations of the same ids in a folder of its own.
+ */
+export const LOCALES = ['pt', 'en'];
+export const SOURCE_LOCALE = 'pt';
+
+export function scriptsDir(locale) {
+  return locale === SOURCE_LOCALE ? SCRIPTS_DIR : path.join(SCRIPTS_DIR, locale);
+}
+
+/**
+ * Where each language's per-line clips are bundled from. The Portuguese ones
+ * were rendered by hand in the ElevenLabs web UI, hence the voice in the name;
+ * the English ones are synthesised by the `synth` command.
+ */
+export const SPEECH_DIRS = {
+  pt: 'assets/audios/speeches-luna',
+  en: 'assets/audios/speeches-en',
+};
+
+/**
+ * Loudness of synthesised clips, as one gain per script. Matches the
+ * hand-rendered Portuguese set (measured at -23.5 LUFS), so switching language
+ * does not change how loud the voice sits over the ambience.
+ */
+export const SPEECH_LUFS = -23.5;
 export const BUILD_DIR = path.join(ROOT, 'build', 'meditations');
 export const CACHE_DIR = path.join(ROOT, 'build', '.tts-cache');
 
@@ -26,8 +55,11 @@ export const VOICE_LRA = 7;
 
 export const AAC_BITRATE = '96k';
 
-/** Concurrent TTS requests. Providers rate-limit; 3 is polite and still fast. */
-export const SYNTH_CONCURRENCY = 3;
+/**
+ * Concurrent TTS requests. ElevenLabs' free plan allows two at a time; three
+ * drew a stream of 429s that the retry loop papered over.
+ */
+export const SYNTH_CONCURRENCY = 2;
 
 /**
  * .env.local is already gitignored by this repo, so API keys land somewhere safe
@@ -49,10 +81,10 @@ export function loadEnv() {
  * who has not sat before.
  */
 export const GUIDED_CATEGORIES = [
-  { id: 'atencao', title: 'Atenção Plena' },
-  { id: 'compaixao', title: 'Compaixão' },
-  { id: 'dificeis', title: 'Momentos Difíceis' },
-  { id: 'sono', title: 'Sono' },
+  { id: 'atencao', title: { pt: 'Atenção Plena', en: 'Mindfulness' } },
+  { id: 'compaixao', title: { pt: 'Compaixão', en: 'Compassion' } },
+  { id: 'dificeis', title: { pt: 'Momentos Difíceis', en: 'Difficult Moments' } },
+  { id: 'sono', title: { pt: 'Sono', en: 'Sleep' } },
 ];
 
 export const CATEGORY_IDS = GUIDED_CATEGORIES.map((c) => c.id);

@@ -9,7 +9,7 @@ import {
   probeDuration, decodeToWork, stretch, silence, concat, loudnorm, encodeM4a, measureLoudness,
 } from './ffmpeg.mjs';
 
-async function mapLimit(items, limit, fn) {
+export async function mapLimit(items, limit, fn) {
   const results = new Array(items.length);
   let next = 0;
   const workers = Array.from({ length: Math.min(limit, items.length) }, async () => {

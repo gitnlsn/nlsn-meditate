@@ -9,13 +9,13 @@ import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import {
-  GUIDED_MEDITATIONS, meditationsByCategory, type GuidedMeditation,
+  meditationsByCategory, meditationsFor, type GuidedMeditation,
 } from '@/constants/guided-meditations';
 import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { useFavorites, useToggleFavorite } from '@/contexts/favorites-context';
 import { useNowPlayingGuidedId } from '@/contexts/guided-session-context';
-import { useStrings } from '@/contexts/locale-context';
+import { useLocale, useStrings } from '@/contexts/locale-context';
 import { TAB_SCREEN_EDGES, CONTENT_MAX_WIDTH } from '@/constants/layout';
 
 export default function GuidedScreen() {
@@ -25,6 +25,7 @@ export default function GuidedScreen() {
   const { favorites } = useFavorites();
   const toggleFavorite = useToggleFavorite();
   const strings = useStrings();
+  const { locale } = useLocale();
   /*
    * A session survives leaving the player now, so the library has to say which
    * one is still going. Without it a meditation you backed out of keeps playing
@@ -40,11 +41,11 @@ export default function GuidedScreen() {
    * as a bug; a section that empties out is easier to follow than a duplicate.
    */
   const sections = useMemo(() => {
-    const favourited = GUIDED_MEDITATIONS
+    const favourited = meditationsFor(locale)
       .filter((m) => favorites.has(m.id))
       .sort((a, b) => a.durationSeconds - b.durationSeconds);
 
-    const rest = meditationsByCategory()
+    const rest = meditationsByCategory(locale)
       .map(({ category, items }) => ({
         title: category.title,
         items: items.filter((m) => !favorites.has(m.id)),
@@ -54,7 +55,7 @@ export default function GuidedScreen() {
     return favourited.length
       ? [{ title: strings.guided.favorites, items: favourited }, ...rest]
       : rest;
-  }, [favorites, strings]);
+  }, [favorites, strings, locale]);
 
   const renderRow = (meditation: GuidedMeditation) => {
     const isFavorite = favorites.has(meditation.id);

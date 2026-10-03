@@ -9,9 +9,8 @@
  *
  * What is deliberately *not* here: the guided meditations themselves — their
  * titles, descriptions and spoken lines — and the categories that group them.
- * Those are recorded in Portuguese and stay that way until the English voice
- * segments exist; translating the labels while the audio speaks Portuguese
- * would be a worse lie than leaving them.
+ * Those live with their recordings in the generated guided-meditations.ts, one
+ * set per language, so a title can never be translated ahead of its audio.
  */
 export type Locale = 'pt' | 'en';
 

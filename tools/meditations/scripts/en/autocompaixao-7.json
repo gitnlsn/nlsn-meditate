@@ -1,0 +1,141 @@
+{
+  "id": "autocompaixao-7",
+  "category": "compaixao",
+  "title": "Self-Compassion",
+  "description": "Seven minutes offering yourself the kindness you would offer someone you love.",
+  "targetDuration": 420,
+  "leadIn": 3,
+  "leadOut": 6,
+  "voice": {
+    "provider": "elevenlabs",
+    "voiceId": "EXAVITQu4vr4xnSDxMaL",
+    "model": "eleven_multilingual_v2",
+    "stability": 0.55,
+    "similarityBoost": 0.75,
+    "style": 0,
+    "speed": 0.85
+  },
+  "segments": [
+    {
+      "say": "Find a comfortable position, and let your eyes close.",
+      "wait": 6,
+      "audio": "01-find-a-comfortable-position-and-let-your-eyes.mp3"
+    },
+    {
+      "say": "Begin by feeling your breath, without changing anything about it.",
+      "wait": 10,
+      "audio": "02-begin-by-feeling-your-breath-without-changing.mp3"
+    },
+    {
+      "say": "Let your body settle.",
+      "wait": 12,
+      "audio": "03-let-your-body-settle.mp3"
+    },
+    {
+      "say": "Now bring to mind someone who cares about you deeply.",
+      "wait": 10,
+      "audio": "04-now-bring-to-mind-someone-who-cares-about-you.mp3"
+    },
+    {
+      "say": "It could be someone from today, or from long ago.",
+      "wait": 8,
+      "audio": "05-it-could-be-someone-from-today-or-from-long-ago.mp3"
+    },
+    {
+      "say": "Imagine this person looking at you with affection.",
+      "wait": 15,
+      "audio": "06-imagine-this-person-looking-at-you-with.mp3"
+    },
+    {
+      "say": "Notice what happens in your body as you imagine this.",
+      "wait": 16,
+      "audio": "07-notice-what-happens-in-your-body-as-you-imagine.mp3"
+    },
+    {
+      "say": "Now let's turn that same attention inward.",
+      "wait": 10,
+      "audio": "08-now-let-s-turn-that-same-attention-inward.mp3"
+    },
+    {
+      "say": "Bring yourself to mind. How you are today.",
+      "wait": 12,
+      "audio": "09-bring-yourself-to-mind-how-you-are-today.mp3"
+    },
+    {
+      "say": "Offer yourself these words, in your own time.",
+      "wait": 8,
+      "audio": "10-offer-yourself-these-words-in-your-own-time.mp3"
+    },
+    {
+      "say": "May I be safe.",
+      "wait": 12,
+      "audio": "11-may-i-be-safe.mp3"
+    },
+    {
+      "say": "May I be healthy.",
+      "wait": 12,
+      "audio": "12-may-i-be-healthy.mp3"
+    },
+    {
+      "say": "May I be kind to myself.",
+      "wait": 12,
+      "audio": "13-may-i-be-kind-to-myself.mp3"
+    },
+    {
+      "say": "May I live with ease.",
+      "wait": 15,
+      "audio": "14-may-i-live-with-ease.mp3"
+    },
+    {
+      "say": "Repeat whichever words feel right to you.",
+      "wait": 20,
+      "audio": "15-repeat-whichever-words-feel-right-to-you.mp3"
+    },
+    {
+      "wait": 25
+    },
+    {
+      "say": "If resistance comes up, that's normal.",
+      "wait": 10,
+      "audio": "16-if-resistance-comes-up-that-s-normal.mp3"
+    },
+    {
+      "say": "Don't force it. Resistance deserves kindness too.",
+      "wait": 15,
+      "audio": "17-don-t-force-it-resistance-deserves-kindness-too.mp3"
+    },
+    {
+      "say": "Come back to the words whenever you like.",
+      "wait": 20,
+      "audio": "18-come-back-to-the-words-whenever-you-like.mp3"
+    },
+    {
+      "wait": 25
+    },
+    {
+      "say": "May I be safe. May I be healthy.",
+      "wait": 15,
+      "audio": "19-may-i-be-safe-may-i-be-healthy.mp3"
+    },
+    {
+      "say": "May I be kind to myself.",
+      "wait": 15,
+      "audio": "20-may-i-be-kind-to-myself.mp3"
+    },
+    {
+      "say": "Now let the words go.",
+      "wait": 10,
+      "audio": "21-now-let-the-words-go.mp3"
+    },
+    {
+      "say": "Just stay with whatever is left in the body.",
+      "wait": 15,
+      "audio": "22-just-stay-with-whatever-is-left-in-the-body.mp3"
+    },
+    {
+      "say": "When you're ready, open your eyes.",
+      "wait": 5,
+      "audio": "23-when-you-re-ready-open-your-eyes.mp3"
+    }
+  ]
+}

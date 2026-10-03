@@ -1,0 +1,90 @@
+{
+  "id": "sono-15",
+  "category": "sono",
+  "title": "Body at Rest",
+  "description": "Fifteen minutes to let the body go and fall asleep. It doesn't end — it just drifts away.",
+  "targetDuration": 900,
+  "leadIn": 5,
+  "leadOut": 30,
+  "voice": {
+    "provider": "elevenlabs",
+    "voiceId": "EXAVITQu4vr4xnSDxMaL",
+    "model": "eleven_multilingual_v2",
+    "stability": 0.55,
+    "similarityBoost": 0.75,
+    "style": 0,
+    "speed": 0.85
+  },
+  "segments": [
+    {
+      "say": "Lie down comfortably. Let your body sink into the mattress.",
+      "wait": 15,
+      "audio": "01-lie-down-comfortably-let-your-body-sink-into-the.mp3"
+    },
+    {
+      "say": "There's nothing left to solve today.",
+      "wait": 20,
+      "audio": "02-there-s-nothing-left-to-solve-today.mp3"
+    },
+    {
+      "say": "Let your eyes close, and your breath carry on by itself.",
+      "wait": 25,
+      "audio": "03-let-your-eyes-close-and-your-breath-carry-on-by.mp3"
+    },
+    {
+      "say": "Feel the weight of your head on the pillow. Soften your face, your forehead, your jaw.",
+      "wait": 35,
+      "audio": "04-feel-the-weight-of-your-head-on-the-pillow.mp3"
+    },
+    {
+      "say": "Let your shoulders sink. Feel your arms grow heavy, all the way to your fingertips.",
+      "wait": 40,
+      "audio": "05-let-your-shoulders-sink-feel-your-arms-grow.mp3"
+    },
+    {
+      "say": "Feel your chest rising and falling. Without changing anything.",
+      "wait": 45,
+      "audio": "06-feel-your-chest-rising-and-falling-without.mp3"
+    },
+    {
+      "say": "Let your belly soften. Let your back release into the bed.",
+      "wait": 50,
+      "audio": "07-let-your-belly-soften-let-your-back-release-into.mp3"
+    },
+    {
+      "say": "Let your hips grow heavy. Your legs. Your feet.",
+      "wait": 60,
+      "audio": "08-let-your-hips-grow-heavy-your-legs-your-feet.mp3"
+    },
+    {
+      "say": "The whole body given over, heavy, held.",
+      "wait": 70,
+      "audio": "09-the-whole-body-given-over-heavy-held.mp3"
+    },
+    {
+      "say": "If your mind drifts to tomorrow, that's all right. Tomorrow isn't here yet.",
+      "wait": 80,
+      "audio": "10-if-your-mind-drifts-to-tomorrow-that-s-all-right.mp3"
+    },
+    {
+      "say": "Come back to the weight of your body.",
+      "wait": 90,
+      "audio": "11-come-back-to-the-weight-of-your-body.mp3"
+    },
+    {
+      "say": "Nothing to do. Nothing to wait for.",
+      "wait": 100,
+      "audio": "12-nothing-to-do-nothing-to-wait-for.mp3"
+    },
+    {
+      "say": "Rest.",
+      "wait": 120,
+      "audio": "13-rest.mp3"
+    },
+    {
+      "say": "Just rest.",
+      "wait": 60,
+      "audio": "14-just-rest.mp3"
+    }
+  ]
+}

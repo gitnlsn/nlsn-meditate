@@ -1,0 +1,93 @@
+{
+  "id": "compaixao-3",
+  "category": "compaixao",
+  "title": "A Moment of Compassion",
+  "description": "A short pause for when you are being hard on yourself.",
+  "targetDuration": 180,
+  "leadIn": 2,
+  "leadOut": 5,
+  "voice": {
+    "provider": "elevenlabs",
+    "voiceId": "EXAVITQu4vr4xnSDxMaL",
+    "model": "eleven_multilingual_v2",
+    "stability": 0.55,
+    "similarityBoost": 0.75,
+    "style": 0,
+    "speed": 0.85
+  },
+  "segments": [
+    {
+      "say": "Stop for a moment.",
+      "wait": 5,
+      "audio": "01-stop-for-a-moment.mp3"
+    },
+    {
+      "say": "Let your eyes close, if that's comfortable.",
+      "wait": 6,
+      "audio": "02-let-your-eyes-close-if-that-s-comfortable.mp3"
+    },
+    {
+      "say": "Notice how you are right now. Without judging.",
+      "wait": 10,
+      "audio": "03-notice-how-you-are-right-now-without-judging.mp3"
+    },
+    {
+      "say": "Maybe there's something hard here. A tiredness. A worry.",
+      "wait": 10,
+      "audio": "04-maybe-there-s-something-hard-here-a-tiredness-a.mp3"
+    },
+    {
+      "say": "You don't need to fix it right now.",
+      "wait": 8,
+      "audio": "05-you-don-t-need-to-fix-it-right-now.mp3"
+    },
+    {
+      "say": "Place a hand on your chest, if you like.",
+      "wait": 6,
+      "audio": "06-place-a-hand-on-your-chest-if-you-like.mp3"
+    },
+    {
+      "say": "Feel the warmth of your own hand.",
+      "wait": 10,
+      "audio": "07-feel-the-warmth-of-your-own-hand.mp3"
+    },
+    {
+      "say": "And say to yourself, silently:",
+      "wait": 4,
+      "audio": "08-and-say-to-yourself-silently.mp3"
+    },
+    {
+      "say": "This is hard.",
+      "wait": 6,
+      "audio": "09-this-is-hard.mp3"
+    },
+    {
+      "say": "Hard moments are part of a life.",
+      "wait": 8,
+      "audio": "10-hard-moments-are-part-of-a-life.mp3"
+    },
+    {
+      "say": "May I be kind to myself in this moment.",
+      "wait": 10,
+      "audio": "11-may-i-be-kind-to-myself-in-this-moment.mp3"
+    },
+    {
+      "say": "Repeat it, in your own time.",
+      "wait": 12,
+      "audio": "12-repeat-it-in-your-own-time.mp3"
+    },
+    {
+      "wait": 20
+    },
+    {
+      "say": "Notice that you've just offered yourself what you would offer a friend.",
+      "wait": 8,
+      "audio": "13-notice-that-you-ve-just-offered-yourself-what.mp3"
+    },
+    {
+      "say": "When you're ready, open your eyes.",
+      "wait": 4,
+      "audio": "14-when-you-re-ready-open-your-eyes.mp3"
+    }
+  ]
+}

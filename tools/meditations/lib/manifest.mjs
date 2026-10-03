@@ -1,9 +1,8 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { spawn } from 'node:child_process';
-import { ROOT, GUIDED_CATEGORIES } from './config.mjs';
+import { ROOT, GUIDED_CATEGORIES, LOCALES, SOURCE_LOCALE, SPEECH_DIRS } from './config.mjs';
 import { probeDuration, measureLoudness } from './ffmpeg.mjs';
-import { SPEECH_DIR } from './map.mjs';
 
 export const ENV_DIR = 'assets/audios/environments';
 export const AMBIENCE_DIR = 'assets/audios/ambiences';
@@ -293,10 +292,11 @@ export async function buildGuidedManifest(scripts) {
     const clipSeconds = [];
     for (const [i, seg] of script.segments.entries()) {
       if (!seg.say) { clipSeconds[i] = 0; continue; }
-      clipSeconds[i] = await probeDuration(path.join(ROOT, SPEECH_DIR, script.id, seg.audio));
+      clipSeconds[i] = await probeDuration(path.join(ROOT, SPEECH_DIRS[script.locale], script.id, seg.audio));
     }
     out.push({
       id: script.id,
+      locale: script.locale,
       category: script.category,
       title: script.title,
       description: script.description,
@@ -330,33 +330,44 @@ const HEADER = `/**
  */
 `;
 
-export async function writeGuidedConstants(meditations) {
-  const body = meditations.map((m) => {
+function renderMeditations(meditations) {
+  return meditations.map((m) => {
     const segs = m.segments.map((s) => {
       const source = s.audio
-        ? `require('@/${SPEECH_DIR}/${m.id}/${s.audio}')`
+        ? `require('@/${SPEECH_DIRS[m.locale]}/${m.id}/${s.audio}')`
         : 'null';
-      return `      {\n` +
-        `        text: ${s.text === null ? 'null' : JSON.stringify(s.text)},\n` +
-        `        source: ${source},\n` +
-        `        audioSeconds: ${s.audioSeconds},\n` +
-        `        waitSeconds: ${s.waitSeconds},\n` +
-        `      },`;
+      return `        {\n` +
+        `          text: ${s.text === null ? 'null' : JSON.stringify(s.text)},\n` +
+        `          source: ${source},\n` +
+        `          audioSeconds: ${s.audioSeconds},\n` +
+        `          waitSeconds: ${s.waitSeconds},\n` +
+        `        },`;
     }).join('\n');
 
-    return `  {\n` +
-      `    id: ${JSON.stringify(m.id)},\n` +
-      `    category: ${JSON.stringify(m.category)},\n` +
-      `    title: ${JSON.stringify(m.title)},\n` +
-      `    description: ${JSON.stringify(m.description)},\n` +
-      `    durationSeconds: ${m.durationSeconds},\n` +
-      `    leadInSeconds: ${m.leadInSeconds},\n` +
-      `    leadOutSeconds: ${m.leadOutSeconds},\n` +
-      `    segments: [\n${segs}\n    ],\n` +
-      `  },`;
+    return `    {\n` +
+      `      id: ${JSON.stringify(m.id)},\n` +
+      `      category: ${JSON.stringify(m.category)},\n` +
+      `      title: ${JSON.stringify(m.title)},\n` +
+      `      description: ${JSON.stringify(m.description)},\n` +
+      `      durationSeconds: ${m.durationSeconds},\n` +
+      `      leadInSeconds: ${m.leadInSeconds},\n` +
+      `      leadOutSeconds: ${m.leadOutSeconds},\n` +
+      `      segments: [\n${segs}\n      ],\n` +
+      `    },`;
   }).join('\n');
+}
+
+/** `byLocale` maps every locale to its recorded meditations, already sorted. */
+export async function writeGuidedConstants(byLocale) {
+  const categories = LOCALES.map((lang) => `  ${lang}: [\n` +
+    GUIDED_CATEGORIES.map((c) => `    { id: ${JSON.stringify(c.id)}, title: ${JSON.stringify(c.title[lang])} },`).join('\n') +
+    `\n  ],`).join('\n');
+  const meditations = LOCALES.map((lang) =>
+    `  ${lang}: [\n${renderMeditations(byLocale[lang] ?? [])}\n  ],`).join('\n');
 
   const source = `${HEADER}
+import type { Locale } from './i18n';
+
 /** A bundled asset, as returned by require(). expo-audio accepts this directly. */
 export type AudioAsset = number;
 
@@ -376,10 +387,10 @@ export interface GuidedCategory {
   title: string;
 }
 
-/** Section order for the list screen. */
-export const GUIDED_CATEGORIES: GuidedCategory[] = [
-${GUIDED_CATEGORIES.map((c) => `  { id: ${JSON.stringify(c.id)}, title: ${JSON.stringify(c.title)} },`).join('\n')}
-];
+/** Section order for the list screen, titled in each language. */
+export const GUIDED_CATEGORIES: Record<Locale, GuidedCategory[]> = {
+${categories}
+};
 
 export interface GuidedMeditation {
   id: string;
@@ -392,20 +403,36 @@ export interface GuidedMeditation {
   segments: GuidedSegment[];
 }
 
-export const GUIDED_MEDITATIONS: GuidedMeditation[] = [
-${body}
-];
+/**
+ * Every recorded meditation, per language. A translation keeps the id of its
+ * original, so favourites and history carry over when the language changes.
+ */
+export const GUIDED_MEDITATIONS: Record<Locale, GuidedMeditation[]> = {
+${meditations}
+};
 
-export function findMeditation(id: string): GuidedMeditation | undefined {
-  return GUIDED_MEDITATIONS.find((m) => m.id === id);
+/**
+ * The meditations offered in a language: its own recordings, plus the
+ * ${SOURCE_LOCALE === 'pt' ? 'Portuguese' : SOURCE_LOCALE} originals of any not yet recorded in it, so a missing
+ * translation never makes a practice disappear.
+ */
+export function meditationsFor(locale: Locale): GuidedMeditation[] {
+  const own = GUIDED_MEDITATIONS[locale];
+  const ids = new Set(own.map((m) => m.id));
+  return [...own, ...GUIDED_MEDITATIONS.${SOURCE_LOCALE}.filter((m) => !ids.has(m.id))];
+}
+
+export function findMeditation(id: string, locale: Locale): GuidedMeditation | undefined {
+  return meditationsFor(locale).find((m) => m.id === id);
 }
 
 /** The list screen's sections, already ordered, with empty ones dropped. */
-export function meditationsByCategory(): { category: GuidedCategory; items: GuidedMeditation[] }[] {
-  return GUIDED_CATEGORIES
+export function meditationsByCategory(locale: Locale): { category: GuidedCategory; items: GuidedMeditation[] }[] {
+  const all = meditationsFor(locale);
+  return GUIDED_CATEGORIES[locale]
     .map((category) => ({
       category,
-      items: GUIDED_MEDITATIONS.filter((m) => m.category === category.id),
+      items: all.filter((m) => m.category === category.id),
     }))
     .filter((section) => section.items.length > 0);
 }

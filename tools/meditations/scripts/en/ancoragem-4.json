@@ -1,0 +1,70 @@
+{
+  "id": "ancoragem-4",
+  "category": "dificeis",
+  "title": "Grounding",
+  "description": "Four minutes to step out of the spiral and come back to where you are. Eyes open.",
+  "targetDuration": 240,
+  "leadIn": 3,
+  "leadOut": 5,
+  "voice": {
+    "provider": "elevenlabs",
+    "voiceId": "EXAVITQu4vr4xnSDxMaL",
+    "model": "eleven_multilingual_v2",
+    "stability": 0.55,
+    "similarityBoost": 0.75,
+    "style": 0,
+    "speed": 0.85
+  },
+  "segments": [
+    {
+      "say": "You can keep your eyes open for this practice.",
+      "wait": 6,
+      "audio": "01-you-can-keep-your-eyes-open-for-this-practice.mp3"
+    },
+    {
+      "say": "Start by feeling your feet on the floor. The weight of your body on the chair, or on the ground.",
+      "wait": 12,
+      "audio": "02-start-by-feeling-your-feet-on-the-floor-the.mp3"
+    },
+    {
+      "say": "Now look around and find five things you can see. No hurry.",
+      "wait": 25,
+      "audio": "03-now-look-around-and-find-five-things-you-can-see.mp3"
+    },
+    {
+      "say": "Now four things you can touch. Your clothes, the chair, the air on your skin.",
+      "wait": 25,
+      "audio": "04-now-four-things-you-can-touch-your-clothes-the.mp3"
+    },
+    {
+      "say": "Now three sounds. Near or far.",
+      "wait": 25,
+      "audio": "05-now-three-sounds-near-or-far.mp3"
+    },
+    {
+      "say": "Two smells, if there are any. Or just the air coming in through your nose.",
+      "wait": 20,
+      "audio": "06-two-smells-if-there-are-any-or-just-the-air.mp3"
+    },
+    {
+      "say": "And one taste. Or just the feeling of your mouth.",
+      "wait": 20,
+      "audio": "07-and-one-taste-or-just-the-feeling-of-your-mouth.mp3"
+    },
+    {
+      "say": "Notice where you are now. In this place, in this moment.",
+      "wait": 25,
+      "audio": "08-notice-where-you-are-now-in-this-place-in-this.mp3"
+    },
+    {
+      "say": "Your body is here. You are here.",
+      "wait": 20,
+      "audio": "09-your-body-is-here-you-are-here.mp3"
+    },
+    {
+      "say": "Whenever you like, carry on with your day.",
+      "wait": 5,
+      "audio": "10-whenever-you-like-carry-on-with-your-day.mp3"
+    }
+  ]
+}

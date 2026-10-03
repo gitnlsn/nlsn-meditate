@@ -1,0 +1,208 @@
+{
+  "id": "corpo-10",
+  "category": "atencao",
+  "title": "Body Scan",
+  "description": "A slow sweep of attention, from the top of the head down to the feet.",
+  "targetDuration": 600,
+  "leadIn": 3,
+  "leadOut": 8,
+  "voice": {
+    "provider": "elevenlabs",
+    "voiceId": "EXAVITQu4vr4xnSDxMaL",
+    "model": "eleven_multilingual_v2",
+    "stability": 0.55,
+    "similarityBoost": 0.75,
+    "style": 0,
+    "speed": 0.85
+  },
+  "segments": [
+    {
+      "say": "Find a comfortable position, sitting or lying down.",
+      "wait": 6,
+      "audio": "01-find-a-comfortable-position-sitting-or-lying.mp3"
+    },
+    {
+      "say": "Let your eyes close, gently.",
+      "wait": 8,
+      "audio": "02-let-your-eyes-close-gently.mp3"
+    },
+    {
+      "say": "There's nothing to do here but notice.",
+      "wait": 10,
+      "audio": "03-there-s-nothing-to-do-here-but-notice.mp3"
+    },
+    {
+      "say": "Begin by breathing in slowly through your nose. And let it go.",
+      "wait": 8,
+      "audio": "04-begin-by-breathing-in-slowly-through-your-nose.mp3"
+    },
+    {
+      "say": "Let your breath find its own rhythm.",
+      "wait": 12,
+      "audio": "05-let-your-breath-find-its-own-rhythm.mp3"
+    },
+    {
+      "say": "Now bring your attention to the top of your head.",
+      "wait": 12,
+      "audio": "06-now-bring-your-attention-to-the-top-of-your-head.mp3"
+    },
+    {
+      "say": "Notice any sensation there. Warmth. Tingling. Or nothing at all.",
+      "wait": 12,
+      "audio": "07-notice-any-sensation-there-warmth-tingling-or.mp3"
+    },
+    {
+      "say": "Let your attention move down to your forehead, and the space between your eyebrows.",
+      "wait": 12,
+      "audio": "08-let-your-attention-move-down-to-your-forehead.mp3"
+    },
+    {
+      "say": "If you find tension there, let it soften.",
+      "wait": 12,
+      "audio": "09-if-you-find-tension-there-let-it-soften.mp3"
+    },
+    {
+      "say": "Move down to your jaw.",
+      "wait": 8,
+      "audio": "10-move-down-to-your-jaw.mp3"
+    },
+    {
+      "say": "Let your teeth part a little. Let your jaw hang loose.",
+      "wait": 12,
+      "audio": "11-let-your-teeth-part-a-little-let-your-jaw-hang.mp3"
+    },
+    {
+      "say": "Now your neck, and your throat.",
+      "wait": 12,
+      "audio": "12-now-your-neck-and-your-throat.mp3"
+    },
+    {
+      "say": "Let your shoulders drop, away from your ears.",
+      "wait": 12,
+      "audio": "13-let-your-shoulders-drop-away-from-your-ears.mp3"
+    },
+    {
+      "say": "Feel the weight of your arms.",
+      "wait": 12,
+      "audio": "14-feel-the-weight-of-your-arms.mp3"
+    },
+    {
+      "say": "All the way down, through the elbows, to the hands.",
+      "wait": 12,
+      "audio": "15-all-the-way-down-through-the-elbows-to-the-hands.mp3"
+    },
+    {
+      "say": "Notice the tips of your fingers.",
+      "wait": 12,
+      "audio": "16-notice-the-tips-of-your-fingers.mp3"
+    },
+    {
+      "say": "Bring your attention to your chest.",
+      "wait": 10,
+      "audio": "17-bring-your-attention-to-your-chest.mp3"
+    },
+    {
+      "say": "Feel it rise, and fall, without changing anything.",
+      "wait": 15,
+      "audio": "18-feel-it-rise-and-fall-without-changing-anything.mp3"
+    },
+    {
+      "say": "Let your attention rest on your belly.",
+      "wait": 12,
+      "audio": "19-let-your-attention-rest-on-your-belly.mp3"
+    },
+    {
+      "say": "Soften here.",
+      "wait": 12,
+      "audio": "20-soften-here.mp3"
+    },
+    {
+      "say": "Now your back. The whole length of your spine.",
+      "wait": 12,
+      "audio": "21-now-your-back-the-whole-length-of-your-spine.mp3"
+    },
+    {
+      "say": "Notice where your body meets the surface beneath you.",
+      "wait": 15,
+      "audio": "22-notice-where-your-body-meets-the-surface-beneath.mp3"
+    },
+    {
+      "say": "Let it hold you.",
+      "wait": 12,
+      "audio": "23-let-it-hold-you.mp3"
+    },
+    {
+      "say": "Bring your attention to your hips.",
+      "wait": 12,
+      "audio": "24-bring-your-attention-to-your-hips.mp3"
+    },
+    {
+      "say": "Down through your thighs.",
+      "wait": 12,
+      "audio": "25-down-through-your-thighs.mp3"
+    },
+    {
+      "say": "Your knees.",
+      "wait": 12,
+      "audio": "26-your-knees.mp3"
+    },
+    {
+      "say": "Your calves.",
+      "wait": 12,
+      "audio": "27-your-calves.mp3"
+    },
+    {
+      "say": "Down to your ankles, and your feet.",
+      "wait": 12,
+      "audio": "28-down-to-your-ankles-and-your-feet.mp3"
+    },
+    {
+      "say": "Notice your toes.",
+      "wait": 12,
+      "audio": "29-notice-your-toes.mp3"
+    },
+    {
+      "say": "Now let your attention open, to take in the whole body at once.",
+      "wait": 15,
+      "audio": "30-now-let-your-attention-open-to-take-in-the-whole.mp3"
+    },
+    {
+      "say": "Resting here. Breathing.",
+      "wait": 18,
+      "audio": "31-resting-here-breathing.mp3"
+    },
+    {
+      "say": "Nothing to fix. Nothing to reach for.",
+      "wait": 20,
+      "audio": "32-nothing-to-fix-nothing-to-reach-for.mp3"
+    },
+    {
+      "say": "Stay with this.",
+      "wait": 25,
+      "audio": "33-stay-with-this.mp3"
+    },
+    {
+      "wait": 20
+    },
+    {
+      "say": "In a little while, we'll finish.",
+      "wait": 10,
+      "audio": "34-in-a-little-while-we-ll-finish.mp3"
+    },
+    {
+      "say": "Begin to notice the sounds around you.",
+      "wait": 12,
+      "audio": "35-begin-to-notice-the-sounds-around-you.mp3"
+    },
+    {
+      "say": "Let your breath grow a little deeper.",
+      "wait": 10,
+      "audio": "36-let-your-breath-grow-a-little-deeper.mp3"
+    },
+    {
+      "say": "And when you're ready, open your eyes.",
+      "wait": 8,
+      "audio": "37-and-when-you-re-ready-open-your-eyes.mp3"
+    }
+  ]
+}

@@ -38,6 +38,30 @@ cp build/meditations/body-scan-10.m4a build/meditations/manifest.json assets/aud
 Bundle one or two; serve the rest from a CDN and cache with `expo-file-system`.
 A dozen 10-minute tracks is ~20 MB of binary you do not want in the store build.
 
+## Languages
+
+Portuguese is the original: its scripts sit at the top of `scripts/`. Each
+other language keeps translations of the same ids in `scripts/<locale>/`, with
+the same categories and `wait` values so both languages share one timeline.
+
+The English clips are synthesised end to end, with no web UI involved:
+
+```bash
+npm run meditations -- --locale en synth --dry-run   # characters a run would bill
+npm run meditations -- --locale en synth             # every English script
+npm run meditations -- --locale en synth corpo-10    # just one
+npm run meditations -- manifest                      # all languages into constants/
+```
+
+`synth` sends each line with its neighbours as context, so the voice reads the
+script as one text instead of resetting its pitch at every line. It trims the
+clips, brings each script to one gain matching the Portuguese set (-23.5 LUFS),
+writes them to `assets/audios/speeches-en/<id>/`, and records their filenames in
+the script. Renders are cached, so a rerun only pays for lines that changed.
+
+The app shows a language's own recordings and falls back to the Portuguese
+original for any meditation not yet recorded in it.
+
 ## Script format
 
 ```json

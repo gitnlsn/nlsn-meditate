@@ -8,9 +8,11 @@ import { CACHE_DIR } from './config.mjs';
  * of a script re-synthesises one line. Iterating on a long meditation would
  * otherwise cost a full re-render every time.
  */
-export function cacheKey(text, voice) {
+export function cacheKey(text, voice, context) {
   const material = JSON.stringify({
     text,
+    // Only present when stitching, so keys for unstitched renders are unchanged.
+    ...(context ? { previousText: context.previousText, nextText: context.nextText } : {}),
     provider: voice.provider,
     voiceId: voice.voiceId,
     model: voice.model,

@@ -1,8 +1,6 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import { ROOT } from './config.mjs';
-
-export const SPEECH_DIR = 'assets/audios/speeches-luna';
+import { ROOT, SPEECH_DIRS } from './config.mjs';
 
 /** Below this, a filename is not confidently the recording of a line. */
 const CONFIDENCE_FLOOR = 0.6;
@@ -78,13 +76,14 @@ function similarity(a, b) {
  * contains it, and the theft is silent.
  */
 export async function mapScriptAudio(script) {
-  const dir = path.join(ROOT, SPEECH_DIR, script.id);
+  const speechDir = SPEECH_DIRS[script.locale];
+  const dir = path.join(ROOT, speechDir, script.id);
 
   let files;
   try {
     files = (await fs.readdir(dir)).filter((f) => f.endsWith('.mp3')).sort();
   } catch {
-    throw new Error(`no audio directory at ${SPEECH_DIR}/${script.id}`);
+    throw new Error(`no audio directory at ${speechDir}/${script.id}`);
   }
 
   const lines = script.segments

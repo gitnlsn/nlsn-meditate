@@ -163,3 +163,17 @@ export async function encodeM4a(input, output, bitrate) {
   ]);
   return output;
 }
+
+/**
+ * Encode a bundled per-line clip. MP3 at the rate and mode of the hand-rendered
+ * clips, so both languages decode identically on the player's side.
+ */
+export async function encodeClip(input, output, gainDb = 0) {
+  await ffmpeg([
+    '-i', input,
+    '-af', `volume=${gainDb.toFixed(2)}dB`,
+    '-ar', '44100', '-ac', '1', '-c:a', 'libmp3lame', '-b:a', '128k',
+    output,
+  ]);
+  return output;
+}

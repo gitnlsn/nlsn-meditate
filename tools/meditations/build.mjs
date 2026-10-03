@@ -7,18 +7,20 @@
  *   node tools/meditations/build.mjs build body-scan-10 --dry-run
  *   node tools/meditations/build.mjs build body-scan-10 --preview 4
  *   node tools/meditations/build.mjs build            # every script
+ *   node tools/meditations/build.mjs synth --locale en  # per-line clips via the API
  *
  * Output lands in build/meditations/ as <id>.m4a plus a manifest.json.
  */
 import { parseArgs } from 'node:util';
 import path from 'node:path';
-import { loadEnv, BUILD_DIR, ROOT } from './lib/config.mjs';
+import { loadEnv, BUILD_DIR, ROOT, LOCALES, SOURCE_LOCALE } from './lib/config.mjs';
 import { assertToolchain } from './lib/ffmpeg.mjs';
 import { loadScript, listScripts, characterCount, estimateDuration } from './lib/script.mjs';
 import { getProvider, providerNames } from './lib/providers.mjs';
 import { build, writeManifest } from './lib/assemble.mjs';
 import { splitIntoCache } from './lib/split.mjs';
 import { mapScriptAudio, writeAudioIntoScript } from './lib/map.mjs';
+import { synthClips } from './lib/clips.mjs';
 import {
   processAmbiences, buildGuidedManifest, writeGuidedConstants, writeAmbienceConstants,
 } from './lib/manifest.mjs';
@@ -37,12 +39,18 @@ const { values: flags, positionals } = parseArgs({
     voice: { type: 'string' },
     speed: { type: 'string' },
     out: { type: 'string' },
+    locale: { type: 'string', default: SOURCE_LOCALE },
     help: { type: 'boolean', short: 'h', default: false },
   },
 });
 
 const [command = 'build', ...args] = positionals;
 const outDir = flags.out ? path.resolve(flags.out) : BUILD_DIR;
+const locale = flags.locale;
+if (!LOCALES.includes(locale)) {
+  console.error(`unknown --locale "${locale}" - expected one of ${LOCALES.join(', ')}`);
+  process.exit(1);
+}
 
 const rel = (p) => path.relative(ROOT, p) || '.';
 const mmss = (s) => `${Math.floor(s / 60)}:${String(Math.round(s % 60)).padStart(2, '0')}`;
@@ -55,10 +63,13 @@ guided meditation audio builder
   list                       show available scripts
   voices [--provider NAME]   list voices for a provider (${providerNames.join(', ')})
   build [id...]              build scripts (all of them if no id given)
+  synth [id...]              synthesise per-line clips for the app via the API,
+                             and write their filenames into the scripts
   text <id>                  emit paste-ready text with break tags, for the web UI
   split <id> --audio FILE    cut one render back into per-line clips
   map [id...]                pair per-line clips with script lines
   manifest                   level the ambience beds and generate constants/
+                             (every locale at once; ignores --locale)
 
   --dry-run                  report length and billable characters, call no API
   --preview N                build only the first N spoken lines, to audition a voice
@@ -68,14 +79,15 @@ guided meditation audio builder
   --min-gap SECONDS          (split) shortest gap that counts as a line break, default 1.2
   --threshold DB             (split) silence floor, default -35
   --out DIR                  output directory (default ${rel(BUILD_DIR)})
+  --locale LANG              which scripts to use: ${LOCALES.join(', ')} (default ${SOURCE_LOCALE})
 `);
 }
 
 async function cmdList() {
-  const ids = await listScripts();
+  const ids = await listScripts(locale);
   if (!ids.length) return console.log('no scripts in tools/meditations/scripts/');
   for (const id of ids) {
-    const script = await loadScript(id);
+    const script = await loadScript(id, locale);
     const est = estimateDuration(script);
     console.log(
       `  ${id.padEnd(24)} ~${mmss(est.total).padStart(6)}  ` +
@@ -95,7 +107,7 @@ async function cmdVoices() {
 }
 
 async function cmdBuild() {
-  const ids = args.length ? args : await listScripts();
+  const ids = args.length ? args : await listScripts(locale);
   if (!ids.length) {
     console.log('nothing to build - add a script to tools/meditations/scripts/');
     return;
@@ -108,7 +120,7 @@ async function cmdBuild() {
     let chars = 0;
     console.log('\ndry run - no API calls\n');
     for (const id of ids) {
-      const script = await loadScript(id);
+      const script = await loadScript(id, locale);
       const est = estimateDuration(script);
       const c = characterCount(script);
       chars += c;
@@ -129,7 +141,9 @@ async function cmdBuild() {
 
   const results = [];
   for (const id of ids) {
-    const script = await loadScript(id);
+    const script = await loadScript(id, locale);
+    // Translations share their ids; keep their renders from overwriting the originals.
+    if (locale !== SOURCE_LOCALE) script.id = `${script.id}.${locale}`;
 
     // Overrides let you audition a voice without editing the script. Both change
     // the cache key, so each variant is synthesised once and then reused.
@@ -194,7 +208,7 @@ async function cmdBuild() {
 async function cmdText() {
   const [id] = args;
   if (!id) throw new Error('usage: text <script-id>');
-  const script = await loadScript(id);
+  const script = await loadScript(id, locale);
   const spoken = script.segments.filter((s) => s.say);
 
   // A uniform 2s break is only a cutting landmark - it is discarded on split,
@@ -234,7 +248,7 @@ async function cmdSplit() {
   if (!flags.audio) throw new Error('--audio FILE is required');
 
   await assertToolchain();
-  const script = await loadScript(id);
+  const script = await loadScript(id, locale);
   const audio = path.resolve(flags.audio);
 
   const declared = settingsFromFilename(audio);
@@ -300,11 +314,11 @@ async function cmdSplit() {
 }
 
 async function cmdMap() {
-  const ids = args.length ? args : await listScripts();
+  const ids = args.length ? args : await listScripts(locale);
   let blocked = 0;
 
   for (const id of ids) {
-    const script = await loadScript(id);
+    const script = await loadScript(id, locale);
     const { matched, spare } = await mapScriptAudio(script);
 
     const unmatched = matched.filter((m) => !m.file);
@@ -335,6 +349,35 @@ async function cmdMap() {
   console.log('');
 }
 
+async function cmdSynth() {
+  const ids = args.length ? args : await listScripts(locale);
+  if (!ids.length) return console.log(`no ${locale} scripts`);
+  const dryRun = flags['dry-run'];
+
+  if (!dryRun) await assertToolchain();
+  let billed = 0;
+  for (const id of ids) {
+    const script = await loadScript(id, locale);
+    if (flags.voice) script.voice.voiceId = flags.voice;
+    process.stdout.write(`\n${locale}/${id}\n`);
+    const r = await synthClips(script, {
+      dryRun,
+      onProgress: ({ done, total }) => process.stdout.write(`\r  synth ${done}/${total}`),
+    });
+    billed += r.billable;
+    if (dryRun) {
+      console.log(`  ${r.lines} lines, ${r.billable} characters not yet cached`);
+      continue;
+    }
+    process.stdout.write('\r');
+    console.log(`  ${r.lines} clips  ${r.loudness} LUFS (${r.gain >= 0 ? '+' : ''}${r.gain}dB)  ` +
+      `${r.billable} characters billed${r.stale ? `  ${r.stale} stale clip(s) removed` : ''}`);
+    console.log(`  -> ${rel(r.dir)}`);
+  }
+  console.log(`\n  ${dryRun ? 'would bill' : 'billed'}: ${billed} characters` +
+    (dryRun ? '' : '\n  next: npm run meditations -- manifest') + '\n');
+}
+
 async function cmdManifest() {
   await assertToolchain();
 
@@ -347,32 +390,36 @@ async function cmdManifest() {
       `${a.trimmed ? '  trimmed' : ''}`),
   });
 
-  const ids = await listScripts();
-  const scripts = [];
-  for (const id of ids) scripts.push(await loadScript(id));
-  const { meditations, skipped } = await buildGuidedManifest(scripts);
+  const byLocale = {};
+  for (const lang of LOCALES) {
+    const scripts = [];
+    for (const id of await listScripts(lang)) scripts.push(await loadScript(id, lang));
+    const { meditations, skipped } = await buildGuidedManifest(scripts);
+    byLocale[lang] = meditations;
 
-  console.log('\nguided meditations');
-  for (const m of meditations) {
-    const spoken = m.segments.filter((s) => s.audio !== null).length;
-    console.log(`  ${m.id.padEnd(16)} ${String(m.durationSeconds).padStart(4)}s  ${m.segments.length} segments (${spoken} spoken)`);
-  }
+    console.log(`\nguided meditations (${lang})`);
+    for (const m of meditations) {
+      const spoken = m.segments.filter((s) => s.audio !== null).length;
+      console.log(`  ${m.id.padEnd(16)} ${String(m.durationSeconds).padStart(4)}s  ${m.segments.length} segments (${spoken} spoken)`);
+    }
 
-  if (skipped.length) {
-    console.log('\nnot yet recorded - left out of the manifest');
-    for (const s of skipped) {
-      console.log(`  ${s.id.padEnd(16)} ${s.unmapped} of ${s.total} lines have no audio` +
-        `   (npm run meditations -- text ${s.id})`);
+    if (skipped.length) {
+      console.log(`\nnot yet recorded (${lang}) - left out of the manifest`);
+      const fix = lang === SOURCE_LOCALE ? 'text' : `--locale ${lang} synth`;
+      for (const s of skipped) {
+        console.log(`  ${s.id.padEnd(16)} ${s.unmapped} of ${s.total} lines have no audio` +
+          `   (npm run meditations -- ${fix} ${s.id})`);
+      }
     }
   }
 
   const a = await writeAmbienceConstants(ambiences);
-  const g = await writeGuidedConstants(meditations);
+  const g = await writeGuidedConstants(byLocale);
   console.log(`\n  -> ${rel(g)}\n  -> ${rel(a)}\n`);
 }
 
 const commands = {
-  list: cmdList, voices: cmdVoices, build: cmdBuild,
+  list: cmdList, voices: cmdVoices, build: cmdBuild, synth: cmdSynth,
   text: cmdText, split: cmdSplit, map: cmdMap, manifest: cmdManifest,
 };
 

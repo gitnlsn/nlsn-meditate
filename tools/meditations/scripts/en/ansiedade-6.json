@@ -1,0 +1,75 @@
+{
+  "id": "ansiedade-6",
+  "category": "dificeis",
+  "title": "When Anxiety Comes",
+  "description": "Six minutes to make room for anxiety, instead of trying to push it away.",
+  "targetDuration": 360,
+  "leadIn": 3,
+  "leadOut": 6,
+  "voice": {
+    "provider": "elevenlabs",
+    "voiceId": "EXAVITQu4vr4xnSDxMaL",
+    "model": "eleven_multilingual_v2",
+    "stability": 0.55,
+    "similarityBoost": 0.75,
+    "style": 0,
+    "speed": 0.85
+  },
+  "segments": [
+    {
+      "say": "This practice won't take the anxiety away. We're just going to make room for it.",
+      "wait": 10,
+      "audio": "01-this-practice-won-t-take-the-anxiety-away-we-re.mp3"
+    },
+    {
+      "say": "Sit or stand, however you are.",
+      "wait": 8,
+      "audio": "02-sit-or-stand-however-you-are.mp3"
+    },
+    {
+      "say": "Begin by lengthening the out-breath. Breathe in, and let it out more slowly than you took it in.",
+      "wait": 15,
+      "audio": "03-begin-by-lengthening-the-out-breath-breathe-in.mp3"
+    },
+    {
+      "say": "Again. Let it out slowly.",
+      "wait": 20,
+      "audio": "04-again-let-it-out-slowly.mp3"
+    },
+    {
+      "say": "Now notice where the anxiety is in your body. The chest, the throat, the belly.",
+      "wait": 40,
+      "audio": "05-now-notice-where-the-anxiety-is-in-your-body-the.mp3"
+    },
+    {
+      "say": "Don't try to change it. Just notice its shape.",
+      "wait": 40,
+      "audio": "06-don-t-try-to-change-it-just-notice-its-shape.mp3"
+    },
+    {
+      "say": "If you can, say silently: this is anxiety, and it will pass.",
+      "wait": 40,
+      "audio": "07-if-you-can-say-silently-this-is-anxiety-and-it.mp3"
+    },
+    {
+      "say": "Anxiety is a feeling, not a prediction.",
+      "wait": 45,
+      "audio": "08-anxiety-is-a-feeling-not-a-prediction.mp3"
+    },
+    {
+      "say": "Come back to the long breath. Breathe in, and let it out slowly.",
+      "wait": 38,
+      "audio": "09-come-back-to-the-long-breath-breathe-in-and-let.mp3"
+    },
+    {
+      "say": "You don't need it to leave in order to go on with your day.",
+      "wait": 30,
+      "audio": "10-you-don-t-need-it-to-leave-in-order-to-go-on.mp3"
+    },
+    {
+      "say": "When you're ready, look around, and come back.",
+      "wait": 8,
+      "audio": "11-when-you-re-ready-look-around-and-come-back.mp3"
+    }
+  ]
+}

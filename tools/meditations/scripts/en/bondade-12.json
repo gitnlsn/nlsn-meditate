@@ -1,0 +1,216 @@
+{
+  "id": "bondade-12",
+  "category": "compaixao",
+  "title": "Loving-Kindness",
+  "description": "Twelve minutes offering goodwill — to yourself, to someone you love, to someone you barely know, and to someone difficult.",
+  "targetDuration": 720,
+  "leadIn": 3,
+  "leadOut": 8,
+  "voice": {
+    "provider": "elevenlabs",
+    "voiceId": "EXAVITQu4vr4xnSDxMaL",
+    "model": "eleven_multilingual_v2",
+    "stability": 0.55,
+    "similarityBoost": 0.75,
+    "style": 0,
+    "speed": 0.85
+  },
+  "segments": [
+    {
+      "say": "Sit in a way you can hold for a while.",
+      "wait": 6,
+      "audio": "01-sit-in-a-way-you-can-hold-for-a-while.mp3"
+    },
+    {
+      "say": "Let your eyes close.",
+      "wait": 8,
+      "audio": "02-let-your-eyes-close.mp3"
+    },
+    {
+      "say": "Three slower breaths, to begin.",
+      "wait": 10,
+      "audio": "03-three-slower-breaths-to-begin.mp3"
+    },
+    {
+      "say": "And then let the breath carry on by itself.",
+      "wait": 12,
+      "audio": "04-and-then-let-the-breath-carry-on-by-itself.mp3"
+    },
+    {
+      "say": "In this practice we'll offer goodwill. First to yourself, then to others.",
+      "wait": 8,
+      "audio": "05-in-this-practice-we-ll-offer-goodwill-first-to.mp3"
+    },
+    {
+      "say": "You don't need to feel anything in particular. The intention is enough.",
+      "wait": 12,
+      "audio": "06-you-don-t-need-to-feel-anything-in-particular.mp3"
+    },
+    {
+      "say": "Begin with yourself.",
+      "wait": 6,
+      "audio": "07-begin-with-yourself.mp3"
+    },
+    {
+      "say": "May I be safe.",
+      "wait": 12,
+      "audio": "08-may-i-be-safe.mp3"
+    },
+    {
+      "say": "May I be healthy.",
+      "wait": 12,
+      "audio": "09-may-i-be-healthy.mp3"
+    },
+    {
+      "say": "May I live with ease.",
+      "wait": 15,
+      "audio": "10-may-i-live-with-ease.mp3"
+    },
+    {
+      "wait": 20
+    },
+    {
+      "say": "Repeat at your own pace.",
+      "wait": 10,
+      "audio": "11-repeat-at-your-own-pace.mp3"
+    },
+    {
+      "wait": 20
+    },
+    {
+      "say": "Now bring to mind someone you care about.",
+      "wait": 12,
+      "audio": "12-now-bring-to-mind-someone-you-care-about.mp3"
+    },
+    {
+      "say": "See this person in front of you, just as they are.",
+      "wait": 15,
+      "audio": "13-see-this-person-in-front-of-you-just-as-they-are.mp3"
+    },
+    {
+      "say": "May you be safe.",
+      "wait": 12,
+      "audio": "14-may-you-be-safe.mp3"
+    },
+    {
+      "say": "May you be healthy.",
+      "wait": 12,
+      "audio": "15-may-you-be-healthy.mp3"
+    },
+    {
+      "say": "May you live with ease.",
+      "wait": 15,
+      "audio": "16-may-you-live-with-ease.mp3"
+    },
+    {
+      "wait": 25
+    },
+    {
+      "say": "Now think of someone neutral.",
+      "wait": 10,
+      "audio": "17-now-think-of-someone-neutral.mp3"
+    },
+    {
+      "say": "Someone you see, but don't really know. Someone from the shop, from the street.",
+      "wait": 12,
+      "audio": "18-someone-you-see-but-don-t-really-know-someone.mp3"
+    },
+    {
+      "say": "This person wants to be happy too, just like you.",
+      "wait": 15,
+      "audio": "19-this-person-wants-to-be-happy-too-just-like-you.mp3"
+    },
+    {
+      "say": "May you be safe.",
+      "wait": 12,
+      "audio": "20-may-you-be-safe.mp3"
+    },
+    {
+      "say": "May you be healthy.",
+      "wait": 12,
+      "audio": "21-may-you-be-healthy.mp3"
+    },
+    {
+      "say": "May you live with ease.",
+      "wait": 15,
+      "audio": "22-may-you-live-with-ease.mp3"
+    },
+    {
+      "wait": 24
+    },
+    {
+      "say": "Now, if you feel ready, think of someone difficult.",
+      "wait": 15,
+      "audio": "23-now-if-you-feel-ready-think-of-someone-difficult.mp3"
+    },
+    {
+      "say": "It doesn't have to be the hardest person in your life. Start small.",
+      "wait": 12,
+      "audio": "24-it-doesn-t-have-to-be-the-hardest-person-in-your.mp3"
+    },
+    {
+      "say": "Offering goodwill isn't agreeing with what happened.",
+      "wait": 12,
+      "audio": "25-offering-goodwill-isn-t-agreeing-with-what.mp3"
+    },
+    {
+      "say": "It's simply wishing for the suffering to ease.",
+      "wait": 12,
+      "audio": "26-it-s-simply-wishing-for-the-suffering-to-ease.mp3"
+    },
+    {
+      "say": "May you be safe.",
+      "wait": 15,
+      "audio": "27-may-you-be-safe.mp3"
+    },
+    {
+      "say": "May you be healthy.",
+      "wait": 15,
+      "audio": "28-may-you-be-healthy.mp3"
+    },
+    {
+      "wait": 20
+    },
+    {
+      "say": "If it's too much, come back to yourself. That's part of the practice too.",
+      "wait": 15,
+      "audio": "29-if-it-s-too-much-come-back-to-yourself-that-s.mp3"
+    },
+    {
+      "say": "Now let your attention open.",
+      "wait": 10,
+      "audio": "30-now-let-your-attention-open.mp3"
+    },
+    {
+      "say": "You, this person, and everyone else.",
+      "wait": 15,
+      "audio": "31-you-this-person-and-everyone-else.mp3"
+    },
+    {
+      "say": "May all beings be safe.",
+      "wait": 15,
+      "audio": "32-may-all-beings-be-safe.mp3"
+    },
+    {
+      "say": "May all beings live with ease.",
+      "wait": 18,
+      "audio": "33-may-all-beings-live-with-ease.mp3"
+    },
+    {
+      "wait": 25
+    },
+    {
+      "say": "Stay here for a moment.",
+      "wait": 15,
+      "audio": "34-stay-here-for-a-moment.mp3"
+    },
+    {
+      "wait": 15
+    },
+    {
+      "say": "And when you're ready, open your eyes.",
+      "wait": 5,
+      "audio": "35-and-when-you-re-ready-open-your-eyes.mp3"
+    }
+  ]
+}

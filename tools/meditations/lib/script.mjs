@@ -1,6 +1,6 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import { SCRIPTS_DIR, CATEGORY_IDS } from './config.mjs';
+import { CATEGORY_IDS, LOCALES, SOURCE_LOCALE, scriptsDir } from './config.mjs';
 import { getProvider } from './providers.mjs';
 
 /**
@@ -9,10 +9,11 @@ import { getProvider } from './providers.mjs';
  * because no TTS engine will hold a 20 second pause for you - and because the
  * app needs to know a session's exact length up front.
  */
-export async function loadScript(idOrPath) {
+export async function loadScript(idOrPath, locale = SOURCE_LOCALE) {
+  if (!LOCALES.includes(locale)) throw new Error(`unknown locale "${locale}" - expected one of ${LOCALES.join(', ')}`);
   const file = idOrPath.endsWith('.json')
     ? path.resolve(idOrPath)
-    : path.join(SCRIPTS_DIR, `${idOrPath}.json`);
+    : path.join(scriptsDir(locale), `${idOrPath}.json`);
 
   let raw;
   try {
@@ -22,15 +23,15 @@ export async function loadScript(idOrPath) {
     throw new Error(`${file} is not valid JSON: ${err.message}`);
   }
 
-  return normalise(raw, file);
+  return normalise(raw, file, locale);
 }
 
-export async function listScripts() {
-  const entries = await fs.readdir(SCRIPTS_DIR).catch(() => []);
+export async function listScripts(locale = SOURCE_LOCALE) {
+  const entries = await fs.readdir(scriptsDir(locale)).catch(() => []);
   return entries.filter((f) => f.endsWith('.json')).map((f) => f.replace(/\.json$/, ''));
 }
 
-function normalise(raw, file) {
+function normalise(raw, file, locale) {
   const where = path.basename(file);
   const fail = (msg) => {
     throw new Error(`${where}: ${msg}`);
@@ -62,6 +63,7 @@ function normalise(raw, file) {
 
   return {
     id: raw.id,
+    locale,
     category: raw.category,
     title: raw.title ?? raw.id,
     description: raw.description ?? '',

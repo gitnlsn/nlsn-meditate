@@ -1,0 +1,93 @@
+{
+  "id": "calma-3",
+  "category": "atencao",
+  "title": "A Three-Minute Pause",
+  "description": "A short pause for the middle of a hard day.",
+  "targetDuration": 180,
+  "leadIn": 2,
+  "leadOut": 5,
+  "voice": {
+    "provider": "elevenlabs",
+    "voiceId": "EXAVITQu4vr4xnSDxMaL",
+    "model": "eleven_multilingual_v2",
+    "stability": 0.55,
+    "similarityBoost": 0.75,
+    "style": 0,
+    "speed": 0.85
+  },
+  "segments": [
+    {
+      "say": "Wherever you are, just stop.",
+      "wait": 5,
+      "audio": "01-wherever-you-are-just-stop.mp3"
+    },
+    {
+      "say": "Let your shoulders drop.",
+      "wait": 6,
+      "audio": "02-let-your-shoulders-drop.mp3"
+    },
+    {
+      "say": "Unclench your jaw.",
+      "wait": 6,
+      "audio": "03-unclench-your-jaw.mp3"
+    },
+    {
+      "say": "Breathe in slowly.",
+      "wait": 4,
+      "audio": "04-breathe-in-slowly.mp3"
+    },
+    {
+      "say": "And let it out, even more slowly.",
+      "wait": 8,
+      "audio": "05-and-let-it-out-even-more-slowly.mp3"
+    },
+    {
+      "say": "Again. Breathe in.",
+      "wait": 4,
+      "audio": "06-again-breathe-in.mp3"
+    },
+    {
+      "say": "And breathe out, no hurry.",
+      "wait": 8,
+      "audio": "07-and-breathe-out-no-hurry.mp3"
+    },
+    {
+      "say": "Now let your breath find its own rhythm.",
+      "wait": 10,
+      "audio": "08-now-let-your-breath-find-its-own-rhythm.mp3"
+    },
+    {
+      "say": "Notice three things you can feel right now.",
+      "wait": 12,
+      "audio": "09-notice-three-things-you-can-feel-right-now.mp3"
+    },
+    {
+      "say": "The floor. Your clothes. The air on your skin.",
+      "wait": 14,
+      "audio": "10-the-floor-your-clothes-the-air-on-your-skin.mp3"
+    },
+    {
+      "say": "You don't need to solve anything in the next two minutes.",
+      "wait": 12,
+      "audio": "11-you-don-t-need-to-solve-anything-in-the-next-two.mp3"
+    },
+    {
+      "say": "Just be here.",
+      "wait": 15,
+      "audio": "12-just-be-here.mp3"
+    },
+    {
+      "wait": 10
+    },
+    {
+      "say": "Take one more breath, a little deeper.",
+      "wait": 5,
+      "audio": "13-take-one-more-breath-a-little-deeper.mp3"
+    },
+    {
+      "say": "And take this with you.",
+      "wait": 6,
+      "audio": "14-and-take-this-with-you.mp3"
+    }
+  ]
+}

@@ -18,7 +18,7 @@ import { findMeditation } from '@/constants/guided-meditations';
 import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { useGuidedSessionContext } from '@/contexts/guided-session-context';
-import { useStrings } from '@/contexts/locale-context';
+import { useLocale, useStrings } from '@/contexts/locale-context';
 import { CONTENT_MAX_WIDTH } from '@/constants/layout';
 
 /**
@@ -37,6 +37,7 @@ export default function GuidedPlayerScreen() {
   const colorScheme = useColorScheme() ?? 'light';
   const colors = Colors[colorScheme];
   const strings = useStrings();
+  const { locale } = useLocale();
 
   /*
    * Landscape puts the ring beside the words instead of above them: sideways on
@@ -46,7 +47,7 @@ export default function GuidedPlayerScreen() {
   const { width, height } = useWindowDimensions();
   const landscape = width > height;
 
-  const meditation = findMeditation(id);
+  const meditation = findMeditation(id, locale);
   const session = useGuidedSessionContext();
   const { load } = session;
 
