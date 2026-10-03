@@ -42,6 +42,7 @@ const MAPPING = {
   'star.fill': 'star',
   'trophy.fill': 'emoji-events',
   'list.number': 'leaderboard',
+  'book.fill': 'menu-book',
 } as IconMapping;
 
 /**

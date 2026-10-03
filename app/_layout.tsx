@@ -10,6 +10,7 @@ import { LocaleProvider } from '@/contexts/locale-context';
 import { MeditationProvider } from '@/contexts/meditation-context';
 import { HistoryProvider } from '@/contexts/history-context';
 import { FavoritesProvider } from '@/contexts/favorites-context';
+import { LibraryProvider } from '@/contexts/library-context';
 import { AudioSettingsProvider } from '@/contexts/audio-settings-context';
 import { GuidedSessionProvider } from '@/contexts/guided-session-context';
 import { SessionRuntime } from '@/components/session/session-runtime';
@@ -52,6 +53,7 @@ export default function RootLayout() {
       <HistoryProvider>
       <PlayGamesProvider>
         <FavoritesProvider>
+        <LibraryProvider>
           <AudioSettingsProvider>
             <GuidedSessionProvider>
               {/*
@@ -65,11 +67,13 @@ export default function RootLayout() {
                   <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
                   <Stack.Screen name="guided/[id]" options={{ headerShown: false }} />
                   <Stack.Screen name="progress" options={{ headerShown: false }} />
+                  <Stack.Screen name="lesson/[id]" options={{ headerShown: false }} />
                 </Stack>
                 <StatusBar style="auto" />
               </ThemeProvider>
             </GuidedSessionProvider>
           </AudioSettingsProvider>
+        </LibraryProvider>
         </FavoritesProvider>
       </PlayGamesProvider>
       </HistoryProvider>

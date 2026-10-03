@@ -6,6 +6,7 @@ export const pt: Strings = {
   tabs: {
     timer: 'Timer',
     guided: 'Guiadas',
+    library: 'Biblioteca',
     history: 'Histórico',
     settings: 'Ajustes',
   },
@@ -55,6 +56,19 @@ export const pt: Strings = {
     rowPlaying: (title) => `${title}, em reprodução`,
     favoriteAdd: (title) => `Adicionar ${title} às favoritas`,
     favoriteRemove: (title) => `Remover ${title} das favoritas`,
+  },
+
+  library: {
+    heading: 'Biblioteca',
+    intro: 'Aulas curtas sobre a prática, suas raízes e o que a ciência diz.',
+    readingTime: (minutes) => `${minutes} min de leitura`,
+    practiceHeading: 'Para praticar',
+    relatedHeading: 'Pratique com',
+    sourcesHeading: 'Fontes',
+    markRead: 'Marcar como lida',
+    markedRead: 'Lida',
+    rowRead: (title) => `${title}, lida`,
+    notFound: 'Aula não encontrada.',
   },
 
   ambience: {

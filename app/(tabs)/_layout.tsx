@@ -12,6 +12,7 @@ import { useSessionGuard } from '@/hooks/use-session-guard';
 /** Where each tab leads once leaving the timer has been confirmed. */
 const TAB_PATHS = {
   guided: '/guided',
+  library: '/library',
   history: '/history',
   settings: '/settings',
 } as const;
@@ -95,6 +96,13 @@ export default function TabLayout() {
           options={{
             title: s.tabs.guided,
             tabBarIcon: ({ color }) => <IconSymbol size={28} name="waveform" color={color} />,
+          }}
+        />
+        <Tabs.Screen
+          name="library"
+          options={{
+            title: s.tabs.library,
+            tabBarIcon: ({ color }) => <IconSymbol size={28} name="book.fill" color={color} />,
           }}
         />
         <Tabs.Screen

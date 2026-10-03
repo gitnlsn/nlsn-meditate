@@ -28,6 +28,7 @@ export interface Strings {
   tabs: {
     timer: string;
     guided: string;
+    library: string;
     history: string;
     settings: string;
   };
@@ -56,6 +57,22 @@ export interface Strings {
     rowPlaying: (title: string) => string;
     favoriteAdd: (title: string) => string;
     favoriteRemove: (title: string) => string;
+  };
+
+  /** The Library tab and its lessons. The lessons themselves live in library.ts. */
+  library: {
+    heading: string;
+    intro: string;
+    readingTime: (minutes: number) => string;
+    practiceHeading: string;
+    /** Over the guided meditations a lesson links to. */
+    relatedHeading: string;
+    sourcesHeading: string;
+    markRead: string;
+    markedRead: string;
+    /** Accessibility label for a lesson row already read. */
+    rowRead: (title: string) => string;
+    notFound: string;
   };
 
   ambience: {

@@ -4,6 +4,7 @@ export const en: Strings = {
   tabs: {
     timer: 'Timer',
     guided: 'Guided',
+    library: 'Library',
     history: 'History',
     settings: 'Settings',
   },
@@ -53,6 +54,19 @@ export const en: Strings = {
     rowPlaying: (title) => `${title}, now playing`,
     favoriteAdd: (title) => `Add ${title} to favourites`,
     favoriteRemove: (title) => `Remove ${title} from favourites`,
+  },
+
+  library: {
+    heading: 'Library',
+    intro: 'Short lessons on the practice, its roots and what science says.',
+    readingTime: (minutes) => `${minutes} min read`,
+    practiceHeading: 'To practise',
+    relatedHeading: 'Practise with',
+    sourcesHeading: 'Sources',
+    markRead: 'Mark as read',
+    markedRead: 'Read',
+    rowRead: (title) => `${title}, read`,
+    notFound: 'Lesson not found.',
   },
 
   ambience: {
