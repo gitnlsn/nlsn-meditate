@@ -27,6 +27,16 @@ export interface Progress {
   bestStreak: number;
   /** Minutes in the current Play Games week — see `weekStart`. */
   weekMinutes: number;
+  /**
+   * Seconds sat on each day of the reader's own week, Sunday first — the
+   * calendar's week, not Play Games'. What the week chart draws.
+   */
+  weekDays: number[];
+  /** Index into `weekDays` of today. */
+  todayIndex: number;
+  sessionCount: number;
+  averageSeconds: number;
+  longestSeconds: number;
   /** The next milestone not yet reached, or null once all are. */
   nextMilestone: number | null;
   /** 0–1 of the way from the previous milestone to the next. */
@@ -63,9 +73,21 @@ export function computeProgress(sessions: MeditationSession[], now: number = Dat
     ? 1
     : (totalMinutes - previous) / (nextMilestone - previous);
 
+  const today = new Date(now);
+  const todayIndex = today.getDay();
+  const weekDays = Array.from({ length: 7 }, (_, i) => {
+    const day = localDateString(new Date(today.getFullYear(), today.getMonth(), today.getDate() - todayIndex + i, 12));
+    return sessions.filter((s) => s.date === day).reduce((sum, s) => sum + s.durationSeconds, 0);
+  });
+
   return {
     totalSeconds,
     totalMinutes,
+    weekDays,
+    todayIndex,
+    sessionCount: sessions.length,
+    averageSeconds: sessions.length ? totalSeconds / sessions.length : 0,
+    longestSeconds: sessions.reduce((max, s) => Math.max(max, s.durationSeconds), 0),
     currentStreak: current,
     bestStreak: best,
     weekMinutes: Math.floor(weekSeconds / 60),

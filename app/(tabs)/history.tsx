@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { ScrollView, StyleSheet } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { ThemedText } from '@/components/themed-text';
@@ -8,6 +8,7 @@ import { CalendarView } from '@/components/history/calendar-view';
 import { SessionSummary } from '@/components/history/session-summary';
 import { CalendarLegend } from '@/components/history/calendar-legend';
 import { ProgressStrip } from '@/components/progress/progress-strip';
+import { PlayGamesShortcuts } from '@/components/progress/play-games-shortcuts';
 import { useHistory } from '@/contexts/history-context';
 import { useStrings } from '@/contexts/locale-context';
 import { TAB_SCREEN_EDGES, CONTENT_MAX_WIDTH } from '@/constants/layout';
@@ -60,7 +61,10 @@ export default function HistoryScreen() {
         <ScrollView
           showsVerticalScrollIndicator={false}
           contentContainerStyle={styles.content}>
-          <ThemedText type="title" style={styles.title}>{strings.history.heading}</ThemedText>
+          <View style={styles.titleRow}>
+            <ThemedText type="title">{strings.history.heading}</ThemedText>
+            <PlayGamesShortcuts />
+          </View>
           <ThemedText style={styles.intro}>{strings.history.intro}</ThemedText>
           <ProgressStrip />
           <CalendarView
@@ -97,7 +101,13 @@ const styles = StyleSheet.create({
     maxWidth: CONTENT_MAX_WIDTH,
     alignSelf: 'center',
   },
-  title: {
+  titleRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    // The shortcuts are taller than the title's line; the row keeps the
+    // title where it sat without them.
+    minHeight: 40,
     marginBottom: 12,
   },
   intro: {

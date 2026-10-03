@@ -96,6 +96,14 @@ export interface Strings {
     /** Under the milestone bar: what the next one is. */
     nextMilestone: (target: string) => string;
     allMilestones: string;
+    /** Heading over the week chart, and its total beside it. */
+    thisWeek: string;
+    weekTotal: (total: string) => string;
+    /** Accessibility label for one day's bar. */
+    dayBar: (weekday: string, value: string) => string;
+    sessions: string;
+    averageSession: string;
+    longestSession: string;
     badgesHeading: string;
     /** Badges earned out of all, as the History strip shows it. */
     badgeCount: (earned: number, total: number) => string;
