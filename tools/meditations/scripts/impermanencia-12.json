@@ -1,0 +1,154 @@
+{
+  "id": "impermanencia-12",
+  "category": "sabedoria",
+  "title": "Tudo Passa",
+  "description": "Doze minutos observando sons, sensações e pensamentos surgirem e passarem, até a impermanência deixar de ser uma ideia.",
+  "targetDuration": 720,
+  "leadIn": 3,
+  "leadOut": 6,
+  "voice": {
+    "provider": "elevenlabs",
+    "voiceId": "EXAVITQu4vr4xnSDxMaL",
+    "model": "eleven_multilingual_v2",
+    "stability": 0.55,
+    "similarityBoost": 0.75,
+    "style": 0,
+    "speed": 0.85
+  },
+  "segments": [
+    {
+      "say": "Sente-se de um jeito confortável e deixe os olhos se fecharem.",
+      "wait": 6,
+      "audio": "01-sente-se-de-um-jeito-confortavel-e-deixe-os.mp3"
+    },
+    {
+      "say": "Respire algumas vezes um pouco mais fundo, e depois deixe a respiração seguir sozinha.",
+      "wait": 10,
+      "audio": "02-respire-algumas-vezes-um-pouco-mais-fundo-e.mp3"
+    },
+    {
+      "say": "Hoje vamos olhar para uma coisa simples, que o Buda colocou no centro de tudo: nada do que aparece fica.",
+      "wait": 12,
+      "audio": "03-hoje-vamos-olhar-para-uma-coisa-simples-que-o.mp3"
+    },
+    {
+      "say": "Você já sabe disso como ideia. Agora vamos ver acontecendo.",
+      "wait": 8,
+      "audio": "04-voce-ja-sabe-disso-como-ideia-agora-vamos-ver.mp3"
+    },
+    {
+      "say": "Comece pelos sons. Deixe os ouvidos abertos, sem procurar nada.",
+      "wait": 10,
+      "audio": "05-comece-pelos-sons-deixe-os-ouvidos-abertos-sem.mp3"
+    },
+    {
+      "say": "Repare que cada som começa, dura um pouco, e acaba.",
+      "wait": 30,
+      "audio": "06-repare-que-cada-som-comeca-dura-um-pouco-e-acaba.mp3"
+    },
+    {
+      "say": "Não importa qual é o som. Só repare no começo e no fim.",
+      "wait": 30,
+      "audio": "07-nao-importa-qual-e-o-som-so-repare-no-comeco-e.mp3"
+    },
+    {
+      "say": "Até o silêncio entre os sons muda.",
+      "wait": 25,
+      "audio": "08-ate-o-silencio-entre-os-sons-muda.mp3"
+    },
+    {
+      "say": "Agora traga a atenção para o corpo. Para as mãos.",
+      "wait": 10,
+      "audio": "09-agora-traga-a-atencao-para-o-corpo-para-as-maos.mp3"
+    },
+    {
+      "say": "O que parece uma mão parada é, de perto, movimento. Formigamento, calor, pulsação.",
+      "wait": 25,
+      "audio": "10-o-que-parece-uma-mao-parada-e-de-perto-movimento.mp3"
+    },
+    {
+      "say": "Escolha uma sensação e acompanhe. Ela fica igual por quanto tempo?",
+      "wait": 30,
+      "audio": "11-escolha-uma-sensacao-e-acompanhe-ela-fica-igual.mp3"
+    },
+    {
+      "wait": 35
+    },
+    {
+      "say": "Repare que nem a sensação mais firme é uma coisa só. Ela é feita de pequenos momentos, um atrás do outro.",
+      "wait": 20,
+      "audio": "12-repare-que-nem-a-sensacao-mais-firme-e-uma-coisa.mp3"
+    },
+    {
+      "wait": 35
+    },
+    {
+      "say": "Agora a respiração.",
+      "wait": 8,
+      "audio": "13-agora-a-respiracao.mp3"
+    },
+    {
+      "say": "Cada respiração é nova. Esta aqui nunca aconteceu antes, e não vai acontecer de novo.",
+      "wait": 25,
+      "audio": "14-cada-respiracao-e-nova-esta-aqui-nunca-aconteceu.mp3"
+    },
+    {
+      "say": "Sinta o fim da expiração. O pequeno espaço antes da próxima.",
+      "wait": 35,
+      "audio": "15-sinta-o-fim-da-expiracao-o-pequeno-espaco-antes.mp3"
+    },
+    {
+      "say": "Por último, os pensamentos.",
+      "wait": 8,
+      "audio": "16-por-ultimo-os-pensamentos.mp3"
+    },
+    {
+      "say": "Não precisa parar de pensar. Só repare quando um pensamento aparece.",
+      "wait": 25,
+      "audio": "17-nao-precisa-parar-de-pensar-so-repare-quando-um.mp3"
+    },
+    {
+      "say": "E repare que ele também vai embora. Às vezes no meio da frase.",
+      "wait": 30,
+      "audio": "18-e-repare-que-ele-tambem-vai-embora-as-vezes-no.mp3"
+    },
+    {
+      "say": "Nenhum pensamento ficou até agora. Nem os que pareciam urgentes.",
+      "wait": 35,
+      "audio": "19-nenhum-pensamento-ficou-ate-agora-nem-os-que.mp3"
+    },
+    {
+      "say": "Quando a gente para de esperar que as coisas fiquem, sobra menos para segurar.",
+      "wait": 12,
+      "audio": "20-quando-a-gente-para-de-esperar-que-as-coisas.mp3"
+    },
+    {
+      "say": "Isso vale para o que é bom, que a gente quer manter.",
+      "wait": 10,
+      "audio": "21-isso-vale-para-o-que-e-bom-que-a-gente-quer.mp3"
+    },
+    {
+      "say": "E vale para o que é difícil, que parece que nunca vai passar.",
+      "wait": 12,
+      "audio": "22-e-vale-para-o-que-e-dificil-que-parece-que-nunca.mp3"
+    },
+    {
+      "wait": 40
+    },
+    {
+      "say": "Fique um pouco só com o que está acontecendo agora, sabendo que já está mudando.",
+      "wait": 35,
+      "audio": "23-fique-um-pouco-so-com-o-que-esta-acontecendo.mp3"
+    },
+    {
+      "say": "Esta prática também está terminando. Deixe que termine.",
+      "wait": 10,
+      "audio": "24-esta-pratica-tambem-esta-terminando-deixe-que.mp3"
+    },
+    {
+      "say": "Quando estiver pronto, abra os olhos.",
+      "wait": 6,
+      "audio": "25-quando-estiver-pronto-abra-os-olhos.mp3"
+    }
+  ]
+}

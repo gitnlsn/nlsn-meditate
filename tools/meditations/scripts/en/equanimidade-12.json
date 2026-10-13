@@ -1,0 +1,148 @@
+{
+  "id": "equanimidade-12",
+  "category": "sabedoria",
+  "title": "Equanimity",
+  "description": "Twelve minutes with the eight worldly winds: praise and blame, gain and loss, pleasure and pain, fame and obscurity.",
+  "targetDuration": 720,
+  "leadIn": 3,
+  "leadOut": 6,
+  "voice": {
+    "provider": "elevenlabs",
+    "voiceId": "EXAVITQu4vr4xnSDxMaL",
+    "model": "eleven_multilingual_v2",
+    "stability": 0.55,
+    "similarityBoost": 0.75,
+    "style": 0,
+    "speed": 0.85
+  },
+  "segments": [
+    {
+      "say": "Sit in a steady way, like a mountain. And close your eyes.",
+      "wait": 6,
+      "audio": "01-sit-in-a-steady-way-like-a-mountain-and-close.mp3"
+    },
+    {
+      "say": "Feel the base of the body, the weight sinking down. Let the breath go on by itself.",
+      "wait": 30,
+      "audio": "02-feel-the-base-of-the-body-the-weight-sinking.mp3"
+    },
+    {
+      "say": "The Buddha spoke of eight winds that blow through every life. Praise and blame. Gain and loss.",
+      "wait": 10,
+      "audio": "03-the-buddha-spoke-of-eight-winds-that-blow.mp3"
+    },
+    {
+      "say": "Pleasure and pain. Fame and obscurity.",
+      "wait": 10,
+      "audio": "04-pleasure-and-pain-fame-and-obscurity.mp3"
+    },
+    {
+      "say": "No one escapes them. Not even the Buddha did.",
+      "wait": 10,
+      "audio": "05-no-one-escapes-them-not-even-the-buddha-did.mp3"
+    },
+    {
+      "say": "Equanimity is not indifference. It is feeling everything, without being knocked over.",
+      "wait": 12,
+      "audio": "06-equanimity-is-not-indifference-it-is-feeling.mp3"
+    },
+    {
+      "say": "Let us feel the winds, one pair at a time.",
+      "wait": 8,
+      "audio": "07-let-us-feel-the-winds-one-pair-at-a-time.mp3"
+    },
+    {
+      "say": "Remember a time someone praised you. Feel what happens in the body.",
+      "wait": 30,
+      "audio": "08-remember-a-time-someone-praised-you-feel-what.mp3"
+    },
+    {
+      "say": "Now a time someone criticised you. Feel it again.",
+      "wait": 30,
+      "audio": "09-now-a-time-someone-criticised-you-feel-it-again.mp3"
+    },
+    {
+      "say": "Notice how the body lifts with one, and sinks with the other.",
+      "wait": 25,
+      "audio": "10-notice-how-the-body-lifts-with-one-and-sinks.mp3"
+    },
+    {
+      "say": "Say silently: praise and blame come and go. Neither one is who I am.",
+      "wait": 45,
+      "audio": "11-say-silently-praise-and-blame-come-and-go.mp3"
+    },
+    {
+      "say": "Now remember something you gained. And something you lost.",
+      "wait": 30,
+      "audio": "12-now-remember-something-you-gained-and-something.mp3"
+    },
+    {
+      "say": "Gain and loss come and go. I can be present for both.",
+      "wait": 45,
+      "audio": "13-gain-and-loss-come-and-go-i-can-be-present-for.mp3"
+    },
+    {
+      "say": "And think of a recent pleasure, and a recent pain.",
+      "wait": 30,
+      "audio": "14-and-think-of-a-recent-pleasure-and-a-recent-pain.mp3"
+    },
+    {
+      "say": "Pleasure and pain come and go. I do not need to chase one or run from the other.",
+      "wait": 45,
+      "audio": "15-pleasure-and-pain-come-and-go-i-do-not-need-to.mp3"
+    },
+    {
+      "say": "Now imagine the mountain. The wind blows from one side, then the other.",
+      "wait": 12,
+      "audio": "16-now-imagine-the-mountain-the-wind-blows-from-one.mp3"
+    },
+    {
+      "say": "The trees bend. The mountain stays.",
+      "wait": 12,
+      "audio": "17-the-trees-bend-the-mountain-stays.mp3"
+    },
+    {
+      "say": "You can feel the wind, and still stay.",
+      "wait": 50,
+      "audio": "18-you-can-feel-the-wind-and-still-stay.mp3"
+    },
+    {
+      "say": "Now offer yourself these phrases, slowly.",
+      "wait": 10,
+      "audio": "19-now-offer-yourself-these-phrases-slowly.mp3"
+    },
+    {
+      "say": "May I accept things as they are.",
+      "wait": 15,
+      "audio": "20-may-i-accept-things-as-they-are.mp3"
+    },
+    {
+      "say": "May I be at peace in the middle of change.",
+      "wait": 15,
+      "audio": "21-may-i-be-at-peace-in-the-middle-of-change.mp3"
+    },
+    {
+      "say": "May I care, without needing to control.",
+      "wait": 25,
+      "audio": "22-may-i-care-without-needing-to-control.mp3"
+    },
+    {
+      "wait": 50
+    },
+    {
+      "say": "The wind will still blow today. Praise, blame, gain, loss.",
+      "wait": 10,
+      "audio": "23-the-wind-will-still-blow-today-praise-blame-gain.mp3"
+    },
+    {
+      "say": "Remember the mountain.",
+      "wait": 12,
+      "audio": "24-remember-the-mountain.mp3"
+    },
+    {
+      "say": "When you are ready, open your eyes.",
+      "wait": 6,
+      "audio": "25-when-you-are-ready-open-your-eyes.mp3"
+    }
+  ]
+}

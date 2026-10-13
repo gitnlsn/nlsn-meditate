@@ -1,0 +1,163 @@
+{
+  "id": "quem-observa-15",
+  "category": "sabedoria",
+  "title": "Quem Está Observando?",
+  "description": "Quinze minutos procurando quem está por trás dos pensamentos. Uma investigação sobre o não-eu.",
+  "targetDuration": 900,
+  "leadIn": 3,
+  "leadOut": 8,
+  "voice": {
+    "provider": "elevenlabs",
+    "voiceId": "EXAVITQu4vr4xnSDxMaL",
+    "model": "eleven_multilingual_v2",
+    "stability": 0.55,
+    "similarityBoost": 0.75,
+    "style": 0,
+    "speed": 0.85
+  },
+  "segments": [
+    {
+      "say": "Sente-se com as costas retas, mas sem rigidez, e feche os olhos.",
+      "wait": 6,
+      "audio": "01-sente-se-com-as-costas-retas-mas-sem-rigidez-e.mp3"
+    },
+    {
+      "say": "Deixe o corpo assentar. Sinta o peso, o contato com o chão.",
+      "wait": 15,
+      "audio": "02-deixe-o-corpo-assentar-sinta-o-peso-o-contato.mp3"
+    },
+    {
+      "say": "Descanse a atenção na respiração por alguns momentos.",
+      "wait": 35,
+      "audio": "03-descanse-a-atencao-na-respiracao-por-alguns.mp3"
+    },
+    {
+      "say": "Nesta prática vamos fazer uma pergunta, e não responder com o pensamento. Responder olhando.",
+      "wait": 10,
+      "audio": "04-nesta-pratica-vamos-fazer-uma-pergunta-e-nao.mp3"
+    },
+    {
+      "say": "Normalmente, parece que existe alguém aqui dentro. Alguém que pensa, que decide, que sente.",
+      "wait": 10,
+      "audio": "05-normalmente-parece-que-existe-alguem-aqui-dentro.mp3"
+    },
+    {
+      "say": "O Buda convidava a procurar esse alguém. Não para negar que você existe, mas para ver como isso é de verdade.",
+      "wait": 12,
+      "audio": "06-o-buda-convidava-a-procurar-esse-alguem-nao-para.mp3"
+    },
+    {
+      "say": "Comece pelos pensamentos.",
+      "wait": 8,
+      "audio": "07-comece-pelos-pensamentos.mp3"
+    },
+    {
+      "say": "Fique esperando o próximo pensamento, como um gato esperando na porta da toca.",
+      "wait": 40,
+      "audio": "08-fique-esperando-o-proximo-pensamento-como-um.mp3"
+    },
+    {
+      "say": "Você escolheu esse pensamento? Ou ele simplesmente apareceu?",
+      "wait": 15,
+      "audio": "09-voce-escolheu-esse-pensamento-ou-ele.mp3"
+    },
+    {
+      "say": "Observe mais alguns. De onde eles vêm?",
+      "wait": 40,
+      "audio": "10-observe-mais-alguns-de-onde-eles-vem.mp3"
+    },
+    {
+      "wait": 45
+    },
+    {
+      "say": "Repare que os pensamentos acontecem sozinhos. Como os sons, como a respiração.",
+      "wait": 12,
+      "audio": "11-repare-que-os-pensamentos-acontecem-sozinhos.mp3"
+    },
+    {
+      "say": "Agora repare nos sons. Eles estão sendo ouvidos.",
+      "wait": 20,
+      "audio": "12-agora-repare-nos-sons-eles-estao-sendo-ouvidos.mp3"
+    },
+    {
+      "say": "Existe alguém ouvindo? Ou só existe o ouvir?",
+      "wait": 40,
+      "audio": "13-existe-alguem-ouvindo-ou-so-existe-o-ouvir.mp3"
+    },
+    {
+      "wait": 45
+    },
+    {
+      "say": "Agora vire a atenção para trás, para quem está prestando atenção.",
+      "wait": 12,
+      "audio": "14-agora-vire-a-atencao-para-tras-para-quem-esta.mp3"
+    },
+    {
+      "say": "Procure. Onde está quem observa? Atrás dos olhos? No peito?",
+      "wait": 15,
+      "audio": "15-procure-onde-esta-quem-observa-atras-dos-olhos.mp3"
+    },
+    {
+      "say": "Não aceite uma resposta pronta. Só olhe.",
+      "wait": 45,
+      "audio": "16-nao-aceite-uma-resposta-pronta-so-olhe.mp3"
+    },
+    {
+      "wait": 45
+    },
+    {
+      "say": "Se você encontrar algo, uma sensação, uma imagem, repare: isso também está sendo visto.",
+      "wait": 12,
+      "audio": "17-se-voce-encontrar-algo-uma-sensacao-uma-imagem.mp3"
+    },
+    {
+      "say": "Então não é quem vê. É mais uma coisa que aparece.",
+      "wait": 12,
+      "audio": "18-entao-nao-e-quem-ve-e-mais-uma-coisa-que-aparece.mp3"
+    },
+    {
+      "wait": 50
+    },
+    {
+      "say": "Talvez você não encontre ninguém. Só a experiência acontecendo, aberta, sem centro.",
+      "wait": 12,
+      "audio": "19-talvez-voce-nao-encontre-ninguem-so-a.mp3"
+    },
+    {
+      "say": "Isso não é um vazio frio. É como uma janela sem ninguém atrás, só a luz entrando.",
+      "wait": 15,
+      "audio": "20-isso-nao-e-um-vazio-frio-e-como-uma-janela-sem.mp3"
+    },
+    {
+      "say": "Descanse aí, sem precisar entender.",
+      "wait": 55,
+      "audio": "21-descanse-ai-sem-precisar-entender.mp3"
+    },
+    {
+      "wait": 55
+    },
+    {
+      "say": "Se a sensação de eu voltar, e ela vai voltar, tudo bem. Ela também é algo que aparece.",
+      "wait": 15,
+      "audio": "22-se-a-sensacao-de-eu-voltar-e-ela-vai-voltar-tudo.mp3"
+    },
+    {
+      "wait": 45
+    },
+    {
+      "say": "Agora volte para a respiração. Para o corpo sentado.",
+      "wait": 10,
+      "audio": "23-agora-volte-para-a-respiracao-para-o-corpo.mp3"
+    },
+    {
+      "say": "Leve com você um pouco dessa leveza. Menos alguém para defender.",
+      "wait": 15,
+      "audio": "24-leve-com-voce-um-pouco-dessa-leveza-menos-alguem.mp3"
+    },
+    {
+      "say": "Quando estiver pronto, abra os olhos.",
+      "wait": 6,
+      "audio": "25-quando-estiver-pronto-abra-os-olhos.mp3"
+    }
+  ]
+}

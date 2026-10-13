@@ -84,6 +84,7 @@ export const GUIDED_CATEGORIES = [
   { id: 'atencao', title: { pt: 'Atenção Plena', en: 'Mindfulness' } },
   { id: 'compaixao', title: { pt: 'Compaixão', en: 'Compassion' } },
   { id: 'dificeis', title: { pt: 'Momentos Difíceis', en: 'Difficult Moments' } },
+  { id: 'sabedoria', title: { pt: 'Sabedoria', en: 'Insight' } },
   { id: 'sono', title: { pt: 'Sono', en: 'Sleep' } },
 ];
 

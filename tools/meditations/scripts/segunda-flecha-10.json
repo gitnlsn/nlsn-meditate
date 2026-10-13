@@ -1,0 +1,144 @@
+{
+  "id": "segunda-flecha-10",
+  "category": "sabedoria",
+  "title": "A Segunda Flecha",
+  "description": "Dez minutos com o ensinamento do Buda sobre a dor, e a resistência que colocamos em cima dela.",
+  "targetDuration": 600,
+  "leadIn": 3,
+  "leadOut": 6,
+  "voice": {
+    "provider": "elevenlabs",
+    "voiceId": "EXAVITQu4vr4xnSDxMaL",
+    "model": "eleven_multilingual_v2",
+    "stability": 0.55,
+    "similarityBoost": 0.75,
+    "style": 0,
+    "speed": 0.85
+  },
+  "segments": [
+    {
+      "say": "Encontre uma posição confortável, e feche os olhos se quiser.",
+      "wait": 6,
+      "audio": "01-encontre-uma-posicao-confortavel-e-feche-os.mp3"
+    },
+    {
+      "say": "Deixe a respiração acontecer sozinha por um momento.",
+      "wait": 10,
+      "audio": "02-deixe-a-respiracao-acontecer-sozinha-por-um.mp3"
+    },
+    {
+      "say": "O Buda contou uma história. Uma pessoa é atingida por uma flecha. Isso dói.",
+      "wait": 8,
+      "audio": "03-o-buda-contou-uma-historia-uma-pessoa-e-atingida.mp3"
+    },
+    {
+      "say": "Logo em seguida, ela é atingida por uma segunda flecha, no mesmo lugar. Agora dói duas vezes.",
+      "wait": 10,
+      "audio": "04-logo-em-seguida-ela-e-atingida-por-uma-segunda.mp3"
+    },
+    {
+      "say": "A primeira flecha é a dor. Ela faz parte de ter um corpo e uma vida.",
+      "wait": 10,
+      "audio": "05-a-primeira-flecha-e-a-dor-ela-faz-parte-de-ter.mp3"
+    },
+    {
+      "say": "A segunda flecha é a que nós mesmos atiramos. Por que comigo? Isso não devia estar acontecendo. Quando vai passar?",
+      "wait": 10,
+      "audio": "06-a-segunda-flecha-e-a-que-nos-mesmos-atiramos-por.mp3"
+    },
+    {
+      "say": "A primeira nem sempre dá para evitar. A segunda, muitas vezes, dá.",
+      "wait": 10,
+      "audio": "07-a-primeira-nem-sempre-da-para-evitar-a-segunda.mp3"
+    },
+    {
+      "say": "Vamos ver isso de perto.",
+      "wait": 6,
+      "audio": "08-vamos-ver-isso-de-perto.mp3"
+    },
+    {
+      "say": "Procure no corpo algum desconforto. Uma tensão, uma dor pequena, um lugar cansado.",
+      "wait": 20,
+      "audio": "09-procure-no-corpo-algum-desconforto-uma-tensao.mp3"
+    },
+    {
+      "say": "Se não houver nada no corpo, traga à mente uma preocupação leve. Nada pesado demais.",
+      "wait": 12,
+      "audio": "10-se-nao-houver-nada-no-corpo-traga-a-mente-uma.mp3"
+    },
+    {
+      "say": "Agora só sinta. Onde fica? Qual o tamanho? É quente, apertado, pulsante?",
+      "wait": 30,
+      "audio": "11-agora-so-sinta-onde-fica-qual-o-tamanho-e-quente.mp3"
+    },
+    {
+      "say": "Isso é a primeira flecha. Só sensação.",
+      "wait": 30,
+      "audio": "12-isso-e-a-primeira-flecha-so-sensacao.mp3"
+    },
+    {
+      "say": "Agora repare no que vem junto. O incômodo com o incômodo.",
+      "wait": 12,
+      "audio": "13-agora-repare-no-que-vem-junto-o-incomodo-com-o.mp3"
+    },
+    {
+      "say": "Talvez um não quero isso. Uma contração ao redor. Uma história sobre o que isso significa.",
+      "wait": 30,
+      "audio": "14-talvez-um-nao-quero-isso-uma-contracao-ao-redor.mp3"
+    },
+    {
+      "say": "Essa é a segunda flecha. Repare que ela é diferente da primeira.",
+      "wait": 20,
+      "audio": "15-essa-e-a-segunda-flecha-repare-que-ela-e.mp3"
+    },
+    {
+      "wait": 35
+    },
+    {
+      "say": "Não precisa arrancar a segunda flecha. Só reconhecer: ah, isso é resistência.",
+      "wait": 12,
+      "audio": "16-nao-precisa-arrancar-a-segunda-flecha-so.mp3"
+    },
+    {
+      "say": "E ver o que acontece quando você para de brigar com a sensação, mesmo que só um pouco.",
+      "wait": 30,
+      "audio": "17-e-ver-o-que-acontece-quando-voce-para-de-brigar.mp3"
+    },
+    {
+      "say": "Deixe a respiração passar em volta da dor, como água em volta de uma pedra.",
+      "wait": 30,
+      "audio": "18-deixe-a-respiracao-passar-em-volta-da-dor-como.mp3"
+    },
+    {
+      "wait": 40
+    },
+    {
+      "say": "Muitas vezes a dor continua. Mas o sofrimento em cima dela fica menor.",
+      "wait": 12,
+      "audio": "19-muitas-vezes-a-dor-continua-mas-o-sofrimento-em.mp3"
+    },
+    {
+      "say": "E quando a segunda flecha voltar, e ela vai voltar, é só reconhecer de novo.",
+      "wait": 12,
+      "audio": "20-e-quando-a-segunda-flecha-voltar-e-ela-vai.mp3"
+    },
+    {
+      "wait": 35
+    },
+    {
+      "say": "Agora solte o foco na sensação, e sinta o corpo inteiro.",
+      "wait": 10,
+      "audio": "21-agora-solte-o-foco-na-sensacao-e-sinta-o-corpo.mp3"
+    },
+    {
+      "say": "Ele é maior do que qualquer desconforto dentro dele.",
+      "wait": 20,
+      "audio": "22-ele-e-maior-do-que-qualquer-desconforto-dentro.mp3"
+    },
+    {
+      "say": "Quando estiver pronto, abra os olhos.",
+      "wait": 6,
+      "audio": "23-quando-estiver-pronto-abra-os-olhos.mp3"
+    }
+  ]
+}

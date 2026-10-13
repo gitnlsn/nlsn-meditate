@@ -1,0 +1,163 @@
+{
+  "id": "quem-observa-15",
+  "category": "sabedoria",
+  "title": "Who Is Noticing?",
+  "description": "Fifteen minutes looking for whoever is behind the thoughts. An inquiry into non-self.",
+  "targetDuration": 900,
+  "leadIn": 3,
+  "leadOut": 8,
+  "voice": {
+    "provider": "elevenlabs",
+    "voiceId": "EXAVITQu4vr4xnSDxMaL",
+    "model": "eleven_multilingual_v2",
+    "stability": 0.55,
+    "similarityBoost": 0.75,
+    "style": 0,
+    "speed": 0.85
+  },
+  "segments": [
+    {
+      "say": "Sit with your back upright but not stiff, and close your eyes.",
+      "wait": 6,
+      "audio": "01-sit-with-your-back-upright-but-not-stiff-and.mp3"
+    },
+    {
+      "say": "Let the body settle. Feel the weight, the contact with the ground.",
+      "wait": 15,
+      "audio": "02-let-the-body-settle-feel-the-weight-the-contact.mp3"
+    },
+    {
+      "say": "Rest your attention on the breath for a few moments.",
+      "wait": 35,
+      "audio": "03-rest-your-attention-on-the-breath-for-a-few.mp3"
+    },
+    {
+      "say": "In this practice we will ask a question, and not answer it by thinking. Answer it by looking.",
+      "wait": 10,
+      "audio": "04-in-this-practice-we-will-ask-a-question-and-not.mp3"
+    },
+    {
+      "say": "Usually it seems there is someone in here. Someone who thinks, who decides, who feels.",
+      "wait": 10,
+      "audio": "05-usually-it-seems-there-is-someone-in-here.mp3"
+    },
+    {
+      "say": "The Buddha invited people to look for that someone. Not to deny that you exist, but to see what it is really like.",
+      "wait": 12,
+      "audio": "06-the-buddha-invited-people-to-look-for-that.mp3"
+    },
+    {
+      "say": "Start with thoughts.",
+      "wait": 8,
+      "audio": "07-start-with-thoughts.mp3"
+    },
+    {
+      "say": "Wait for the next thought, like a cat waiting at a mouse hole.",
+      "wait": 40,
+      "audio": "08-wait-for-the-next-thought-like-a-cat-waiting-at.mp3"
+    },
+    {
+      "say": "Did you choose that thought? Or did it simply appear?",
+      "wait": 15,
+      "audio": "09-did-you-choose-that-thought-or-did-it-simply.mp3"
+    },
+    {
+      "say": "Watch a few more. Where do they come from?",
+      "wait": 40,
+      "audio": "10-watch-a-few-more-where-do-they-come-from.mp3"
+    },
+    {
+      "wait": 45
+    },
+    {
+      "say": "Notice that thoughts happen by themselves. Like sounds, like the breath.",
+      "wait": 12,
+      "audio": "11-notice-that-thoughts-happen-by-themselves-like.mp3"
+    },
+    {
+      "say": "Now notice sounds. They are being heard.",
+      "wait": 20,
+      "audio": "12-now-notice-sounds-they-are-being-heard.mp3"
+    },
+    {
+      "say": "Is there someone hearing? Or is there just hearing?",
+      "wait": 40,
+      "audio": "13-is-there-someone-hearing-or-is-there-just.mp3"
+    },
+    {
+      "wait": 45
+    },
+    {
+      "say": "Now turn your attention around, toward whoever is paying attention.",
+      "wait": 12,
+      "audio": "14-now-turn-your-attention-around-toward-whoever-is.mp3"
+    },
+    {
+      "say": "Look. Where is the one who is noticing? Behind the eyes? In the chest?",
+      "wait": 15,
+      "audio": "15-look-where-is-the-one-who-is-noticing-behind-the.mp3"
+    },
+    {
+      "say": "Do not accept a ready-made answer. Just look.",
+      "wait": 45,
+      "audio": "16-do-not-accept-a-ready-made-answer-just-look.mp3"
+    },
+    {
+      "wait": 45
+    },
+    {
+      "say": "If you find something, a sensation, an image, notice: that too is being seen.",
+      "wait": 12,
+      "audio": "17-if-you-find-something-a-sensation-an-image.mp3"
+    },
+    {
+      "say": "So it is not the one who sees. It is one more thing that appears.",
+      "wait": 12,
+      "audio": "18-so-it-is-not-the-one-who-sees-it-is-one-more.mp3"
+    },
+    {
+      "wait": 50
+    },
+    {
+      "say": "Maybe you will not find anyone. Just experience happening, open, without a centre.",
+      "wait": 12,
+      "audio": "19-maybe-you-will-not-find-anyone-just-experience.mp3"
+    },
+    {
+      "say": "This is not a cold emptiness. It is like a window with no one behind it, just light coming in.",
+      "wait": 15,
+      "audio": "20-this-is-not-a-cold-emptiness-it-is-like-a-window.mp3"
+    },
+    {
+      "say": "Rest there, without needing to understand.",
+      "wait": 55,
+      "audio": "21-rest-there-without-needing-to-understand.mp3"
+    },
+    {
+      "wait": 55
+    },
+    {
+      "say": "If the sense of me comes back, and it will, that is fine. It is also something that appears.",
+      "wait": 15,
+      "audio": "22-if-the-sense-of-me-comes-back-and-it-will-that.mp3"
+    },
+    {
+      "wait": 45
+    },
+    {
+      "say": "Now come back to the breath. To the body sitting here.",
+      "wait": 10,
+      "audio": "23-now-come-back-to-the-breath-to-the-body-sitting.mp3"
+    },
+    {
+      "say": "Take a little of this lightness with you. Less of someone to defend.",
+      "wait": 15,
+      "audio": "24-take-a-little-of-this-lightness-with-you-less-of.mp3"
+    },
+    {
+      "say": "When you are ready, open your eyes.",
+      "wait": 6,
+      "audio": "25-when-you-are-ready-open-your-eyes.mp3"
+    }
+  ]
+}

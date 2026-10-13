@@ -1,0 +1,125 @@
+{
+  "id": "como-ceu-20",
+  "category": "sabedoria",
+  "title": "Like the Sky",
+  "description": "Twenty minutes of open awareness. The mind as the sky, thoughts as passing weather. Few words.",
+  "targetDuration": 1200,
+  "leadIn": 5,
+  "leadOut": 8,
+  "voice": {
+    "provider": "elevenlabs",
+    "voiceId": "EXAVITQu4vr4xnSDxMaL",
+    "model": "eleven_multilingual_v2",
+    "stability": 0.55,
+    "similarityBoost": 0.75,
+    "style": 0,
+    "speed": 0.85
+  },
+  "segments": [
+    {
+      "say": "Sit comfortably, and close your eyes, or leave them half open, resting downward.",
+      "wait": 8,
+      "audio": "01-sit-comfortably-and-close-your-eyes-or-leave.mp3"
+    },
+    {
+      "say": "Take a few deep breaths, and let them out slowly.",
+      "wait": 15,
+      "audio": "02-take-a-few-deep-breaths-and-let-them-out-slowly.mp3"
+    },
+    {
+      "say": "Let your attention rest on the breath, so the mind can settle.",
+      "wait": 40,
+      "audio": "03-let-your-attention-rest-on-the-breath-so-the.mp3"
+    },
+    {
+      "wait": 50
+    },
+    {
+      "say": "In the Tibetan traditions, the mind is compared to the sky.",
+      "wait": 10,
+      "audio": "04-in-the-tibetan-traditions-the-mind-is-compared.mp3"
+    },
+    {
+      "say": "Clouds, storms, sunshine. Everything passes through the sky. And the sky is not stained by any of it.",
+      "wait": 12,
+      "audio": "05-clouds-storms-sunshine-everything-passes-through.mp3"
+    },
+    {
+      "say": "Thoughts and emotions are the weather. You do not have to be the weather. You can be the sky.",
+      "wait": 15,
+      "audio": "06-thoughts-and-emotions-are-the-weather-you-do-not.mp3"
+    },
+    {
+      "say": "Now let go of the breath as an anchor.",
+      "wait": 10,
+      "audio": "07-now-let-go-of-the-breath-as-an-anchor.mp3"
+    },
+    {
+      "say": "Let your attention open. Sounds, sensations, thoughts. Everything can be here.",
+      "wait": 45,
+      "audio": "08-let-your-attention-open-sounds-sensations.mp3"
+    },
+    {
+      "say": "Do not choose anything. Do not push anything away.",
+      "wait": 50,
+      "audio": "09-do-not-choose-anything-do-not-push-anything-away.mp3"
+    },
+    {
+      "wait": 50
+    },
+    {
+      "say": "When a thought appears, let it pass like a cloud. You do not need to follow it.",
+      "wait": 65,
+      "audio": "10-when-a-thought-appears-let-it-pass-like-a-cloud.mp3"
+    },
+    {
+      "wait": 65
+    },
+    {
+      "say": "If you get lost inside a thought, that is fine. Noticing it is already coming back to the sky.",
+      "wait": 75,
+      "audio": "11-if-you-get-lost-inside-a-thought-that-is-fine.mp3"
+    },
+    {
+      "say": "Notice the space where all of this happens. It has no edge.",
+      "wait": 75,
+      "audio": "12-notice-the-space-where-all-of-this-happens-it.mp3"
+    },
+    {
+      "wait": 85
+    },
+    {
+      "say": "Nothing to do. Nothing to reach.",
+      "wait": 95,
+      "audio": "13-nothing-to-do-nothing-to-reach.mp3"
+    },
+    {
+      "say": "If a strong emotion comes, it is weather too. Let it rain.",
+      "wait": 85,
+      "audio": "14-if-a-strong-emotion-comes-it-is-weather-too-let.mp3"
+    },
+    {
+      "wait": 95
+    },
+    {
+      "say": "Just rest, aware.",
+      "wait": 125,
+      "audio": "15-just-rest-aware.mp3"
+    },
+    {
+      "say": "Now, slowly, feel the body sitting here again.",
+      "wait": 12,
+      "audio": "16-now-slowly-feel-the-body-sitting-here-again.mp3"
+    },
+    {
+      "say": "The sky is still there, even when you get busy. You can come back to it at any moment of the day.",
+      "wait": 12,
+      "audio": "17-the-sky-is-still-there-even-when-you-get-busy.mp3"
+    },
+    {
+      "say": "When you are ready, open your eyes.",
+      "wait": 6,
+      "audio": "18-when-you-are-ready-open-your-eyes.mp3"
+    }
+  ]
+}

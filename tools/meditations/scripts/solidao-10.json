@@ -1,0 +1,110 @@
+{
+  "id": "solidao-10",
+  "category": "dificeis",
+  "title": "Solidão",
+  "description": "Dez minutos para estar com a solidão, e lembrar que nela você está acompanhado de muita gente.",
+  "targetDuration": 600,
+  "leadIn": 3,
+  "leadOut": 6,
+  "voice": {
+    "provider": "elevenlabs",
+    "voiceId": "EXAVITQu4vr4xnSDxMaL",
+    "model": "eleven_multilingual_v2",
+    "stability": 0.55,
+    "similarityBoost": 0.75,
+    "style": 0,
+    "speed": 0.85
+  },
+  "segments": [
+    {
+      "say": "Encontre uma posição confortável e feche os olhos, se quiser.",
+      "wait": 6,
+      "audio": "01-encontre-uma-posicao-confortavel-e-feche-os.mp3"
+    },
+    {
+      "say": "Sinta a respiração. Ela está com você desde o primeiro dia.",
+      "wait": 15,
+      "audio": "02-sinta-a-respiracao-ela-esta-com-voce-desde-o.mp3"
+    },
+    {
+      "say": "A solidão é uma das dores mais comuns que existem. E, estranhamente, ela faz a gente achar que é o único sentindo isso.",
+      "wait": 12,
+      "audio": "03-a-solidao-e-uma-das-dores-mais-comuns-que.mp3"
+    },
+    {
+      "say": "Repare se há alguma solidão em você agora. Onde ela fica no corpo?",
+      "wait": 40,
+      "audio": "04-repare-se-ha-alguma-solidao-em-voce-agora-onde.mp3"
+    },
+    {
+      "say": "Não precisa fazer ela ir embora. Só sinta, com gentileza.",
+      "wait": 55,
+      "audio": "05-nao-precisa-fazer-ela-ir-embora-so-sinta-com.mp3"
+    },
+    {
+      "say": "A solidão não é um defeito. É um sinal de que você precisa de conexão, como a fome é um sinal de que precisa de comida.",
+      "wait": 55,
+      "audio": "06-a-solidao-nao-e-um-defeito-e-um-sinal-de-que.mp3"
+    },
+    {
+      "say": "Agora imagine as outras pessoas que, neste exato momento, também se sentem sozinhas.",
+      "wait": 12,
+      "audio": "07-agora-imagine-as-outras-pessoas-que-neste-exato.mp3"
+    },
+    {
+      "say": "Alguém num quarto de hospital. Alguém numa cidade nova. Alguém no meio da família, sem ser visto.",
+      "wait": 40,
+      "audio": "08-alguem-num-quarto-de-hospital-alguem-numa-cidade.mp3"
+    },
+    {
+      "say": "Milhões de pessoas sentindo o mesmo que você. Nisso, vocês estão juntos.",
+      "wait": 45,
+      "audio": "09-milhoes-de-pessoas-sentindo-o-mesmo-que-voce.mp3"
+    },
+    {
+      "say": "Ofereça a elas, e a você, estas palavras.",
+      "wait": 10,
+      "audio": "10-ofereca-a-elas-e-a-voce-estas-palavras.mp3"
+    },
+    {
+      "say": "Que nós nos sintamos acompanhados.",
+      "wait": 15,
+      "audio": "11-que-nos-nos-sintamos-acompanhados.mp3"
+    },
+    {
+      "say": "Que nós encontremos conexão.",
+      "wait": 15,
+      "audio": "12-que-nos-encontremos-conexao.mp3"
+    },
+    {
+      "say": "Que nós sejamos gentis com a nossa solidão.",
+      "wait": 55,
+      "audio": "13-que-nos-sejamos-gentis-com-a-nossa-solidao.mp3"
+    },
+    {
+      "say": "Agora sinta o que te sustenta neste momento. O chão, o ar, a luz.",
+      "wait": 15,
+      "audio": "14-agora-sinta-o-que-te-sustenta-neste-momento-o.mp3"
+    },
+    {
+      "say": "Pense em quantas mãos fizeram as coisas ao seu redor. A roupa, a comida, a casa.",
+      "wait": 40,
+      "audio": "15-pense-em-quantas-maos-fizeram-as-coisas-ao-seu.mp3"
+    },
+    {
+      "say": "Mesmo sozinho, você nunca está completamente separado.",
+      "wait": 55,
+      "audio": "16-mesmo-sozinho-voce-nunca-esta-completamente.mp3"
+    },
+    {
+      "say": "Antes de voltar, pense em uma pequena forma de se conectar hoje. Uma mensagem, uma ligação, um bom dia.",
+      "wait": 12,
+      "audio": "17-antes-de-voltar-pense-em-uma-pequena-forma-de-se.mp3"
+    },
+    {
+      "say": "Quando estiver pronto, abra os olhos.",
+      "wait": 6,
+      "audio": "18-quando-estiver-pronto-abra-os-olhos.mp3"
+    }
+  ]
+}

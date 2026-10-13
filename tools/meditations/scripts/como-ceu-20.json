@@ -1,0 +1,125 @@
+{
+  "id": "como-ceu-20",
+  "category": "sabedoria",
+  "title": "Como o Céu",
+  "description": "Vinte minutos de consciência aberta. A mente como o céu, os pensamentos como o tempo passando. Poucas palavras.",
+  "targetDuration": 1200,
+  "leadIn": 5,
+  "leadOut": 8,
+  "voice": {
+    "provider": "elevenlabs",
+    "voiceId": "EXAVITQu4vr4xnSDxMaL",
+    "model": "eleven_multilingual_v2",
+    "stability": 0.55,
+    "similarityBoost": 0.75,
+    "style": 0,
+    "speed": 0.85
+  },
+  "segments": [
+    {
+      "say": "Sente-se confortável, e feche os olhos, ou deixe eles semiabertos, olhando para baixo.",
+      "wait": 8,
+      "audio": "01-sente-se-confortavel-e-feche-os-olhos-ou-deixe.mp3"
+    },
+    {
+      "say": "Respire fundo algumas vezes, e solte devagar.",
+      "wait": 15,
+      "audio": "02-respire-fundo-algumas-vezes-e-solte-devagar.mp3"
+    },
+    {
+      "say": "Deixe a atenção descansar na respiração, para a mente assentar.",
+      "wait": 40,
+      "audio": "03-deixe-a-atencao-descansar-na-respiracao-para-a.mp3"
+    },
+    {
+      "wait": 50
+    },
+    {
+      "say": "Nas tradições tibetanas, a mente é comparada ao céu.",
+      "wait": 10,
+      "audio": "04-nas-tradicoes-tibetanas-a-mente-e-comparada-ao.mp3"
+    },
+    {
+      "say": "Nuvens, tempestades, sol. Tudo passa pelo céu. E o céu não fica manchado por nada disso.",
+      "wait": 12,
+      "audio": "05-nuvens-tempestades-sol-tudo-passa-pelo-ceu-e-o.mp3"
+    },
+    {
+      "say": "Os pensamentos e as emoções são o tempo. Você não precisa ser o tempo. Pode ser o céu.",
+      "wait": 15,
+      "audio": "06-os-pensamentos-e-as-emocoes-sao-o-tempo-voce-nao.mp3"
+    },
+    {
+      "say": "Agora solte a respiração como apoio.",
+      "wait": 10,
+      "audio": "07-agora-solte-a-respiracao-como-apoio.mp3"
+    },
+    {
+      "say": "Deixe a atenção se abrir. Sons, sensações, pensamentos. Tudo pode estar aqui.",
+      "wait": 45,
+      "audio": "08-deixe-a-atencao-se-abrir-sons-sensacoes.mp3"
+    },
+    {
+      "say": "Não escolha nada. Não afaste nada.",
+      "wait": 50,
+      "audio": "09-nao-escolha-nada-nao-afaste-nada.mp3"
+    },
+    {
+      "wait": 50
+    },
+    {
+      "say": "Quando um pensamento aparecer, deixe ele passar como uma nuvem. Você não precisa ir atrás.",
+      "wait": 65,
+      "audio": "10-quando-um-pensamento-aparecer-deixe-ele-passar.mp3"
+    },
+    {
+      "wait": 65
+    },
+    {
+      "say": "Se você se perder dentro de um pensamento, tudo bem. Perceber isso já é voltar ao céu.",
+      "wait": 75,
+      "audio": "11-se-voce-se-perder-dentro-de-um-pensamento-tudo.mp3"
+    },
+    {
+      "say": "Repare no espaço onde tudo isso acontece. Ele não tem borda.",
+      "wait": 75,
+      "audio": "12-repare-no-espaco-onde-tudo-isso-acontece-ele-nao.mp3"
+    },
+    {
+      "wait": 85
+    },
+    {
+      "say": "Nada a fazer. Nada a alcançar.",
+      "wait": 95,
+      "audio": "13-nada-a-fazer-nada-a-alcancar.mp3"
+    },
+    {
+      "say": "Se vier uma emoção forte, ela também é tempo. Deixe chover.",
+      "wait": 85,
+      "audio": "14-se-vier-uma-emocao-forte-ela-tambem-e-tempo.mp3"
+    },
+    {
+      "wait": 95
+    },
+    {
+      "say": "Só descanse, consciente.",
+      "wait": 125,
+      "audio": "15-so-descanse-consciente.mp3"
+    },
+    {
+      "say": "Agora, devagar, sinta de novo o corpo sentado.",
+      "wait": 12,
+      "audio": "16-agora-devagar-sinta-de-novo-o-corpo-sentado.mp3"
+    },
+    {
+      "say": "O céu continua aí, mesmo quando você se ocupa. Você pode voltar a ele a qualquer momento do dia.",
+      "wait": 12,
+      "audio": "17-o-ceu-continua-ai-mesmo-quando-voce-se-ocupa.mp3"
+    },
+    {
+      "say": "Quando estiver pronto, abra os olhos.",
+      "wait": 6,
+      "audio": "18-quando-estiver-pronto-abra-os-olhos.mp3"
+    }
+  ]
+}

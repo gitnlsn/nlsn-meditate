@@ -1,0 +1,149 @@
+{
+  "id": "perdao-15",
+  "category": "compaixao",
+  "title": "Perdão",
+  "description": "Quinze minutos de perdão em três direções: pedir, oferecer, e perdoar a si mesmo.",
+  "targetDuration": 900,
+  "leadIn": 3,
+  "leadOut": 8,
+  "voice": {
+    "provider": "elevenlabs",
+    "voiceId": "EXAVITQu4vr4xnSDxMaL",
+    "model": "eleven_multilingual_v2",
+    "stability": 0.55,
+    "similarityBoost": 0.75,
+    "style": 0,
+    "speed": 0.85
+  },
+  "segments": [
+    {
+      "say": "Sente-se confortável e deixe os olhos se fecharem.",
+      "wait": 6,
+      "audio": "01-sente-se-confortavel-e-deixe-os-olhos-se.mp3"
+    },
+    {
+      "say": "Respire devagar algumas vezes. Sinta a região do peito, do coração.",
+      "wait": 30,
+      "audio": "02-respire-devagar-algumas-vezes-sinta-a-regiao-do.mp3"
+    },
+    {
+      "say": "Perdoar não é dizer que o que aconteceu estava certo. Nem é esquecer.",
+      "wait": 10,
+      "audio": "03-perdoar-nao-e-dizer-que-o-que-aconteceu-estava.mp3"
+    },
+    {
+      "say": "É parar de carregar o peso de algo que já passou. É, antes de tudo, um alívio para quem perdoa.",
+      "wait": 12,
+      "audio": "04-e-parar-de-carregar-o-peso-de-algo-que-ja-passou.mp3"
+    },
+    {
+      "say": "E não se força. Se o perdão não vier hoje, tudo bem. A intenção já é um começo.",
+      "wait": 10,
+      "audio": "05-e-nao-se-forca-se-o-perdao-nao-vier-hoje-tudo.mp3"
+    },
+    {
+      "say": "Vamos praticar em três direções.",
+      "wait": 8,
+      "audio": "06-vamos-praticar-em-tres-direcoes.mp3"
+    },
+    {
+      "say": "Primeiro, pedir perdão.",
+      "wait": 10,
+      "audio": "07-primeiro-pedir-perdao.mp3"
+    },
+    {
+      "say": "Lembre de alguém que você magoou, de propósito ou sem querer. Por medo, por raiva, por distração.",
+      "wait": 40,
+      "audio": "08-lembre-de-alguem-que-voce-magoou-de-proposito-ou.mp3"
+    },
+    {
+      "say": "Sinta a dor que você causou, sem se afundar nela.",
+      "wait": 40,
+      "audio": "09-sinta-a-dor-que-voce-causou-sem-se-afundar-nela.mp3"
+    },
+    {
+      "say": "Diga em silêncio: pelas formas como eu te magoei, eu peço perdão.",
+      "wait": 50,
+      "audio": "10-diga-em-silencio-pelas-formas-como-eu-te-magoei.mp3"
+    },
+    {
+      "wait": 40
+    },
+    {
+      "say": "Agora, a segunda direção. Oferecer perdão.",
+      "wait": 10,
+      "audio": "11-agora-a-segunda-direcao-oferecer-perdao.mp3"
+    },
+    {
+      "say": "Lembre de alguém que te magoou. Comece com algo pequeno, não com a ferida mais funda.",
+      "wait": 40,
+      "audio": "12-lembre-de-alguem-que-te-magoou-comece-com-algo.mp3"
+    },
+    {
+      "say": "Repare na dor que ainda está aí. E no peso de carregar isso.",
+      "wait": 40,
+      "audio": "13-repare-na-dor-que-ainda-esta-ai-e-no-peso-de.mp3"
+    },
+    {
+      "say": "Essa pessoa também agiu a partir da própria dor, da própria confusão.",
+      "wait": 15,
+      "audio": "14-essa-pessoa-tambem-agiu-a-partir-da-propria-dor.mp3"
+    },
+    {
+      "say": "Diga em silêncio: pelas formas como você me magoou, eu te perdoo. Do jeito que eu consigo agora.",
+      "wait": 50,
+      "audio": "15-diga-em-silencio-pelas-formas-como-voce-me.mp3"
+    },
+    {
+      "wait": 40
+    },
+    {
+      "say": "E agora, a terceira direção. Para muita gente, a mais difícil. Perdoar a si mesmo.",
+      "wait": 12,
+      "audio": "16-e-agora-a-terceira-direcao-para-muita-gente-a.mp3"
+    },
+    {
+      "say": "Lembre de algo que você ainda cobra de si mesmo. Um erro, uma escolha, algo que não fez.",
+      "wait": 40,
+      "audio": "17-lembre-de-algo-que-voce-ainda-cobra-de-si-mesmo.mp3"
+    },
+    {
+      "say": "Olhe para quem você era naquele momento. O que sabia, o que sentia, o que era possível.",
+      "wait": 40,
+      "audio": "18-olhe-para-quem-voce-era-naquele-momento-o-que.mp3"
+    },
+    {
+      "say": "Diga em silêncio: pelas formas como eu me magoei, eu me perdoo.",
+      "wait": 50,
+      "audio": "19-diga-em-silencio-pelas-formas-como-eu-me-magoei.mp3"
+    },
+    {
+      "wait": 50
+    },
+    {
+      "say": "Repare no que ficou. Talvez leveza, talvez resistência, talvez as duas.",
+      "wait": 40,
+      "audio": "20-repare-no-que-ficou-talvez-leveza-talvez.mp3"
+    },
+    {
+      "say": "O perdão é uma prática, não um momento. Você pode voltar a ele quantas vezes precisar.",
+      "wait": 40,
+      "audio": "21-o-perdao-e-uma-pratica-nao-um-momento-voce-pode.mp3"
+    },
+    {
+      "say": "Que eu possa perdoar. Que eu possa ser perdoado.",
+      "wait": 15,
+      "audio": "22-que-eu-possa-perdoar-que-eu-possa-ser-perdoado.mp3"
+    },
+    {
+      "say": "Que eu possa ficar em paz.",
+      "wait": 30,
+      "audio": "23-que-eu-possa-ficar-em-paz.mp3"
+    },
+    {
+      "say": "Quando estiver pronto, abra os olhos.",
+      "wait": 6,
+      "audio": "24-quando-estiver-pronto-abra-os-olhos.mp3"
+    }
+  ]
+}

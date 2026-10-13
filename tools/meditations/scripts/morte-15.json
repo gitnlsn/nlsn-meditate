@@ -1,0 +1,144 @@
+{
+  "id": "morte-15",
+  "category": "sabedoria",
+  "title": "Lembrar da Morte",
+  "description": "Quinze minutos com a mais antiga das reflexões. Não para ter medo, mas para viver com mais presença.",
+  "targetDuration": 900,
+  "leadIn": 3,
+  "leadOut": 8,
+  "voice": {
+    "provider": "elevenlabs",
+    "voiceId": "EXAVITQu4vr4xnSDxMaL",
+    "model": "eleven_multilingual_v2",
+    "stability": 0.55,
+    "similarityBoost": 0.75,
+    "style": 0,
+    "speed": 0.85
+  },
+  "segments": [
+    {
+      "say": "Encontre uma posição confortável e feche os olhos.",
+      "wait": 6,
+      "audio": "01-encontre-uma-posicao-confortavel-e-feche-os.mp3"
+    },
+    {
+      "say": "Respire devagar algumas vezes. Deixe o corpo assentar.",
+      "wait": 25,
+      "audio": "02-respire-devagar-algumas-vezes-deixe-o-corpo.mp3"
+    },
+    {
+      "say": "Esta é uma prática antiga. O Buda pedia que os monges lembrassem da morte a cada respiração.",
+      "wait": 10,
+      "audio": "03-esta-e-uma-pratica-antiga-o-buda-pedia-que-os.mp3"
+    },
+    {
+      "say": "Não para ter medo. Mas porque, quando lembramos que o tempo é curto, o que importa fica claro.",
+      "wait": 12,
+      "audio": "04-nao-para-ter-medo-mas-porque-quando-lembramos.mp3"
+    },
+    {
+      "say": "Se hoje for um dia de luto ou de muita fragilidade, tudo bem deixar esta prática para outro momento.",
+      "wait": 12,
+      "audio": "05-se-hoje-for-um-dia-de-luto-ou-de-muita.mp3"
+    },
+    {
+      "say": "Sinta a respiração. Ela entra, e sai.",
+      "wait": 35,
+      "audio": "06-sinta-a-respiracao-ela-entra-e-sai.mp3"
+    },
+    {
+      "say": "Um dia, haverá uma última expiração. Essa é a única certeza que todos temos.",
+      "wait": 25,
+      "audio": "07-um-dia-havera-uma-ultima-expiracao-essa-e-a.mp3"
+    },
+    {
+      "say": "Sinta esta respiração, sabendo que ela é uma das que você tem.",
+      "wait": 45,
+      "audio": "08-sinta-esta-respiracao-sabendo-que-ela-e-uma-das.mp3"
+    },
+    {
+      "say": "Agora, devagar, repita em silêncio cada reflexão depois de mim.",
+      "wait": 12,
+      "audio": "09-agora-devagar-repita-em-silencio-cada-reflexao.mp3"
+    },
+    {
+      "say": "Meu corpo vai envelhecer. Não há como evitar.",
+      "wait": 35,
+      "audio": "10-meu-corpo-vai-envelhecer-nao-ha-como-evitar.mp3"
+    },
+    {
+      "say": "Meu corpo vai adoecer. Não há como evitar.",
+      "wait": 35,
+      "audio": "11-meu-corpo-vai-adoecer-nao-ha-como-evitar.mp3"
+    },
+    {
+      "say": "Eu vou morrer. Não há como evitar.",
+      "wait": 35,
+      "audio": "12-eu-vou-morrer-nao-ha-como-evitar.mp3"
+    },
+    {
+      "say": "Tudo e todos que eu amo vão mudar, e eu vou me separar deles.",
+      "wait": 35,
+      "audio": "13-tudo-e-todos-que-eu-amo-vao-mudar-e-eu-vou-me.mp3"
+    },
+    {
+      "say": "Minhas ações são minha única herança. O que eu faço é o que fica.",
+      "wait": 45,
+      "audio": "14-minhas-acoes-sao-minha-unica-heranca-o-que-eu.mp3"
+    },
+    {
+      "wait": 45
+    },
+    {
+      "say": "Repare no que aparece. Talvez resistência, tristeza, ou uma estranha tranquilidade. Tudo é bem-vindo.",
+      "wait": 45,
+      "audio": "15-repare-no-que-aparece-talvez-resistencia.mp3"
+    },
+    {
+      "say": "Agora pergunte a si mesmo, sem pressa: se meu tempo é limitado, o que realmente importa?",
+      "wait": 12,
+      "audio": "16-agora-pergunte-a-si-mesmo-sem-pressa-se-meu.mp3"
+    },
+    {
+      "say": "Deixe a resposta vir do corpo, não da cabeça.",
+      "wait": 60,
+      "audio": "17-deixe-a-resposta-vir-do-corpo-nao-da-cabeca.mp3"
+    },
+    {
+      "wait": 45
+    },
+    {
+      "say": "Traga à mente alguém que você ama. Lembre que o tempo de vocês juntos também é limitado.",
+      "wait": 12,
+      "audio": "18-traga-a-mente-alguem-que-voce-ama-lembre-que-o.mp3"
+    },
+    {
+      "say": "Sinta a ternura que existe nisso.",
+      "wait": 45,
+      "audio": "19-sinta-a-ternura-que-existe-nisso.mp3"
+    },
+    {
+      "wait": 45
+    },
+    {
+      "say": "Agora volte para a respiração. Ela ainda está aqui. Você ainda está aqui.",
+      "wait": 15,
+      "audio": "20-agora-volte-para-a-respiracao-ela-ainda-esta.mp3"
+    },
+    {
+      "say": "Que coisa estranha e preciosa, estar vivo agora.",
+      "wait": 45,
+      "audio": "21-que-coisa-estranha-e-preciosa-estar-vivo-agora.mp3"
+    },
+    {
+      "say": "Leve isso para o resto do dia. Não como peso, mas como gratidão.",
+      "wait": 12,
+      "audio": "22-leve-isso-para-o-resto-do-dia-nao-como-peso-mas.mp3"
+    },
+    {
+      "say": "Quando estiver pronto, abra os olhos.",
+      "wait": 6,
+      "audio": "23-quando-estiver-pronto-abra-os-olhos.mp3"
+    }
+  ]
+}

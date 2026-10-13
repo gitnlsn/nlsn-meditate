@@ -1,0 +1,110 @@
+{
+  "id": "solidao-10",
+  "category": "dificeis",
+  "title": "Loneliness",
+  "description": "Ten minutes to be with loneliness, and to remember that in it, you are in a great deal of company.",
+  "targetDuration": 600,
+  "leadIn": 3,
+  "leadOut": 6,
+  "voice": {
+    "provider": "elevenlabs",
+    "voiceId": "EXAVITQu4vr4xnSDxMaL",
+    "model": "eleven_multilingual_v2",
+    "stability": 0.55,
+    "similarityBoost": 0.75,
+    "style": 0,
+    "speed": 0.85
+  },
+  "segments": [
+    {
+      "say": "Find a comfortable position, and close your eyes if you like.",
+      "wait": 6,
+      "audio": "01-find-a-comfortable-position-and-close-your-eyes.mp3"
+    },
+    {
+      "say": "Feel the breath. It has been with you since your first day.",
+      "wait": 15,
+      "audio": "02-feel-the-breath-it-has-been-with-you-since-your.mp3"
+    },
+    {
+      "say": "Loneliness is one of the most common pains there is. And strangely, it makes us feel we are the only one feeling it.",
+      "wait": 12,
+      "audio": "03-loneliness-is-one-of-the-most-common-pains-there.mp3"
+    },
+    {
+      "say": "Notice if there is any loneliness in you right now. Where does it sit in the body?",
+      "wait": 40,
+      "audio": "04-notice-if-there-is-any-loneliness-in-you-right.mp3"
+    },
+    {
+      "say": "You do not need to make it leave. Just feel it, gently.",
+      "wait": 55,
+      "audio": "05-you-do-not-need-to-make-it-leave-just-feel-it.mp3"
+    },
+    {
+      "say": "Loneliness is not a flaw. It is a signal that you need connection, the way hunger is a signal that you need food.",
+      "wait": 55,
+      "audio": "06-loneliness-is-not-a-flaw-it-is-a-signal-that-you.mp3"
+    },
+    {
+      "say": "Now imagine the other people who, at this very moment, also feel alone.",
+      "wait": 12,
+      "audio": "07-now-imagine-the-other-people-who-at-this-very.mp3"
+    },
+    {
+      "say": "Someone in a hospital room. Someone in a new city. Someone in the middle of their family, unseen.",
+      "wait": 40,
+      "audio": "08-someone-in-a-hospital-room-someone-in-a-new-city.mp3"
+    },
+    {
+      "say": "Millions of people feeling what you feel. In this, you are together.",
+      "wait": 45,
+      "audio": "09-millions-of-people-feeling-what-you-feel-in-this.mp3"
+    },
+    {
+      "say": "Offer them, and yourself, these words.",
+      "wait": 10,
+      "audio": "10-offer-them-and-yourself-these-words.mp3"
+    },
+    {
+      "say": "May we feel accompanied.",
+      "wait": 15,
+      "audio": "11-may-we-feel-accompanied.mp3"
+    },
+    {
+      "say": "May we find connection.",
+      "wait": 15,
+      "audio": "12-may-we-find-connection.mp3"
+    },
+    {
+      "say": "May we be gentle with our loneliness.",
+      "wait": 55,
+      "audio": "13-may-we-be-gentle-with-our-loneliness.mp3"
+    },
+    {
+      "say": "Now feel what holds you up in this moment. The floor, the air, the light.",
+      "wait": 15,
+      "audio": "14-now-feel-what-holds-you-up-in-this-moment-the.mp3"
+    },
+    {
+      "say": "Think how many hands made the things around you. The clothes, the food, the house.",
+      "wait": 40,
+      "audio": "15-think-how-many-hands-made-the-things-around-you.mp3"
+    },
+    {
+      "say": "Even alone, you are never completely separate.",
+      "wait": 55,
+      "audio": "16-even-alone-you-are-never-completely-separate.mp3"
+    },
+    {
+      "say": "Before coming back, think of one small way to connect today. A message, a call, a good morning.",
+      "wait": 12,
+      "audio": "17-before-coming-back-think-of-one-small-way-to.mp3"
+    },
+    {
+      "say": "When you are ready, open your eyes.",
+      "wait": 6,
+      "audio": "18-when-you-are-ready-open-your-eyes.mp3"
+    }
+  ]
+}

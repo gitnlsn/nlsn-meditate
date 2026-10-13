@@ -1,0 +1,144 @@
+{
+  "id": "segunda-flecha-10",
+  "category": "sabedoria",
+  "title": "The Second Arrow",
+  "description": "Ten minutes with the Buddha’s teaching on pain, and the resistance we add on top of it.",
+  "targetDuration": 600,
+  "leadIn": 3,
+  "leadOut": 6,
+  "voice": {
+    "provider": "elevenlabs",
+    "voiceId": "EXAVITQu4vr4xnSDxMaL",
+    "model": "eleven_multilingual_v2",
+    "stability": 0.55,
+    "similarityBoost": 0.75,
+    "style": 0,
+    "speed": 0.85
+  },
+  "segments": [
+    {
+      "say": "Find a comfortable position, and close your eyes if you like.",
+      "wait": 6,
+      "audio": "01-find-a-comfortable-position-and-close-your-eyes.mp3"
+    },
+    {
+      "say": "Let the breath happen by itself for a moment.",
+      "wait": 10,
+      "audio": "02-let-the-breath-happen-by-itself-for-a-moment.mp3"
+    },
+    {
+      "say": "The Buddha told a story. A person is struck by an arrow. It hurts.",
+      "wait": 8,
+      "audio": "03-the-buddha-told-a-story-a-person-is-struck-by-an.mp3"
+    },
+    {
+      "say": "Right after, they are struck by a second arrow, in the same place. Now it hurts twice.",
+      "wait": 10,
+      "audio": "04-right-after-they-are-struck-by-a-second-arrow-in.mp3"
+    },
+    {
+      "say": "The first arrow is pain. It comes with having a body and a life.",
+      "wait": 10,
+      "audio": "05-the-first-arrow-is-pain-it-comes-with-having-a.mp3"
+    },
+    {
+      "say": "The second arrow is the one we shoot ourselves. Why me? This should not be happening. When will it stop?",
+      "wait": 10,
+      "audio": "06-the-second-arrow-is-the-one-we-shoot-ourselves.mp3"
+    },
+    {
+      "say": "The first cannot always be avoided. The second, often, can.",
+      "wait": 10,
+      "audio": "07-the-first-cannot-always-be-avoided-the-second.mp3"
+    },
+    {
+      "say": "Let us look at this up close.",
+      "wait": 6,
+      "audio": "08-let-us-look-at-this-up-close.mp3"
+    },
+    {
+      "say": "Look in the body for some discomfort. A tension, a small ache, a tired place.",
+      "wait": 20,
+      "audio": "09-look-in-the-body-for-some-discomfort-a-tension-a.mp3"
+    },
+    {
+      "say": "If there is nothing in the body, bring to mind a light worry. Nothing too heavy.",
+      "wait": 12,
+      "audio": "10-if-there-is-nothing-in-the-body-bring-to-mind-a.mp3"
+    },
+    {
+      "say": "Now just feel it. Where is it? How big? Is it warm, tight, throbbing?",
+      "wait": 30,
+      "audio": "11-now-just-feel-it-where-is-it-how-big-is-it-warm.mp3"
+    },
+    {
+      "say": "This is the first arrow. Just sensation.",
+      "wait": 30,
+      "audio": "12-this-is-the-first-arrow-just-sensation.mp3"
+    },
+    {
+      "say": "Now notice what comes with it. The bother about the bother.",
+      "wait": 12,
+      "audio": "13-now-notice-what-comes-with-it-the-bother-about.mp3"
+    },
+    {
+      "say": "Maybe an I don’t want this. A tightening around it. A story about what it means.",
+      "wait": 30,
+      "audio": "14-maybe-an-i-don-t-want-this-a-tightening-around.mp3"
+    },
+    {
+      "say": "That is the second arrow. Notice that it is different from the first.",
+      "wait": 20,
+      "audio": "15-that-is-the-second-arrow-notice-that-it-is.mp3"
+    },
+    {
+      "wait": 35
+    },
+    {
+      "say": "You do not need to pull out the second arrow. Just recognise it: ah, this is resistance.",
+      "wait": 12,
+      "audio": "16-you-do-not-need-to-pull-out-the-second-arrow.mp3"
+    },
+    {
+      "say": "And see what happens when you stop fighting the sensation, even a little.",
+      "wait": 30,
+      "audio": "17-and-see-what-happens-when-you-stop-fighting-the.mp3"
+    },
+    {
+      "say": "Let the breath move around the pain, like water around a stone.",
+      "wait": 30,
+      "audio": "18-let-the-breath-move-around-the-pain-like-water.mp3"
+    },
+    {
+      "wait": 40
+    },
+    {
+      "say": "Often the pain stays. But the suffering on top of it gets smaller.",
+      "wait": 12,
+      "audio": "19-often-the-pain-stays-but-the-suffering-on-top-of.mp3"
+    },
+    {
+      "say": "And when the second arrow comes back, and it will, just recognise it again.",
+      "wait": 12,
+      "audio": "20-and-when-the-second-arrow-comes-back-and-it-will.mp3"
+    },
+    {
+      "wait": 35
+    },
+    {
+      "say": "Now let go of the focus on the sensation, and feel the whole body.",
+      "wait": 10,
+      "audio": "21-now-let-go-of-the-focus-on-the-sensation-and.mp3"
+    },
+    {
+      "say": "It is bigger than any discomfort inside it.",
+      "wait": 20,
+      "audio": "22-it-is-bigger-than-any-discomfort-inside-it.mp3"
+    },
+    {
+      "say": "When you are ready, open your eyes.",
+      "wait": 6,
+      "audio": "23-when-you-are-ready-open-your-eyes.mp3"
+    }
+  ]
+}

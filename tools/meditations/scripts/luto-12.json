@@ -1,0 +1,136 @@
+{
+  "id": "luto-12",
+  "category": "dificeis",
+  "title": "Quando Alguém Falta",
+  "description": "Doze minutos para estar com a saudade. O luto é o amor que ficou sem lugar para ir.",
+  "targetDuration": 720,
+  "leadIn": 3,
+  "leadOut": 8,
+  "voice": {
+    "provider": "elevenlabs",
+    "voiceId": "EXAVITQu4vr4xnSDxMaL",
+    "model": "eleven_multilingual_v2",
+    "stability": 0.55,
+    "similarityBoost": 0.75,
+    "style": 0,
+    "speed": 0.85
+  },
+  "segments": [
+    {
+      "say": "Encontre um lugar onde você possa ficar quieto por alguns minutos. Feche os olhos, se quiser.",
+      "wait": 6,
+      "audio": "01-encontre-um-lugar-onde-voce-possa-ficar-quieto.mp3"
+    },
+    {
+      "say": "Não há nada para consertar aqui. Esta prática é só para estar com o que você sente.",
+      "wait": 10,
+      "audio": "02-nao-ha-nada-para-consertar-aqui-esta-pratica-e.mp3"
+    },
+    {
+      "say": "Comece sentindo a respiração. Se ela estiver curta ou presa, tudo bem.",
+      "wait": 20,
+      "audio": "03-comece-sentindo-a-respiracao-se-ela-estiver.mp3"
+    },
+    {
+      "say": "Coloque uma mão no peito, se quiser. Sinta o calor da própria mão.",
+      "wait": 15,
+      "audio": "04-coloque-uma-mao-no-peito-se-quiser-sinta-o-calor.mp3"
+    },
+    {
+      "say": "O luto é o amor que ficou sem lugar para ir. Ele dói tanto porque o amor foi grande.",
+      "wait": 15,
+      "audio": "05-o-luto-e-o-amor-que-ficou-sem-lugar-para-ir-ele.mp3"
+    },
+    {
+      "say": "Traga à mente quem está faltando. Uma pessoa, um animal, ou até uma vida que você tinha.",
+      "wait": 12,
+      "audio": "06-traga-a-mente-quem-esta-faltando-uma-pessoa-um.mp3"
+    },
+    {
+      "say": "Deixe a imagem vir do jeito que vier. O rosto, a voz, um momento juntos.",
+      "wait": 25,
+      "audio": "07-deixe-a-imagem-vir-do-jeito-que-vier-o-rosto-a.mp3"
+    },
+    {
+      "say": "Repare onde a falta aparece no corpo. A garganta, o peito, a barriga.",
+      "wait": 40,
+      "audio": "08-repare-onde-a-falta-aparece-no-corpo-a-garganta.mp3"
+    },
+    {
+      "say": "Não precisa mudar nada. Só deixe a dor ter espaço.",
+      "wait": 40,
+      "audio": "09-nao-precisa-mudar-nada-so-deixe-a-dor-ter-espaco.mp3"
+    },
+    {
+      "say": "Se vierem lágrimas, deixe vir. Elas fazem parte.",
+      "wait": 40,
+      "audio": "10-se-vierem-lagrimas-deixe-vir-elas-fazem-parte.mp3"
+    },
+    {
+      "say": "Repare que o luto chega em ondas. Às vezes mais forte, às vezes mais leve.",
+      "wait": 12,
+      "audio": "11-repare-que-o-luto-chega-em-ondas-as-vezes-mais.mp3"
+    },
+    {
+      "say": "Você não precisa segurar a onda. Ela sobe, e desce. Respire com ela.",
+      "wait": 40,
+      "audio": "12-voce-nao-precisa-segurar-a-onda-ela-sobe-e-desce.mp3"
+    },
+    {
+      "wait": 40
+    },
+    {
+      "say": "Agora, se puder, diga em silêncio para quem falta o que você quiser dizer.",
+      "wait": 12,
+      "audio": "13-agora-se-puder-diga-em-silencio-para-quem-falta.mp3"
+    },
+    {
+      "say": "Pode ser obrigado. Pode ser me desculpe. Pode ser só saudade.",
+      "wait": 55,
+      "audio": "14-pode-ser-obrigado-pode-ser-me-desculpe-pode-ser.mp3"
+    },
+    {
+      "wait": 40
+    },
+    {
+      "say": "O que vocês viveram não se apaga. Continua em você, no jeito que você ama e vê o mundo.",
+      "wait": 40,
+      "audio": "15-o-que-voces-viveram-nao-se-apaga-continua-em.mp3"
+    },
+    {
+      "say": "Agora ofereça um pouco de cuidado para você mesmo. Você está carregando algo pesado.",
+      "wait": 10,
+      "audio": "16-agora-ofereca-um-pouco-de-cuidado-para-voce.mp3"
+    },
+    {
+      "say": "Que eu seja gentil comigo enquanto sinto falta.",
+      "wait": 15,
+      "audio": "17-que-eu-seja-gentil-comigo-enquanto-sinto-falta.mp3"
+    },
+    {
+      "say": "Que eu deixe o luto levar o tempo que precisar.",
+      "wait": 15,
+      "audio": "18-que-eu-deixe-o-luto-levar-o-tempo-que-precisar.mp3"
+    },
+    {
+      "say": "Que eu me lembre que não estou sozinho nisso.",
+      "wait": 40,
+      "audio": "19-que-eu-me-lembre-que-nao-estou-sozinho-nisso.mp3"
+    },
+    {
+      "say": "Tantas pessoas, agora mesmo, estão sentindo falta de alguém. Você é uma delas.",
+      "wait": 30,
+      "audio": "20-tantas-pessoas-agora-mesmo-estao-sentindo-falta.mp3"
+    },
+    {
+      "say": "Volte devagar para a respiração. Para a mão no peito.",
+      "wait": 12,
+      "audio": "21-volte-devagar-para-a-respiracao-para-a-mao-no.mp3"
+    },
+    {
+      "say": "Quando estiver pronto, abra os olhos, sem pressa.",
+      "wait": 6,
+      "audio": "22-quando-estiver-pronto-abra-os-olhos-sem-pressa.mp3"
+    }
+  ]
+}

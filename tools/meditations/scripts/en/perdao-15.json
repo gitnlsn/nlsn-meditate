@@ -1,0 +1,149 @@
+{
+  "id": "perdao-15",
+  "category": "compaixao",
+  "title": "Forgiveness",
+  "description": "Fifteen minutes of forgiveness in three directions: asking for it, offering it, and forgiving yourself.",
+  "targetDuration": 900,
+  "leadIn": 3,
+  "leadOut": 8,
+  "voice": {
+    "provider": "elevenlabs",
+    "voiceId": "EXAVITQu4vr4xnSDxMaL",
+    "model": "eleven_multilingual_v2",
+    "stability": 0.55,
+    "similarityBoost": 0.75,
+    "style": 0,
+    "speed": 0.85
+  },
+  "segments": [
+    {
+      "say": "Sit comfortably and let your eyes close.",
+      "wait": 6,
+      "audio": "01-sit-comfortably-and-let-your-eyes-close.mp3"
+    },
+    {
+      "say": "Breathe slowly a few times. Feel the area of the chest, around the heart.",
+      "wait": 30,
+      "audio": "02-breathe-slowly-a-few-times-feel-the-area-of-the.mp3"
+    },
+    {
+      "say": "Forgiving is not saying that what happened was okay. And it is not forgetting.",
+      "wait": 10,
+      "audio": "03-forgiving-is-not-saying-that-what-happened-was.mp3"
+    },
+    {
+      "say": "It is putting down the weight of something that is already over. Before anything, it is a relief for the one who forgives.",
+      "wait": 12,
+      "audio": "04-it-is-putting-down-the-weight-of-something-that.mp3"
+    },
+    {
+      "say": "And it cannot be forced. If forgiveness does not come today, that is fine. The intention is already a start.",
+      "wait": 10,
+      "audio": "05-and-it-cannot-be-forced-if-forgiveness-does-not.mp3"
+    },
+    {
+      "say": "We will practise in three directions.",
+      "wait": 8,
+      "audio": "06-we-will-practise-in-three-directions.mp3"
+    },
+    {
+      "say": "First, asking for forgiveness.",
+      "wait": 10,
+      "audio": "07-first-asking-for-forgiveness.mp3"
+    },
+    {
+      "say": "Remember someone you hurt, on purpose or not. Out of fear, out of anger, out of carelessness.",
+      "wait": 40,
+      "audio": "08-remember-someone-you-hurt-on-purpose-or-not-out.mp3"
+    },
+    {
+      "say": "Feel the pain you caused, without drowning in it.",
+      "wait": 40,
+      "audio": "09-feel-the-pain-you-caused-without-drowning-in-it.mp3"
+    },
+    {
+      "say": "Say silently: for the ways I have hurt you, I ask your forgiveness.",
+      "wait": 50,
+      "audio": "10-say-silently-for-the-ways-i-have-hurt-you-i-ask.mp3"
+    },
+    {
+      "wait": 40
+    },
+    {
+      "say": "Now, the second direction. Offering forgiveness.",
+      "wait": 10,
+      "audio": "11-now-the-second-direction-offering-forgiveness.mp3"
+    },
+    {
+      "say": "Remember someone who hurt you. Start with something small, not the deepest wound.",
+      "wait": 40,
+      "audio": "12-remember-someone-who-hurt-you-start-with.mp3"
+    },
+    {
+      "say": "Notice the pain that is still there. And the weight of carrying it.",
+      "wait": 40,
+      "audio": "13-notice-the-pain-that-is-still-there-and-the.mp3"
+    },
+    {
+      "say": "That person also acted out of their own pain, their own confusion.",
+      "wait": 15,
+      "audio": "14-that-person-also-acted-out-of-their-own-pain.mp3"
+    },
+    {
+      "say": "Say silently: for the ways you have hurt me, I forgive you. As much as I can right now.",
+      "wait": 50,
+      "audio": "15-say-silently-for-the-ways-you-have-hurt-me-i.mp3"
+    },
+    {
+      "wait": 40
+    },
+    {
+      "say": "And now, the third direction. For many people, the hardest. Forgiving yourself.",
+      "wait": 12,
+      "audio": "16-and-now-the-third-direction-for-many-people-the.mp3"
+    },
+    {
+      "say": "Remember something you still hold against yourself. A mistake, a choice, something you did not do.",
+      "wait": 40,
+      "audio": "17-remember-something-you-still-hold-against.mp3"
+    },
+    {
+      "say": "Look at who you were in that moment. What you knew, what you felt, what was possible.",
+      "wait": 40,
+      "audio": "18-look-at-who-you-were-in-that-moment-what-you.mp3"
+    },
+    {
+      "say": "Say silently: for the ways I have hurt myself, I forgive myself.",
+      "wait": 50,
+      "audio": "19-say-silently-for-the-ways-i-have-hurt-myself-i.mp3"
+    },
+    {
+      "wait": 50
+    },
+    {
+      "say": "Notice what is left. Maybe lightness, maybe resistance, maybe both.",
+      "wait": 40,
+      "audio": "20-notice-what-is-left-maybe-lightness-maybe.mp3"
+    },
+    {
+      "say": "Forgiveness is a practice, not a moment. You can come back to it as often as you need.",
+      "wait": 40,
+      "audio": "21-forgiveness-is-a-practice-not-a-moment-you-can.mp3"
+    },
+    {
+      "say": "May I forgive. May I be forgiven.",
+      "wait": 15,
+      "audio": "22-may-i-forgive-may-i-be-forgiven.mp3"
+    },
+    {
+      "say": "May I be at peace.",
+      "wait": 30,
+      "audio": "23-may-i-be-at-peace.mp3"
+    },
+    {
+      "say": "When you are ready, open your eyes.",
+      "wait": 6,
+      "audio": "24-when-you-are-ready-open-your-eyes.mp3"
+    }
+  ]
+}

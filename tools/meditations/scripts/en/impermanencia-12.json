@@ -1,0 +1,154 @@
+{
+  "id": "impermanencia-12",
+  "category": "sabedoria",
+  "title": "Everything Passes",
+  "description": "Twelve minutes watching sounds, sensations and thoughts arise and pass, until impermanence stops being an idea.",
+  "targetDuration": 720,
+  "leadIn": 3,
+  "leadOut": 6,
+  "voice": {
+    "provider": "elevenlabs",
+    "voiceId": "EXAVITQu4vr4xnSDxMaL",
+    "model": "eleven_multilingual_v2",
+    "stability": 0.55,
+    "similarityBoost": 0.75,
+    "style": 0,
+    "speed": 0.85
+  },
+  "segments": [
+    {
+      "say": "Sit comfortably, and let your eyes close.",
+      "wait": 6,
+      "audio": "01-sit-comfortably-and-let-your-eyes-close.mp3"
+    },
+    {
+      "say": "Take a few slightly deeper breaths, then let the breath go on by itself.",
+      "wait": 10,
+      "audio": "02-take-a-few-slightly-deeper-breaths-then-let-the.mp3"
+    },
+    {
+      "say": "Today we will look at something simple, which the Buddha put at the centre of everything: nothing that appears stays.",
+      "wait": 12,
+      "audio": "03-today-we-will-look-at-something-simple-which-the.mp3"
+    },
+    {
+      "say": "You already know this as an idea. Now we will watch it happen.",
+      "wait": 8,
+      "audio": "04-you-already-know-this-as-an-idea-now-we-will.mp3"
+    },
+    {
+      "say": "Start with sounds. Let your ears open, without looking for anything.",
+      "wait": 10,
+      "audio": "05-start-with-sounds-let-your-ears-open-without.mp3"
+    },
+    {
+      "say": "Notice that every sound begins, lasts a little, and ends.",
+      "wait": 30,
+      "audio": "06-notice-that-every-sound-begins-lasts-a-little.mp3"
+    },
+    {
+      "say": "It does not matter what the sound is. Just notice the beginning and the end.",
+      "wait": 30,
+      "audio": "07-it-does-not-matter-what-the-sound-is-just-notice.mp3"
+    },
+    {
+      "say": "Even the silence between sounds changes.",
+      "wait": 25,
+      "audio": "08-even-the-silence-between-sounds-changes.mp3"
+    },
+    {
+      "say": "Now bring your attention to the body. To your hands.",
+      "wait": 10,
+      "audio": "09-now-bring-your-attention-to-the-body-to-your.mp3"
+    },
+    {
+      "say": "What looks like a still hand is, up close, movement. Tingling, warmth, pulsing.",
+      "wait": 25,
+      "audio": "10-what-looks-like-a-still-hand-is-up-close.mp3"
+    },
+    {
+      "say": "Pick one sensation and follow it. How long does it stay the same?",
+      "wait": 30,
+      "audio": "11-pick-one-sensation-and-follow-it-how-long-does.mp3"
+    },
+    {
+      "wait": 35
+    },
+    {
+      "say": "Notice that even the most solid sensation is not one thing. It is made of small moments, one after another.",
+      "wait": 20,
+      "audio": "12-notice-that-even-the-most-solid-sensation-is-not.mp3"
+    },
+    {
+      "wait": 35
+    },
+    {
+      "say": "Now the breath.",
+      "wait": 8,
+      "audio": "13-now-the-breath.mp3"
+    },
+    {
+      "say": "Each breath is new. This one has never happened before, and will not happen again.",
+      "wait": 25,
+      "audio": "14-each-breath-is-new-this-one-has-never-happened.mp3"
+    },
+    {
+      "say": "Feel the end of the out-breath. The small space before the next one.",
+      "wait": 35,
+      "audio": "15-feel-the-end-of-the-out-breath-the-small-space.mp3"
+    },
+    {
+      "say": "Last, thoughts.",
+      "wait": 8,
+      "audio": "16-last-thoughts.mp3"
+    },
+    {
+      "say": "You do not need to stop thinking. Just notice when a thought appears.",
+      "wait": 25,
+      "audio": "17-you-do-not-need-to-stop-thinking-just-notice.mp3"
+    },
+    {
+      "say": "And notice that it leaves too. Sometimes in the middle of a sentence.",
+      "wait": 30,
+      "audio": "18-and-notice-that-it-leaves-too-sometimes-in-the.mp3"
+    },
+    {
+      "say": "No thought has stayed so far. Not even the ones that felt urgent.",
+      "wait": 35,
+      "audio": "19-no-thought-has-stayed-so-far-not-even-the-ones.mp3"
+    },
+    {
+      "say": "When we stop expecting things to stay, there is less to hold on to.",
+      "wait": 12,
+      "audio": "20-when-we-stop-expecting-things-to-stay-there-is.mp3"
+    },
+    {
+      "say": "That is true of the good things, the ones we want to keep.",
+      "wait": 10,
+      "audio": "21-that-is-true-of-the-good-things-the-ones-we-want.mp3"
+    },
+    {
+      "say": "And it is true of the hard things, the ones that feel like they will never pass.",
+      "wait": 12,
+      "audio": "22-and-it-is-true-of-the-hard-things-the-ones-that.mp3"
+    },
+    {
+      "wait": 40
+    },
+    {
+      "say": "Stay a little longer with whatever is happening now, knowing it is already changing.",
+      "wait": 35,
+      "audio": "23-stay-a-little-longer-with-whatever-is-happening.mp3"
+    },
+    {
+      "say": "This practice is ending too. Let it end.",
+      "wait": 10,
+      "audio": "24-this-practice-is-ending-too-let-it-end.mp3"
+    },
+    {
+      "say": "When you are ready, open your eyes.",
+      "wait": 6,
+      "audio": "25-when-you-are-ready-open-your-eyes.mp3"
+    }
+  ]
+}

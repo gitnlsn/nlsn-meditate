@@ -1,0 +1,144 @@
+{
+  "id": "morte-15",
+  "category": "sabedoria",
+  "title": "Remembering Death",
+  "description": "Fifteen minutes with the oldest of reflections. Not to be afraid, but to live with more presence.",
+  "targetDuration": 900,
+  "leadIn": 3,
+  "leadOut": 8,
+  "voice": {
+    "provider": "elevenlabs",
+    "voiceId": "EXAVITQu4vr4xnSDxMaL",
+    "model": "eleven_multilingual_v2",
+    "stability": 0.55,
+    "similarityBoost": 0.75,
+    "style": 0,
+    "speed": 0.85
+  },
+  "segments": [
+    {
+      "say": "Find a comfortable position and close your eyes.",
+      "wait": 6,
+      "audio": "01-find-a-comfortable-position-and-close-your-eyes.mp3"
+    },
+    {
+      "say": "Breathe slowly a few times. Let the body settle.",
+      "wait": 25,
+      "audio": "02-breathe-slowly-a-few-times-let-the-body-settle.mp3"
+    },
+    {
+      "say": "This is an old practice. The Buddha asked monks to remember death with every breath.",
+      "wait": 10,
+      "audio": "03-this-is-an-old-practice-the-buddha-asked-monks.mp3"
+    },
+    {
+      "say": "Not to be afraid. But because when we remember time is short, what matters becomes clear.",
+      "wait": 12,
+      "audio": "04-not-to-be-afraid-but-because-when-we-remember.mp3"
+    },
+    {
+      "say": "If today is a day of grief or of great fragility, it is fine to leave this practice for another time.",
+      "wait": 12,
+      "audio": "05-if-today-is-a-day-of-grief-or-of-great-fragility.mp3"
+    },
+    {
+      "say": "Feel the breath. It comes in, and goes out.",
+      "wait": 35,
+      "audio": "06-feel-the-breath-it-comes-in-and-goes-out.mp3"
+    },
+    {
+      "say": "One day, there will be a last out-breath. It is the one certainty we all share.",
+      "wait": 25,
+      "audio": "07-one-day-there-will-be-a-last-out-breath-it-is.mp3"
+    },
+    {
+      "say": "Feel this breath, knowing it is one of the ones you have.",
+      "wait": 45,
+      "audio": "08-feel-this-breath-knowing-it-is-one-of-the-ones.mp3"
+    },
+    {
+      "say": "Now, slowly, repeat each reflection silently after me.",
+      "wait": 12,
+      "audio": "09-now-slowly-repeat-each-reflection-silently-after.mp3"
+    },
+    {
+      "say": "My body will grow old. There is no avoiding it.",
+      "wait": 35,
+      "audio": "10-my-body-will-grow-old-there-is-no-avoiding-it.mp3"
+    },
+    {
+      "say": "My body will fall ill. There is no avoiding it.",
+      "wait": 35,
+      "audio": "11-my-body-will-fall-ill-there-is-no-avoiding-it.mp3"
+    },
+    {
+      "say": "I will die. There is no avoiding it.",
+      "wait": 35,
+      "audio": "12-i-will-die-there-is-no-avoiding-it.mp3"
+    },
+    {
+      "say": "Everyone and everything I love will change, and I will be parted from them.",
+      "wait": 35,
+      "audio": "13-everyone-and-everything-i-love-will-change-and-i.mp3"
+    },
+    {
+      "say": "My actions are my only inheritance. What I do is what remains.",
+      "wait": 45,
+      "audio": "14-my-actions-are-my-only-inheritance-what-i-do-is.mp3"
+    },
+    {
+      "wait": 45
+    },
+    {
+      "say": "Notice what comes up. Maybe resistance, sadness, or a strange calm. All of it is welcome.",
+      "wait": 45,
+      "audio": "15-notice-what-comes-up-maybe-resistance-sadness-or.mp3"
+    },
+    {
+      "say": "Now ask yourself, without hurry: if my time is limited, what really matters?",
+      "wait": 12,
+      "audio": "16-now-ask-yourself-without-hurry-if-my-time-is.mp3"
+    },
+    {
+      "say": "Let the answer come from the body, not the head.",
+      "wait": 60,
+      "audio": "17-let-the-answer-come-from-the-body-not-the-head.mp3"
+    },
+    {
+      "wait": 45
+    },
+    {
+      "say": "Bring to mind someone you love. Remember that your time together is limited too.",
+      "wait": 12,
+      "audio": "18-bring-to-mind-someone-you-love-remember-that.mp3"
+    },
+    {
+      "say": "Feel the tenderness in that.",
+      "wait": 45,
+      "audio": "19-feel-the-tenderness-in-that.mp3"
+    },
+    {
+      "wait": 45
+    },
+    {
+      "say": "Now come back to the breath. It is still here. You are still here.",
+      "wait": 15,
+      "audio": "20-now-come-back-to-the-breath-it-is-still-here-you.mp3"
+    },
+    {
+      "say": "What a strange and precious thing, to be alive right now.",
+      "wait": 45,
+      "audio": "21-what-a-strange-and-precious-thing-to-be-alive.mp3"
+    },
+    {
+      "say": "Carry this into the rest of your day. Not as a weight, but as gratitude.",
+      "wait": 12,
+      "audio": "22-carry-this-into-the-rest-of-your-day-not-as-a.mp3"
+    },
+    {
+      "say": "When you are ready, open your eyes.",
+      "wait": 6,
+      "audio": "23-when-you-are-ready-open-your-eyes.mp3"
+    }
+  ]
+}

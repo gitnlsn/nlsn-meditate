@@ -1,0 +1,136 @@
+{
+  "id": "luto-12",
+  "category": "dificeis",
+  "title": "When Someone Is Missing",
+  "description": "Twelve minutes to be with missing someone. Grief is love with nowhere to go.",
+  "targetDuration": 720,
+  "leadIn": 3,
+  "leadOut": 8,
+  "voice": {
+    "provider": "elevenlabs",
+    "voiceId": "EXAVITQu4vr4xnSDxMaL",
+    "model": "eleven_multilingual_v2",
+    "stability": 0.55,
+    "similarityBoost": 0.75,
+    "style": 0,
+    "speed": 0.85
+  },
+  "segments": [
+    {
+      "say": "Find a place where you can be quiet for a few minutes. Close your eyes, if you like.",
+      "wait": 6,
+      "audio": "01-find-a-place-where-you-can-be-quiet-for-a-few.mp3"
+    },
+    {
+      "say": "There is nothing to fix here. This practice is only for being with what you feel.",
+      "wait": 10,
+      "audio": "02-there-is-nothing-to-fix-here-this-practice-is.mp3"
+    },
+    {
+      "say": "Start by feeling the breath. If it is short or caught, that is fine.",
+      "wait": 20,
+      "audio": "03-start-by-feeling-the-breath-if-it-is-short-or.mp3"
+    },
+    {
+      "say": "Place a hand on your chest, if you like. Feel the warmth of your own hand.",
+      "wait": 15,
+      "audio": "04-place-a-hand-on-your-chest-if-you-like-feel-the.mp3"
+    },
+    {
+      "say": "Grief is love with nowhere to go. It hurts this much because the love was this big.",
+      "wait": 15,
+      "audio": "05-grief-is-love-with-nowhere-to-go-it-hurts-this.mp3"
+    },
+    {
+      "say": "Bring to mind who is missing. A person, an animal, or even a life you used to have.",
+      "wait": 12,
+      "audio": "06-bring-to-mind-who-is-missing-a-person-an-animal.mp3"
+    },
+    {
+      "say": "Let the image come however it comes. The face, the voice, a moment together.",
+      "wait": 25,
+      "audio": "07-let-the-image-come-however-it-comes-the-face-the.mp3"
+    },
+    {
+      "say": "Notice where the missing shows up in the body. The throat, the chest, the belly.",
+      "wait": 40,
+      "audio": "08-notice-where-the-missing-shows-up-in-the-body.mp3"
+    },
+    {
+      "say": "You do not need to change anything. Just let the pain have room.",
+      "wait": 40,
+      "audio": "09-you-do-not-need-to-change-anything-just-let-the.mp3"
+    },
+    {
+      "say": "If tears come, let them come. They belong here.",
+      "wait": 40,
+      "audio": "10-if-tears-come-let-them-come-they-belong-here.mp3"
+    },
+    {
+      "say": "Notice that grief comes in waves. Sometimes stronger, sometimes lighter.",
+      "wait": 12,
+      "audio": "11-notice-that-grief-comes-in-waves-sometimes.mp3"
+    },
+    {
+      "say": "You do not need to hold back the wave. It rises, and it falls. Breathe with it.",
+      "wait": 40,
+      "audio": "12-you-do-not-need-to-hold-back-the-wave-it-rises.mp3"
+    },
+    {
+      "wait": 40
+    },
+    {
+      "say": "Now, if you can, silently say to the one who is missing whatever you want to say.",
+      "wait": 12,
+      "audio": "13-now-if-you-can-silently-say-to-the-one-who-is.mp3"
+    },
+    {
+      "say": "It might be thank you. It might be I am sorry. It might be just I miss you.",
+      "wait": 55,
+      "audio": "14-it-might-be-thank-you-it-might-be-i-am-sorry-it.mp3"
+    },
+    {
+      "wait": 40
+    },
+    {
+      "say": "What you shared is not erased. It goes on in you, in the way you love and see the world.",
+      "wait": 40,
+      "audio": "15-what-you-shared-is-not-erased-it-goes-on-in-you.mp3"
+    },
+    {
+      "say": "Now offer a little care to yourself. You are carrying something heavy.",
+      "wait": 10,
+      "audio": "16-now-offer-a-little-care-to-yourself-you-are.mp3"
+    },
+    {
+      "say": "May I be gentle with myself while I miss them.",
+      "wait": 15,
+      "audio": "17-may-i-be-gentle-with-myself-while-i-miss-them.mp3"
+    },
+    {
+      "say": "May I let grief take the time it needs.",
+      "wait": 15,
+      "audio": "18-may-i-let-grief-take-the-time-it-needs.mp3"
+    },
+    {
+      "say": "May I remember I am not alone in this.",
+      "wait": 40,
+      "audio": "19-may-i-remember-i-am-not-alone-in-this.mp3"
+    },
+    {
+      "say": "So many people, right now, are missing someone. You are one of them.",
+      "wait": 30,
+      "audio": "20-so-many-people-right-now-are-missing-someone-you.mp3"
+    },
+    {
+      "say": "Slowly come back to the breath. To the hand on your chest.",
+      "wait": 12,
+      "audio": "21-slowly-come-back-to-the-breath-to-the-hand-on.mp3"
+    },
+    {
+      "say": "When you are ready, open your eyes, without hurry.",
+      "wait": 6,
+      "audio": "22-when-you-are-ready-open-your-eyes-without-hurry.mp3"
+    }
+  ]
+}

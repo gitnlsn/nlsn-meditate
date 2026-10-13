@@ -1,0 +1,148 @@
+{
+  "id": "equanimidade-12",
+  "category": "sabedoria",
+  "title": "Equanimidade",
+  "description": "Doze minutos com os oito ventos do mundo: elogio e crítica, ganho e perda, prazer e dor, fama e anonimato.",
+  "targetDuration": 720,
+  "leadIn": 3,
+  "leadOut": 6,
+  "voice": {
+    "provider": "elevenlabs",
+    "voiceId": "EXAVITQu4vr4xnSDxMaL",
+    "model": "eleven_multilingual_v2",
+    "stability": 0.55,
+    "similarityBoost": 0.75,
+    "style": 0,
+    "speed": 0.85
+  },
+  "segments": [
+    {
+      "say": "Sente-se de um jeito estável, como uma montanha. E feche os olhos.",
+      "wait": 6,
+      "audio": "01-sente-se-de-um-jeito-estavel-como-uma-montanha-e.mp3"
+    },
+    {
+      "say": "Sinta a base do corpo, o peso descendo. Deixe a respiração seguir sozinha.",
+      "wait": 30,
+      "audio": "02-sinta-a-base-do-corpo-o-peso-descendo-deixe-a.mp3"
+    },
+    {
+      "say": "O Buda falava de oito ventos que sopram em toda vida. Elogio e crítica. Ganho e perda.",
+      "wait": 10,
+      "audio": "03-o-buda-falava-de-oito-ventos-que-sopram-em-toda.mp3"
+    },
+    {
+      "say": "Prazer e dor. Fama e anonimato.",
+      "wait": 10,
+      "audio": "04-prazer-e-dor-fama-e-anonimato.mp3"
+    },
+    {
+      "say": "Ninguém escapa deles. Nem o Buda escapou.",
+      "wait": 10,
+      "audio": "05-ninguem-escapa-deles-nem-o-buda-escapou.mp3"
+    },
+    {
+      "say": "Equanimidade não é indiferença. É sentir tudo, sem ser derrubado.",
+      "wait": 12,
+      "audio": "06-equanimidade-nao-e-indiferenca-e-sentir-tudo-sem.mp3"
+    },
+    {
+      "say": "Vamos sentir os ventos, um par de cada vez.",
+      "wait": 8,
+      "audio": "07-vamos-sentir-os-ventos-um-par-de-cada-vez.mp3"
+    },
+    {
+      "say": "Lembre de uma vez em que alguém te elogiou. Sinta o que acontece no corpo.",
+      "wait": 30,
+      "audio": "08-lembre-de-uma-vez-em-que-alguem-te-elogiou-sinta.mp3"
+    },
+    {
+      "say": "Agora de uma vez em que alguém te criticou. Sinta de novo.",
+      "wait": 30,
+      "audio": "09-agora-de-uma-vez-em-que-alguem-te-criticou-sinta.mp3"
+    },
+    {
+      "say": "Repare como o corpo sobe com um, e afunda com o outro.",
+      "wait": 25,
+      "audio": "10-repare-como-o-corpo-sobe-com-um-e-afunda-com-o.mp3"
+    },
+    {
+      "say": "Diga em silêncio: elogio e crítica vêm e vão. Nenhum dos dois é quem eu sou.",
+      "wait": 45,
+      "audio": "11-diga-em-silencio-elogio-e-critica-vem-e-vao.mp3"
+    },
+    {
+      "say": "Agora lembre de algo que você ganhou. E de algo que perdeu.",
+      "wait": 30,
+      "audio": "12-agora-lembre-de-algo-que-voce-ganhou-e-de-algo.mp3"
+    },
+    {
+      "say": "Ganho e perda vêm e vão. Eu posso estar presente para os dois.",
+      "wait": 45,
+      "audio": "13-ganho-e-perda-vem-e-vao-eu-posso-estar-presente.mp3"
+    },
+    {
+      "say": "E pense em um prazer recente, e em uma dor recente.",
+      "wait": 30,
+      "audio": "14-e-pense-em-um-prazer-recente-e-em-uma-dor.mp3"
+    },
+    {
+      "say": "Prazer e dor vêm e vão. Eu não preciso correr atrás de um nem fugir do outro.",
+      "wait": 45,
+      "audio": "15-prazer-e-dor-vem-e-vao-eu-nao-preciso-correr.mp3"
+    },
+    {
+      "say": "Agora imagine a montanha. O vento sopra de um lado, depois do outro.",
+      "wait": 12,
+      "audio": "16-agora-imagine-a-montanha-o-vento-sopra-de-um.mp3"
+    },
+    {
+      "say": "As árvores se dobram. A montanha continua.",
+      "wait": 12,
+      "audio": "17-as-arvores-se-dobram-a-montanha-continua.mp3"
+    },
+    {
+      "say": "Você pode sentir o vento, e ainda assim ficar.",
+      "wait": 50,
+      "audio": "18-voce-pode-sentir-o-vento-e-ainda-assim-ficar.mp3"
+    },
+    {
+      "say": "Agora ofereça estas frases a si mesmo, devagar.",
+      "wait": 10,
+      "audio": "19-agora-ofereca-estas-frases-a-si-mesmo-devagar.mp3"
+    },
+    {
+      "say": "Que eu aceite as coisas como elas são.",
+      "wait": 15,
+      "audio": "20-que-eu-aceite-as-coisas-como-elas-sao.mp3"
+    },
+    {
+      "say": "Que eu fique em paz no meio das mudanças.",
+      "wait": 15,
+      "audio": "21-que-eu-fique-em-paz-no-meio-das-mudancas.mp3"
+    },
+    {
+      "say": "Que eu possa cuidar, sem precisar controlar.",
+      "wait": 25,
+      "audio": "22-que-eu-possa-cuidar-sem-precisar-controlar.mp3"
+    },
+    {
+      "wait": 50
+    },
+    {
+      "say": "Ainda vai ventar hoje. Elogio, crítica, ganho, perda.",
+      "wait": 10,
+      "audio": "23-ainda-vai-ventar-hoje-elogio-critica-ganho-perda.mp3"
+    },
+    {
+      "say": "Lembre da montanha.",
+      "wait": 12,
+      "audio": "24-lembre-da-montanha.mp3"
+    },
+    {
+      "say": "Quando estiver pronto, abra os olhos.",
+      "wait": 6,
+      "audio": "25-quando-estiver-pronto-abra-os-olhos.mp3"
+    }
+  ]
+}
